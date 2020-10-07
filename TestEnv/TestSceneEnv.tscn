@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://TestEnv/test_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://TestEnv/TestCharacter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestEnv/GamePad.tscn" type="PackedScene" id=3]
+[ext_resource path="res://TestEnv/Dummy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://TestEnv/EnemyDetector.tscn" type="PackedScene" id=5]
 
 [node name="Node2D" type="Node2D"]
 
@@ -14,10 +16,22 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 [node name="Character" parent="." instance=ExtResource( 2 )]
 position = Vector2( 47, 64 )
 
-[node name="GunPoint" type="Node2D" parent="Character"]
-position = Vector2( 14, 1 )
+[node name="EnemyDetector" parent="Character" instance=ExtResource( 5 )]
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
 position = Vector2( 215.044, 491.036 )
+
+[node name="Dummy" parent="." instance=ExtResource( 4 )]
+position = Vector2( 818.949, 309.941 )
+
+[node name="Dummy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 486.33, 277.183 )
+
+[node name="Dummy3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 647.49, 151.361 )
+
+[node name="Dummy4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 282.541, 129.498 )
+[connection signal="send_enemies" from="Character/EnemyDetector" to="Character" method="_on_EnemyDetector_send_enemies"]
 [connection signal="send_button_pos" from="Controller" to="Character" method="_on_Controller_send_button_pos"]
 [connection signal="send_shoot" from="Controller" to="Character" method="_on_Controller_send_shoot"]

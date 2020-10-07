@@ -30,8 +30,17 @@ script = ExtResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "move"
+frame = 3
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( -4, 0 )
 shape = SubResource( 2 )
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="GunPoint" type="Node2D" parent="."]
+position = Vector2( 14.5, 0 )
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

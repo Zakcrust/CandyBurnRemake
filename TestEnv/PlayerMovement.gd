@@ -1,30 +1,20 @@
 extends KinematicBody2D
 
 
-var speed : int = 300
+var speed : int = 200
 
 var velocity : Vector2
 var bullet : PackedScene = load("res://TestEnv/Bullet.tscn")
 
+var enemies : Array
+var target : Area2D = null
+
+var reload : bool = false
 
 func _process(delta):
-#	velocity = Vector2()
-#	if Input.is_action_pressed("move_up"):
-#		velocity += Vector2.UP
-#	if Input.is_action_pressed("move_down"):
-#		velocity += Vector2.DOWN
-#	if Input.is_action_pressed("move_left"):
-#		velocity += Vector2.LEFT
-#	if Input.is_action_pressed("move_right"):
-#		velocity += Vector2.RIGHT
-#	velocity = velocity.normalized()
-#	if velocity == Vector2():
-#		$Sprite.play("idle")
-#	else:
-#		$Sprite.play("move")
-#	look_at(position + (velocity * speed))
-#	move_and_collide(velocity * speed * delta)
 	_move_by_controller(delta)
+	target = _find_target()
+	_idle_fire()
 
 func _look_at_mouse() -> void:
 	look_at(get_global_mouse_position())
@@ -48,3 +38,33 @@ func _on_Controller_send_shoot():
 	new_bullet.transform = $GunPoint.global_transform
 	new_bullet.global_position = $GunPoint.global_position
 	get_parent().add_child(new_bullet)
+
+
+func _on_EnemyDetector_send_enemies(ens):
+	enemies = ens
+
+
+func _find_target() -> Area2D:
+	var distance_array : Array
+	for enemy in enemies:
+		distance_array.append(abs(position.distance_to(enemy.position)))
+	distance_array.sort()
+	for enemy in enemies:
+		if position.distance_to(enemy.position) == distance_array.front():
+			return enemy
+	return null
+
+func _idle_fire():
+	if velocity == Vector2() and not reload:
+		if target != null:
+			look_at(target.position)
+			var new_bullet = bullet.instance()
+			new_bullet.transform = $GunPoint.global_transform
+			new_bullet.position = $GunPoint.global_position
+			get_parent().add_child(new_bullet)
+			$ReloadTimer.start()
+			reload = true
+
+
+func _on_ReloadTimer_timeout():
+	reload = false
