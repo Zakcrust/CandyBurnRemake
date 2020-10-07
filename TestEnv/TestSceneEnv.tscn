@@ -14,9 +14,10 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 [node name="Character" parent="." instance=ExtResource( 2 )]
 position = Vector2( 47, 64 )
 
-[node name="Pointer" type="Node2D" parent="Character"]
-position = Vector2( 56, 0 )
+[node name="GunPoint" type="Node2D" parent="Character"]
+position = Vector2( 14, 1 )
 
 [node name="Controller" parent="." instance=ExtResource( 3 )]
-position = Vector2( 98.4188, 517.493 )
+position = Vector2( 215.044, 491.036 )
 [connection signal="send_button_pos" from="Controller" to="Character" method="_on_Controller_send_button_pos"]
+[connection signal="send_shoot" from="Controller" to="Character" method="_on_Controller_send_shoot"]

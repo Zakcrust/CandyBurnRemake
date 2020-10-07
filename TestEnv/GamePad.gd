@@ -3,7 +3,7 @@ extends TouchScreenButton
 signal forward_button_pos(pos)
 
 
-var radius = Vector2(32, 32)
+var radius = Vector2(48, 48)
 var boundary = 64
 
 var ongoing_drag = -1

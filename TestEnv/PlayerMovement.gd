@@ -4,6 +4,8 @@ extends KinematicBody2D
 var speed : int = 300
 
 var velocity : Vector2
+var bullet : PackedScene = load("res://TestEnv/Bullet.tscn")
+
 
 func _process(delta):
 #	velocity = Vector2()
@@ -39,3 +41,10 @@ func _move_by_controller(delta):
 func _on_Controller_send_button_pos(pos):
 	velocity = pos
 	
+
+
+func _on_Controller_send_shoot():
+	var new_bullet = bullet.instance()
+	new_bullet.transform = $GunPoint.global_transform
+	new_bullet.global_position = $GunPoint.global_position
+	get_parent().add_child(new_bullet)
