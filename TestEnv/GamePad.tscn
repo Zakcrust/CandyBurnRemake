@@ -12,6 +12,7 @@ offset = Vector2( -16, -16 )
 script = ExtResource( 3 )
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
+visible = false
 position = Vector2( 600, -60 )
 normal = ExtResource( 4 )
 pressed = ExtResource( 4 )
