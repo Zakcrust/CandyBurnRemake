@@ -9,13 +9,103 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "CharacterType",
+"language": "GDScript",
+"path": "res://TestEnv/CharacterType.gd"
+}, {
+"base": "Stats",
+"class": "DefenderStats",
+"language": "GDScript",
+"path": "res://TestEnv/DefenderStats.gd"
+}, {
 "base": "Area2D",
 "class": "Dummy",
 "language": "GDScript",
 "path": "res://TestEnv/Dummy.gd"
+}, {
+"base": "Area2D",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://Enemy.gd"
+}, {
+"base": "CharacterType",
+"class": "EnemyCharacter",
+"language": "GDScript",
+"path": "res://TestEnv/EnemyCharacter.gd"
+}, {
+"base": "KinematicStats",
+"class": "EnemyKinematicStats",
+"language": "GDScript",
+"path": "res://TestEnv/EnemyKinematicStats.gd"
+}, {
+"base": "Node",
+"class": "KinematicStats",
+"language": "GDScript",
+"path": "res://TestEnv/KinematicStats.gd"
+}, {
+"base": "Stats",
+"class": "MobStats",
+"language": "GDScript",
+"path": "res://TestEnv/MobStats.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://TestEnv/Player.gd"
+}, {
+"base": "CharacterType",
+"class": "PlayerCharacter",
+"language": "GDScript",
+"path": "res://TestEnv/PlayerCharacter.gd"
+}, {
+"base": "KinematicStats",
+"class": "PlayerKinematicStats",
+"language": "GDScript",
+"path": "res://TestEnv/PlayerKinematicStats.gd"
+}, {
+"base": "Stats",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://TestEnv/PlayerStats.gd"
+}, {
+"base": "Node",
+"class": "PlayerWeapon",
+"language": "GDScript",
+"path": "res://TestEnv/PlayerWeapon.gd"
+}, {
+"base": "Node",
+"class": "SpawnType",
+"language": "GDScript",
+"path": "res://TestEnv/Assets/SpawnType.gd"
+}, {
+"base": "Node",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://TestEnv/Stats.gd"
+}, {
+"base": "Node",
+"class": "WeaponSlots",
+"language": "GDScript",
+"path": "res://TestEnv/WeaponSlots.gd"
 } ]
 _global_script_class_icons={
-"Dummy": ""
+"CharacterType": "",
+"DefenderStats": "",
+"Dummy": "",
+"Enemy": "",
+"EnemyCharacter": "",
+"EnemyKinematicStats": "",
+"KinematicStats": "",
+"MobStats": "",
+"Player": "",
+"PlayerCharacter": "",
+"PlayerKinematicStats": "",
+"PlayerStats": "",
+"PlayerWeapon": "",
+"SpawnType": "",
+"Stats": "",
+"WeaponSlots": ""
 }
 
 [application]
@@ -24,6 +114,14 @@ config/name="CandyBurnRemake"
 run/main_scene="res://TestEnv/TestSceneEnv.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1080
+window/size/height=2340
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 

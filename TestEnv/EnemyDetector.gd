@@ -11,5 +11,10 @@ func _on_EnemyDetector_area_entered(area):
 			if enemy == area:
 				return
 		enemies.append(area)
-		emit_signal("send_enemies", enemies)
-		print(enemies)
+	elif area is Enemy:
+		for enemy in enemies:
+			if enemy == area:
+				return
+		enemies.append(area)
+	emit_signal("send_enemies", enemies)
+	

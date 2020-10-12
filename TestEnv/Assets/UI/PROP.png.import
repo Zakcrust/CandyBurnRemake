@@ -1,0 +1,17 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/PROP.png-80b779eebb02ef1c77ba365be0882220.res"
+group_file="res://Assets/UI/or_atlas.png"
+valid=true
+[deps]
+
+
+source_file="res://TestEnv/Assets/UI/PROP.png"
+dest_files=[ "res://.import/PROP.png-80b779eebb02ef1c77ba365be0882220.res" ]
+
+[params]
+
+atlas_file="res://Assets/UI/or_atlas.png"
+import_mode=0

@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=2]
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.111111, 0.2, 0.288889, 0.422222, 0.533333, 0.748148, 0.911111, 1 )
+colors = PoolColorArray( 0.997314, 1, 0.65625, 1, 1, 0.989502, 0.328125, 1, 1, 0.898315, 0.0703125, 1, 1, 0.375, 0, 1, 1, 0.304688, 0, 1, 1, 0, 0, 1, 0.631373, 0.0156863, 0, 0.866667, 0.160784, 0.0823529, 0.0823529, 0.745098, 0.568627, 0, 0, 0.752941 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=6]
+max_value = 100.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.702532, 0 ), -1.42342, 904.909, 1, 0, Vector2( 1, 100 ), -558.586, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="Curve" id=2]
+min_value = -200.0
+max_value = 500.0
+_data = [ Vector2( 0, 492.045 ), 0.0, 1834.02, 0, 0, Vector2( 0.531646, 280.455 ), 2890.68, -1025.84, 0, 1, Vector2( 1, -200 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="CurveTexture" id=5]
+
+[sub_resource type="Curve" id=11]
+min_value = 2.0
+max_value = 20.0
+_data = [ Vector2( 0, 2.63625 ), 0.0, 0.0, 0, 0, Vector2( 0.56962, 12.2273 ), 7.43427, 6.27691, 0, 0, Vector2( 1, 19.7545 ), 3.49883, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+flag_disable_z = true
+spread = 1.0
+gravity = Vector3( -8, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.1
+orbit_velocity_random = 1.0
+linear_accel_curve = SubResource( 3 )
+radial_accel = 10.0
+radial_accel_random = 1.0
+radial_accel_curve = SubResource( 5 )
+damping_curve = SubResource( 7 )
+scale = 0.2
+scale_random = 1.0
+scale_curve = SubResource( 12 )
+color_ramp = SubResource( 9 )
+
+[sub_resource type="Environment" id=10]
+background_mode = 4
+glow_enabled = true
+glow_levels/1 = true
+glow_levels/2 = true
+glow_levels/3 = false
+glow_levels/5 = false
+glow_intensity = 1.2
+glow_strength = 1.2
+glow_blend_mode = 0
+
+[node name="Flame" type="Node2D"]
+
+[node name="Particles2D" type="Particles2D" parent="."]
+amount = 700
+local_coords = false
+process_material = SubResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Particles2D"]
+environment = SubResource( 10 )
