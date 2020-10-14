@@ -4,7 +4,7 @@ class_name Player
 
 var character_type : CharacterType = PlayerCharacter.new() setget , get_character_type
 var player_stats : Stats = PlayerStats.new(5,5) setget set_player_stats, get_player_stats # (health_point, armour_point) 
-var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(256, 300) #(detect_radius, speed)
+var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(256, 400) #(detect_radius, speed)
 
 
 var health : float = player_stats.health
@@ -56,6 +56,7 @@ func _move_by_controller(delta):
 		_face_to_position(target_pos)
 		$Body/Hand.look_at(target.position)
 	move_and_collide(velocity * speed * delta)
+	position.x = clamp(position.x, 0 , 1080) #temp
 
 
 func _on_Controller_send_button_pos(pos):

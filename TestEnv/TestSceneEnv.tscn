@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://TestEnv/test_tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://TestEnv/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestEnv/GamePad.tscn" type="PackedScene" id=3]
+[ext_resource path="res://TestEnv/JellyTombak.tscn" type="PackedScene" id=4]
 [ext_resource path="res://TestEnv/JellyKering.tscn" type="PackedScene" id=5]
+[ext_resource path="res://TestEnv/JellyArcher.tscn" type="PackedScene" id=6]
 
 [node name="TestMain" type="Node2D"]
 
@@ -23,5 +25,23 @@ scale = Vector2( 2, 2 )
 
 [node name="JellyKering" parent="." instance=ExtResource( 5 )]
 position = Vector2( 243.245, 455.377 )
+
+[node name="JellyKering2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 603.82, 228.328 )
+
+[node name="JellyTombak" parent="." instance=ExtResource( 4 )]
+position = Vector2( 732.552, 765.849 )
+
+[node name="JellyTombak2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 205.735, 880.014 )
+
+[node name="JellyTombak3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 946.609, 494.71 )
+
+[node name="JellyArcher" parent="." instance=ExtResource( 6 )]
+position = Vector2( 604.117, 504.224 )
+
+[node name="JellyArcher2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 271.139, 190.273 )
 [connection signal="send_button_pos" from="Controller" to="Player" method="_on_Controller_send_button_pos"]
 [connection signal="send_shoot" from="Controller" to="Player" method="_on_Controller_send_shoot"]

@@ -3,7 +3,8 @@ extends Enemy
 enum {
 	IDLE,
 	MOVE,
-	DEAD
+	DEAD,
+	ATTACK
 }
 
 
@@ -11,10 +12,14 @@ var state = IDLE
 var SPEED : int = 200
 var paths : PoolVector2Array
 var player : KinematicBody2D
+var bolt : PackedScene = load("res://TestEnv/Bolt.tscn")
+
 
 var health : int = 0 setget set_health, get_health
 var attack : int = 0 setget set_attack, get_attack
 var defense : int = 0 setget set_defense, get_defense
+
+var can_fire : bool = false
 
 func _ready():
 	health  = character_stats.health
@@ -50,6 +55,19 @@ func _process(delta):
 			action(delta)
 		DEAD:
 			pass
+		ATTACK:
+			attack_mode()
+
+func attack_mode() -> void:
+	face_to(player.position)
+	$Sprite/Hand.look_at(player.position)
+
+func fire() -> void:
+	var new_bolt = bolt.instance()
+	new_bolt.transform = $Sprite/Hand.global_transform
+	new_bolt.position = $Sprite/Hand/GunPoint.global_position
+	get_parent().call_deferred("add_child", new_bolt)
+
 
 func check_health() -> void:
 	if health < 0:
@@ -102,9 +120,9 @@ func action(delta):
 
 func face_to(pos : Vector2) -> void:
 	if position.x < pos.x:
-		$Sprite.scale.x = -1
-	else:
 		$Sprite.scale.x = 1
+	else:
+		$Sprite.scale.x = -1
 
 func _on_DetectRadius_body_entered(body):
 	if body is Player and state != DEAD:
@@ -116,7 +134,7 @@ func _on_DetectRadius_body_entered(body):
 func _on_ViewRadius_body_exited(body):
 	if body is Player and state != DEAD:
 		if player == body:
-			player = null
+			player == null
 			set_process(false)
 			state = IDLE
 			$Sprite.play("idle")
@@ -124,3 +142,27 @@ func _on_ViewRadius_body_exited(body):
 
 func _on_CheckPath_timeout():
 	update_path()
+
+
+func _on_AttackRadius_body_entered(body):
+	if body is Player:
+		state = ATTACK
+		$Sprite.play("attack")
+		can_fire = true
+		attack_mode()
+		fire()
+		$CheckPath.stop()
+		$ReloadTimer.start()
+
+
+func _on_ReloadTimer_timeout():
+	if can_fire:
+		fire()
+	else:
+		state = MOVE
+		$CheckPath.start()
+		$ReloadTimer.stop()
+
+
+func _on_AttackRadius_body_exited(body):
+	pass

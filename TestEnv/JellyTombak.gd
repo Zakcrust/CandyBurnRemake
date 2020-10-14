@@ -3,12 +3,16 @@ extends Enemy
 enum {
 	IDLE,
 	MOVE,
+	LOCK_CHARGE,
+	CHARGE
 	DEAD
 }
 
 
 var state = IDLE
-var SPEED : int = 200
+var SPEED : int = 150
+var charge_speed : int = 5 * SPEED
+var charge_direction : Vector2
 var paths : PoolVector2Array
 var player : KinematicBody2D
 
@@ -48,8 +52,15 @@ func _process(delta):
 			pass
 		MOVE:
 			action(delta)
+		LOCK_CHARGE:
+			pass
+		CHARGE:
+			charge(delta)
 		DEAD:
 			pass
+
+func charge(delta):
+	position += charge_speed * charge_direction * delta
 
 func check_health() -> void:
 	if health < 0:
@@ -124,3 +135,31 @@ func _on_ViewRadius_body_exited(body):
 
 func _on_CheckPath_timeout():
 	update_path()
+
+
+func _on_ChargeTimer_timeout():
+	$Sprite.play("idle")
+	set_process(false)
+	$ChargeCooldown.start()
+	
+
+
+func _on_AttackRadius_body_entered(body):
+	if body is Player and state != CHARGE:
+		state = LOCK_CHARGE
+		$Sprite.play("idle")
+		$ChargeDelegate.start()
+		$CheckPath.stop()
+
+
+func _on_ChargeDelegate_timeout():
+	state = CHARGE
+	$Sprite.play("charge")
+	charge_direction = position.direction_to(player.position)
+	$ChargeTimer.start()
+
+
+func _on_ChargeCooldown_timeout():
+	state = MOVE
+	$Sprite.play("move")
+	$CheckPath.start()
