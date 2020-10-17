@@ -15,15 +15,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ],
-"loop": false,
-"name": "dead",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
 "loop": true,
 "name": "move",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "dead",
+"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -60,5 +60,6 @@ shape = SubResource( 4 )
 
 [node name="CheckPath" type="Timer" parent="."]
 wait_time = 0.5
+[connection signal="body_entered" from="." to="." method="_on_JellyKering_body_entered"]
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="timeout" from="CheckPath" to="." method="_on_CheckPath_timeout"]

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 class_name Player
 
@@ -6,24 +6,46 @@ var character_type : CharacterType = PlayerCharacter.new() setget , get_characte
 var player_stats : Stats = PlayerStats.new(5,5) setget set_player_stats, get_player_stats # (health_point, armour_point) 
 var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(256, 400) #(detect_radius, speed)
 
+##### DEBUG #####
+export (int) var custom_speed = 400
+export (int) var bullet_speed = 300
+#################
+
 
 var health : float = player_stats.health
 var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
 var speed : int = player_kine_stats.speed
+var knockback_speed : float = speed * 3
 var velocity : Vector2
+var knockback_direction : Vector2
 var bullet : PackedScene = load("res://TestEnv/Bullet.tscn")
 var enemies : Array
 var target : Area2D = null
 var reload : bool = false
 
+var can_shoot : bool  = false
 
 var weapon_state = FLAME_PISTOL
-
+var state = MOVE
 enum {
 	FLAME_PISTOL,
-	FLAMETHROWER
+	FLAMETHROWER,
+	MOVE,
+	HURT,
+	DEAD
 }
+
+enum enemy_state {
+	IDLE,
+	MOVE,
+	DEAD
+}
+
+func _ready():
+	speed = custom_speed
+	knockback_speed = speed * 3
+
 
 func set_player_stats(value) -> void:
 	player_stats = value
@@ -46,22 +68,40 @@ func _look_at_mouse() -> void:
 	look_at(get_global_mouse_position())
 
 func _move_by_controller(delta):
-	if velocity == Vector2():
-		$Body.play("idle")
-	else:
-		_face_to_position(velocity)
-		$Body.play("move")
-	if target != null:
-		var target_pos = position.direction_to(target.position)
-		_face_to_position(target_pos)
-		$Body/Hand.look_at(target.position)
-	move_and_collide(velocity * speed * delta)
-	position.x = clamp(position.x, 0 , 1080) #temp
+	match(state):
+		MOVE:
+			if velocity == Vector2():
+				$Body.play("idle")
+			else:
+				_face_to_position(velocity)
+				$Body.play("move")
+			if target != null:
+				var target_pos = position.direction_to(target.position)
+				_face_to_position(target_pos)
+				$Body/Hand.look_at(target.position)
+			position += velocity * speed * delta
+			position.x = clamp(position.x, 0 , 1080) #temp
+		HURT:
+			position += knockback(delta, knockback_direction)
+			position.x = clamp(position.x, 0 , 1080) #temp
+		DEAD:
+			pass
+
+
+func hurt() -> void:
+	if state == HURT:
+		return
+	state = HURT
+	$KnockbackTimer.start()
+
+
+func knockback(delta : float, direction : Vector2) -> Vector2:
+	return knockback_speed * direction * delta
 
 
 func _on_Controller_send_button_pos(pos):
 	velocity = pos
-	
+
 
 func _face_to_position(point : Vector2) -> void:
 	if point.x >= 0:
@@ -74,15 +114,21 @@ func _on_Controller_send_shoot():
 	var new_bullet = bullet.instance()
 	new_bullet.transform = $GunPoint.global_transform
 	new_bullet.global_position = $GunPoint.global_position
+	new_bullet.speed = bullet_speed
 	get_parent().add_child(new_bullet)
 
 
 func _on_EnemyDetector_send_enemies(ens):
 	enemies = ens
 
+func check_target_state() -> void:
+	for i in range(0,enemies.size() - 1):
+		if enemies[i].dead:
+			enemies.remove(i)
 
 func _find_target() -> Area2D:
 	var distance_array : Array
+	check_target_state()
 	for enemy in enemies:
 		distance_array.append(abs(position.distance_to(enemy.position)))
 	distance_array.sort()
@@ -92,6 +138,8 @@ func _find_target() -> Area2D:
 	return null
 
 func _idle_fire():
+	if not can_shoot:
+		return
 	match(weapon_state):
 		FLAME_PISTOL:
 			_fire_pistol()
@@ -112,9 +160,9 @@ func _fire_pistol() -> void:
 
 func _flip_body(cond : bool):
 	if cond:
-		$Body.scale.x = 1
+		$Body.scale.x = abs($Body.scale.x)
 	else:
-		$Body.scale.x = -1
+		$Body.scale.x = -abs($Body.scale.x)
 
 func flame_fire_up() -> void:
 	if velocity == Vector2():
@@ -125,3 +173,34 @@ func flame_fire_up() -> void:
 
 func _on_ReloadTimer_timeout():
 	reload = false
+
+
+func _on_KnockbackTimer_timeout():
+	state = MOVE
+
+
+func _on_HurtBox_body_entered(body):
+	if body is Enemy or body is EnemyProjectile:
+		knockback_direction = body.position.direction_to(position)
+		hurt()
+
+
+func _on_HurtBox_area_entered(area):
+	if area is Enemy:
+		if area.dead:
+			return
+	if area is Enemy or area is EnemyProjectile:
+		knockback_direction = area.position.direction_to(position)
+		hurt()
+
+
+func _on_AttackRadius_body_entered(body):
+	if body == target and not body.dead:
+		can_shoot = true
+		print(can_shoot)
+
+
+func _on_AttackRadius_area_entered(area):
+	if area == target and not area.dead:
+		can_shoot = true
+		print(can_shoot)

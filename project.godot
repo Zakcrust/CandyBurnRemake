@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://TestEnv/EnemyKinematicStats.gd"
 }, {
+"base": "Area2D",
+"class": "EnemyProjectile",
+"language": "GDScript",
+"path": "res://TestEnv/EnemyProjectile.gd"
+}, {
 "base": "Node",
 "class": "KinematicStats",
 "language": "GDScript",
@@ -49,7 +54,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://TestEnv/MobStats.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "RigidBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://TestEnv/Player.gd"
@@ -74,6 +79,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://TestEnv/PlayerWeapon.gd"
 }, {
+"base": "Node2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://TestEnv/Projectile.gd"
+}, {
+"base": "Node",
+"class": "ProjectileStats",
+"language": "GDScript",
+"path": "res://TestEnv/ProjectileStats.gd"
+}, {
 "base": "Node",
 "class": "SpawnType",
 "language": "GDScript",
@@ -96,6 +111,7 @@ _global_script_class_icons={
 "Enemy": "",
 "EnemyCharacter": "",
 "EnemyKinematicStats": "",
+"EnemyProjectile": "",
 "KinematicStats": "",
 "MobStats": "",
 "Player": "",
@@ -103,6 +119,8 @@ _global_script_class_icons={
 "PlayerKinematicStats": "",
 "PlayerStats": "",
 "PlayerWeapon": "",
+"Projectile": "",
+"ProjectileStats": "",
 "SpawnType": "",
 "Stats": "",
 "WeaponSlots": ""

@@ -66,15 +66,18 @@ flip_h = true
 position = Vector2( 56.5, -6.5 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 4, 4 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
+visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="DetectRadius"]
 shape = SubResource( 3 )
 
 [node name="ViewRadius" type="Area2D" parent="."]
+visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="ViewRadius"]
 shape = SubResource( 4 )
@@ -83,6 +86,7 @@ shape = SubResource( 4 )
 wait_time = 0.5
 
 [node name="AttackRadius" type="Area2D" parent="."]
+visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="AttackRadius"]
 shape = SubResource( 5 )

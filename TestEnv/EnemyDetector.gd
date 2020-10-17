@@ -4,6 +4,13 @@ var enemies : Array
 
 signal send_enemies(ens)
 
+#func _process(delta):
+#	set_monitoring(true)
+#	yield(get_tree().create_timer(.5),"timeout")
+#	set_monitoring(false)
+	
+
+
 
 func _on_EnemyDetector_area_entered(area):
 	if area is Dummy:
@@ -14,6 +21,8 @@ func _on_EnemyDetector_area_entered(area):
 	elif area is Enemy:
 		for enemy in enemies:
 			if enemy == area:
+				return
+			elif enemy.dead:
 				return
 		enemies.append(area)
 	emit_signal("send_enemies", enemies)

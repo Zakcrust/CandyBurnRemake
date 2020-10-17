@@ -8,13 +8,18 @@ enum {
 }
 
 
+##### FOR TESTING PURPOSE #####################################################
+export (int) var DEFAULT_SPEED = 200
+export(float) var BULLET_SPEED = 200
+###############################################################################
+
+
 var state = IDLE
 var SPEED : int = 200
 var paths : PoolVector2Array
-var player : KinematicBody2D
+var player : RigidBody2D
 var bolt : PackedScene = load("res://TestEnv/Bolt.tscn")
-
-
+var dead : bool = false setget set_dead, get_dead
 var health : int = 0 setget set_health, get_health
 var attack : int = 0 setget set_attack, get_attack
 var defense : int = 0 setget set_defense, get_defense
@@ -25,9 +30,19 @@ func _ready():
 	health  = character_stats.health
 	attack  = character_stats.attack
 	defense = character_stats.defend
+	SPEED = DEFAULT_SPEED
+
+
+func set_dead(value) -> void:
+	dead = value
+
+func get_dead() -> bool:
+	return dead
+
 
 func set_health(value : int) -> void:
 	health = value
+	check_health()
 
 func get_health() -> int:
 	return health
@@ -66,6 +81,9 @@ func fire() -> void:
 	var new_bolt = bolt.instance()
 	new_bolt.transform = $Sprite/Hand.global_transform
 	new_bolt.position = $Sprite/Hand/GunPoint.global_position
+	#####DEBUG######
+	new_bolt.speed = BULLET_SPEED
+	################
 	get_parent().call_deferred("add_child", new_bolt)
 
 
@@ -73,9 +91,13 @@ func check_health() -> void:
 	if health < 0:
 		health = 0
 		state = DEAD
+		dead = true
 		$Sprite.play("dead")
-		$DetectRadius.call_deferred("set_monitoring",false)
-		$ViewRadius.call_deferred("set_monitoring",false)
+		$DetectRadius.monitoring = false
+		$ViewRadius.monitoring = false
+		$AttackRadius.monitoring = false
+		$CheckPath.stop()
+		set_process(false)
 	
 
 func update_path() -> void:

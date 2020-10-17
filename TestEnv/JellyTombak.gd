@@ -8,14 +8,17 @@ enum {
 	DEAD
 }
 
+## DEBUG ##
+export (int) var custom_speed = 150
+###########
 
 var state = IDLE
 var SPEED : int = 150
 var charge_speed : int = 5 * SPEED
 var charge_direction : Vector2
 var paths : PoolVector2Array
-var player : KinematicBody2D
-
+var player : RigidBody2D
+var dead : bool  = false setget set_dead, get_dead
 var health : int = 0 setget set_health, get_health
 var attack : int = 0 setget set_attack, get_attack
 var defense : int = 0 setget set_defense, get_defense
@@ -24,9 +27,19 @@ func _ready():
 	health  = character_stats.health
 	attack  = character_stats.attack
 	defense = character_stats.defend
+	SPEED = custom_speed
+	charge_speed = SPEED * 5
+
+func set_dead(value) -> void:
+	dead = value
+
+func get_dead() -> bool:
+	return dead
+
 
 func set_health(value : int) -> void:
 	health = value
+	check_health()
 
 func get_health() -> int:
 	return health
@@ -63,12 +76,17 @@ func charge(delta):
 	position += charge_speed * charge_direction * delta
 
 func check_health() -> void:
-	if health < 0:
+	if health <= 0:
 		health = 0
 		state = DEAD
+		dead = true
 		$Sprite.play("dead")
-		$DetectRadius.call_deferred("set_monitoring",false)
-		$ViewRadius.call_deferred("set_monitoring",false)
+		$DetectRadius.monitoring = false
+		$ViewRadius.monitoring = false
+		$CheckPath.stop()
+		$ChargeCooldown.stop()
+		$ChargeDelegate.stop()
+		$ChargeTimer.stop()
 	
 
 func update_path() -> void:
@@ -145,7 +163,7 @@ func _on_ChargeTimer_timeout():
 
 
 func _on_AttackRadius_body_entered(body):
-	if body is Player and state != CHARGE:
+	if body is Player and state != CHARGE and state != DEAD:
 		state = LOCK_CHARGE
 		$Sprite.play("idle")
 		$ChargeDelegate.start()
