@@ -97,6 +97,8 @@ func check_health() -> void:
 		$ViewRadius.monitoring = false
 		$AttackRadius.monitoring = false
 		$CheckPath.stop()
+		$ReloadTimer.stop()
+		$Sprite/Hand.hide()
 		set_process(false)
 	
 

@@ -23,5 +23,7 @@ func _on_Bullet_area_entered(area):
 	if area is Dummy:
 		queue_free()
 	elif area is Enemy:
+		if area.dead:
+			return
 		area.health = area.health - bullet_damage
 		queue_free()
