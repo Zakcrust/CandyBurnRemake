@@ -12,7 +12,7 @@ export (int) var custom_speed = 200
 var state = IDLE setget , get_state
 var SPEED : int = 200 
 var paths : PoolVector2Array
-var player : RigidBody2D
+var player : KinematicBody2D
 var dead : bool = false setget set_dead, get_dead
 var health : int = 0 setget set_health, get_health
 var attack : int = 0 setget set_attack, get_attack

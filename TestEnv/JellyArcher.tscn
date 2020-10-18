@@ -18,15 +18,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "attack",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 9 ), ExtResource( 5 ), ExtResource( 8 ) ],
 "loop": false,
 "name": "dead",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 1 ), ExtResource( 6 ) ],
 "loop": true,
@@ -46,8 +46,10 @@ radius = 2000.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 400.0
 
-[node name="JellyArcher" type="Area2D"]
+[node name="JellyArcher" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 4 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]

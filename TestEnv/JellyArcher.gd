@@ -17,7 +17,7 @@ export(float) var BULLET_SPEED = 200
 var state = IDLE
 var SPEED : int = 200
 var paths : PoolVector2Array
-var player : RigidBody2D
+var player : KinematicBody2D
 var bolt : PackedScene = load("res://TestEnv/Bolt.tscn")
 var dead : bool = false setget set_dead, get_dead
 var health : int = 0 setget set_health, get_health

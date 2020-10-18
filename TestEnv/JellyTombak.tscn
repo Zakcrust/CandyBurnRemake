@@ -18,6 +18,11 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "dead",
+"speed": 8.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "move",
@@ -27,18 +32,13 @@ animations = [ {
 "loop": false,
 "name": "charge",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "dead",
-"speed": 8.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 14.9444, 42.4135 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 500.0
+radius = 1180.28
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 2000.0
@@ -46,8 +46,10 @@ radius = 2000.0
 [sub_resource type="CircleShape2D" id=5]
 radius = 250.0
 
-[node name="JellyTombak" type="Area2D"]
+[node name="JellyTombak" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 4 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -60,7 +62,6 @@ position = Vector2( -9.5, 4.5 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
-visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="DetectRadius"]
 shape = SubResource( 3 )

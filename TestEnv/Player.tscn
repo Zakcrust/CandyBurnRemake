@@ -29,9 +29,10 @@ extents = Vector2( 21.3281, 81.8292 )
 extents = Vector2( 22.231, 84.3936 )
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 592.771
+radius = 1120.54
 
-[node name="Character" type="RigidBody2D"]
+[node name="Character" type="KinematicBody2D"]
+input_pickable = true
 script = ExtResource( 1 )
 
 [node name="Body" type="AnimatedSprite" parent="."]

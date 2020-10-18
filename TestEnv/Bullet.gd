@@ -27,3 +27,13 @@ func _on_Bullet_area_entered(area):
 			return
 		area.health = area.health - bullet_damage
 		queue_free()
+
+
+func _on_Bullet_body_entered(body):
+	if body is Dummy:
+		queue_free()
+	elif body is Enemy:
+		if body.dead:
+			return
+		body.health = body.health - bullet_damage
+		queue_free()

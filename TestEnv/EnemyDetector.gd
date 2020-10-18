@@ -27,3 +27,19 @@ func _on_EnemyDetector_area_entered(area):
 		enemies.append(area)
 	emit_signal("send_enemies", enemies)
 	
+
+
+func _on_EnemyDetector_body_entered(body):
+	if body is Dummy:
+		for enemy in enemies:
+			if enemy == body:
+				return
+		enemies.append(body)
+	elif body is Enemy:
+		for enemy in enemies:
+			if enemy == body:
+				return
+			elif enemy.dead:
+				return
+		enemies.append(body)
+	emit_signal("send_enemies", enemies)

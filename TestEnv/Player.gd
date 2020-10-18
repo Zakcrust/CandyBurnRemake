@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 class_name Player
 
@@ -23,8 +23,9 @@ var bullet : PackedScene = load("res://TestEnv/Bullet.tscn")
 var enemies : Array
 var target : Area2D = null
 var reload : bool = false
+var collosion 
 
-var can_shoot : bool  = false
+var can_shoot : bool  = true
 
 var weapon_state = FLAME_PISTOL
 var state = MOVE
@@ -79,11 +80,11 @@ func _move_by_controller(delta):
 				var target_pos = position.direction_to(target.position)
 				_face_to_position(target_pos)
 				$Body/Hand.look_at(target.position)
-			position += velocity * speed * delta
-			position.x = clamp(position.x, 0 , 1080) #temp
+			collosion = move_and_collide(velocity * speed * delta)
+			position.x = clamp(position.x, -1080 * 2 , 1080*2) #temp
 		HURT:
-			position += knockback(delta, knockback_direction)
-			position.x = clamp(position.x, 0 , 1080) #temp
+			collosion = move_and_collide(knockback(delta, knockback_direction))
+			position.x = clamp(position.x, -1080 * 2 , 1080 * 2) #temp
 		DEAD:
 			pass
 
@@ -123,23 +124,30 @@ func _on_EnemyDetector_send_enemies(ens):
 
 func check_target_state() -> void:
 	for i in range(0,enemies.size() - 1):
-		if enemies[i].dead:
+		if enemies[i].get_dead():
 			enemies.remove(i)
 
 func _find_target() -> Area2D:
 	var distance_array : Array
-	check_target_state()
 	for enemy in enemies:
 		distance_array.append(abs(position.distance_to(enemy.position)))
 	distance_array.sort()
+	
 	for enemy in enemies:
 		if position.distance_to(enemy.position) == distance_array.front():
-			return enemy
+			if enemy.get_dead():
+				distance_array.pop_front()
+				var id = enemies.find(enemy)
+				enemies.remove(id)
+				return null
+			else:
+				return enemy
 	return null
 
 func _idle_fire():
 	if not can_shoot:
 		return
+	print(target)
 	match(weapon_state):
 		FLAME_PISTOL:
 			_fire_pistol()
@@ -180,6 +188,9 @@ func _on_KnockbackTimer_timeout():
 
 
 func _on_HurtBox_body_entered(body):
+	if body is Enemy:
+		if body.dead:
+			return
 	if body is Enemy or body is EnemyProjectile:
 		knockback_direction = body.position.direction_to(position)
 		hurt()

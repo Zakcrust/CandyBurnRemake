@@ -17,7 +17,7 @@ var SPEED : int = 150
 var charge_speed : int = 5 * SPEED
 var charge_direction : Vector2
 var paths : PoolVector2Array
-var player : RigidBody2D
+var player : KinematicBody2D
 var dead : bool  = false setget set_dead, get_dead
 var health : int = 0 setget set_health, get_health
 var attack : int = 0 setget set_attack, get_attack
@@ -73,7 +73,7 @@ func _process(delta):
 			pass
 
 func charge(delta):
-	position += charge_speed * charge_direction * delta
+	move_and_collide(charge_speed * charge_direction * delta)
 
 func check_health() -> void:
 	if health <= 0:

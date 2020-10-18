@@ -8,7 +8,6 @@
 [node name="Gamepad" type="Sprite"]
 modulate = Color( 1, 1, 1, 0.54902 )
 texture = ExtResource( 4 )
-offset = Vector2( -16, -16 )
 script = ExtResource( 3 )
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
