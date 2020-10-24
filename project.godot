@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "CharacterType",
 "language": "GDScript",
-"path": "res://TestEnv/CharacterType.gd"
+"path": "res://Scripts/Utils/CharacterTypes/Base/CharacterType.gd"
 }, {
 "base": "Stats",
 "class": "DefenderStats",
 "language": "GDScript",
-"path": "res://TestEnv/DefenderStats.gd"
+"path": "res://Scripts/Utils/GeneralStats/Base/DefenderStats.gd"
 }, {
 "base": "Area2D",
 "class": "Dummy",
@@ -27,52 +27,52 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
-"path": "res://Enemy.gd"
+"path": "res://Scripts/Utils/CharacterTypes/Enemy.gd"
 }, {
 "base": "CharacterType",
 "class": "EnemyCharacter",
 "language": "GDScript",
-"path": "res://TestEnv/EnemyCharacter.gd"
+"path": "res://Scripts/Utils/CharacterTypes/EnemyCharacter.gd"
 }, {
 "base": "KinematicStats",
 "class": "EnemyKinematicStats",
 "language": "GDScript",
-"path": "res://TestEnv/EnemyKinematicStats.gd"
+"path": "res://Scripts/Utils/KinematicStats/EnemyKinematicStats.gd"
 }, {
 "base": "Area2D",
 "class": "EnemyProjectile",
 "language": "GDScript",
-"path": "res://TestEnv/EnemyProjectile.gd"
+"path": "res://Scenes/Projectile/EnemyProjectile.gd"
 }, {
 "base": "Node",
 "class": "KinematicStats",
 "language": "GDScript",
-"path": "res://TestEnv/KinematicStats.gd"
+"path": "res://Scripts/Utils/KinematicStats/Base/KinematicStats.gd"
 }, {
 "base": "Stats",
 "class": "MobStats",
 "language": "GDScript",
-"path": "res://TestEnv/MobStats.gd"
+"path": "res://Scripts/Utils/GeneralStats/Base/MobStats.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://TestEnv/Player.gd"
+"path": "res://Scenes/Player/Player.gd"
 }, {
 "base": "CharacterType",
 "class": "PlayerCharacter",
 "language": "GDScript",
-"path": "res://TestEnv/PlayerCharacter.gd"
+"path": "res://Scripts/Utils/CharacterTypes/PlayerCharacter.gd"
 }, {
 "base": "KinematicStats",
 "class": "PlayerKinematicStats",
 "language": "GDScript",
-"path": "res://TestEnv/PlayerKinematicStats.gd"
+"path": "res://Scripts/Utils/KinematicStats/PlayerKinematicStats.gd"
 }, {
 "base": "Stats",
 "class": "PlayerStats",
 "language": "GDScript",
-"path": "res://TestEnv/PlayerStats.gd"
+"path": "res://Scripts/Utils/GeneralStats/Base/PlayerStats.gd"
 }, {
 "base": "Node",
 "class": "PlayerWeapon",
@@ -82,27 +82,37 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://TestEnv/Projectile.gd"
+"path": "res://Scenes/Projectile/Projectile.gd"
 }, {
 "base": "Node",
 "class": "ProjectileStats",
 "language": "GDScript",
-"path": "res://TestEnv/ProjectileStats.gd"
+"path": "res://Scripts/Utils/ProjectileStats/Base/ProjectileStats.gd"
 }, {
-"base": "Node",
-"class": "SpawnType",
+"base": "Resource",
+"class": "SpawnerData",
 "language": "GDScript",
-"path": "res://TestEnv/Assets/SpawnType.gd"
+"path": "res://Scripts/Utils/Spawner/SpawnerData.gd"
+}, {
+"base": "Resource",
+"class": "SpawnerState",
+"language": "GDScript",
+"path": "res://Scripts/Utils/Spawner/SpawnerState.gd"
+}, {
+"base": "Resource",
+"class": "SpawnerType",
+"language": "GDScript",
+"path": "res://Scripts/Utils/Spawner/SpawnerType.gd"
 }, {
 "base": "Node",
 "class": "Stats",
 "language": "GDScript",
-"path": "res://TestEnv/Stats.gd"
+"path": "res://Scripts/Utils/GeneralStats/Base/Stats.gd"
 }, {
-"base": "Node",
-"class": "WeaponSlots",
+"base": "Resource",
+"class": "Wave",
 "language": "GDScript",
-"path": "res://TestEnv/WeaponSlots.gd"
+"path": "res://Scripts/Utils/Spawner/Wave.gd"
 } ]
 _global_script_class_icons={
 "CharacterType": "",
@@ -121,15 +131,17 @@ _global_script_class_icons={
 "PlayerWeapon": "",
 "Projectile": "",
 "ProjectileStats": "",
-"SpawnType": "",
+"SpawnerData": "",
+"SpawnerState": "",
+"SpawnerType": "",
 "Stats": "",
-"WeaponSlots": ""
+"Wave": ""
 }
 
 [application]
 
 config/name="CandyBurnRemake"
-run/main_scene="res://TestEnv/TestSceneEnv.tscn"
+run/main_scene="res://Scenes/UI/TempMenu.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 

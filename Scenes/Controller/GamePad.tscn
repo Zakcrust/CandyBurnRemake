@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/PNG/analog.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Controller/GamePad.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Controller/Pad.gd" type="Script" id=3]
+[ext_resource path="res://Assets/PNG/analog_bg.png" type="Texture" id=4]
+
+
+
+
+
+
+[node name="Gamepad" type="Sprite"]
+modulate = Color( 1, 1, 1, 0.54902 )
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Shoot" type="TouchScreenButton" parent="."]
+visible = false
+position = Vector2( 600, -60 )
+normal = ExtResource( 4 )
+pressed = ExtResource( 4 )
+
+[node name="Movement" type="TouchScreenButton" parent="."]
+position = Vector2( 16, 16 )
+normal = ExtResource( 1 )
+pressed = ExtResource( 1 )
+script = ExtResource( 2 )
+[connection signal="pressed" from="Shoot" to="." method="_on_Shoot_pressed"]
+[connection signal="forward_button_pos" from="Movement" to="." method="_on_GamePad_forward_button_pos"]

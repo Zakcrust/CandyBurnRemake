@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fonts/ENDOR___.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+func _on_Button_pressed():
+	get_tree().change_scene(\"res://TestEnv/Stage1.tscn\")
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 104
+font_data = ExtResource( 1 )
+
+[node name="Menu" type="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -540.0
+margin_right = 540.0
+margin_bottom = 2340.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 324.0
+margin_top = 500.0
+margin_right = 828.0
+margin_bottom = 702.0
+custom_fonts/font = SubResource( 2 )
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
