@@ -10,6 +10,8 @@ var registered_spawner : Array
 var registered_spawner_state : Array
 
 signal win()
+signal add_flame_power(amount)
+
 
 func set_current_wave(value) -> void:
 	current_wave_count = value
@@ -27,6 +29,7 @@ func check_spawners() -> void:
 	for _state in registered_spawner_state:
 		if _state.current_state == spawner_state.DEFAULT:
 			return
+	yield(get_tree().create_timer(1.0),"timeout")
 	next_wave()
 
 func done_spawn(state : SpawnerState) -> void:
@@ -35,6 +38,10 @@ func done_spawn(state : SpawnerState) -> void:
 	check_spawners()
 
 func reset_spawners() -> void:
+	for child in get_children():
+		if child is Enemy:
+			if child.get_dead():
+				child.queue_free()
 	for _state in registered_spawner_state:
 		_state.current_state = spawner_state.DEFAULT
 	for spawner in registered_spawner:

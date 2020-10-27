@@ -194,3 +194,8 @@ func _on_ReloadTimer_timeout():
 
 func _on_AttackRadius_body_exited(body):
 	pass
+
+
+func _on_Sprite_animation_finished():
+	if $Sprite.animation == "attack":
+		$ReloadTimer.start()

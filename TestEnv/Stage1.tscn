@@ -1,23 +1,25 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/ENDOR___.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/Utils/Spawner/SpawnerPool.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Controller/GamePad.tscn" type="PackedScene" id=4]
 [ext_resource path="res://TestEnv/LevelArena.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://TestEnv/Spawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sounds/general_1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=9]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
 func _ready():
-	$Control.hide()
+	$Control.position = Vector2(2300,1800)
 
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			if event.position.y > 1080:
+				print(event.position)
 				$Control.global_position = event.position
 				$Control.show()
 "
@@ -32,7 +34,7 @@ func _on_TryAgain_pressed():
 
 func _on_MainMenu_pressed():
 	get_tree().paused = false
-	get_tree().change_scene(\"res://Scenes/UI/TempMenu.tscn\")
+	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
 
 
 func _on_SpawnerPool_win():
@@ -47,15 +49,15 @@ func _on_Player_lose():
 size = 144
 use_mipmaps = true
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 84
-font_data = ExtResource( 2 )
+font_data = ExtResource( 9 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 84
-font_data = ExtResource( 2 )
+font_data = ExtResource( 9 )
 
 [node name="Main" type="Node2D"]
 
@@ -131,30 +133,31 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="CanvasLayer/WinLose/Win/VBoxContainer"]
+margin_top = 100.0
 margin_right = 1080.0
-margin_bottom = 271.0
+margin_bottom = 245.0
 custom_fonts/font = SubResource( 3 )
 text = "You Win!"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WinLose/Win/VBoxContainer"]
-margin_top = 321.0
+margin_top = 295.0
 margin_right = 1080.0
-margin_bottom = 486.0
+margin_bottom = 386.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="TryAgain" type="Button" parent="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer"]
-margin_left = 73.0
-margin_right = 451.0
-margin_bottom = 165.0
+margin_left = 198.0
+margin_right = 479.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 4 )
 text = "Try Again"
 
 [node name="MainMenu" type="Button" parent="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer"]
-margin_left = 551.0
-margin_right = 1006.0
-margin_bottom = 165.0
+margin_left = 579.0
+margin_right = 882.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 5 )
 text = "Main Menu"
 
@@ -179,30 +182,31 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="CanvasLayer/WinLose/Lose/VBoxContainer"]
+margin_top = 100.0
 margin_right = 1080.0
-margin_bottom = 271.0
+margin_bottom = 245.0
 custom_fonts/font = SubResource( 3 )
 text = "You Lose!"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WinLose/Lose/VBoxContainer"]
-margin_top = 321.0
+margin_top = 295.0
 margin_right = 1080.0
-margin_bottom = 486.0
+margin_bottom = 386.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="TryAgain" type="Button" parent="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer"]
-margin_left = 73.0
-margin_right = 451.0
-margin_bottom = 165.0
+margin_left = 198.0
+margin_right = 479.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 4 )
 text = "Try Again"
 
 [node name="MainMenu" type="Button" parent="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer"]
-margin_left = 551.0
-margin_right = 1006.0
-margin_bottom = 165.0
+margin_left = 579.0
+margin_right = 882.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 5 )
 text = "Main Menu"
 
@@ -232,11 +236,17 @@ spawner_id = 5
 [node name="Spawner6" parent="SpawnerPool" instance=ExtResource( 7 )]
 position = Vector2( 429.781, 67.599 )
 spawner_id = 6
+
+[node name="GameplayMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
 [connection signal="lose" from="Player" to="CanvasLayer/WinLose" method="_on_Player_lose"]
+[connection signal="end_flame_thrower" from="CanvasLayer/Control/Control" to="Player" method="_on_Control_end_flame_thrower"]
 [connection signal="send_button_pos" from="CanvasLayer/Control/Control" to="Player" method="_on_Controller_send_button_pos"]
 [connection signal="send_shoot" from="CanvasLayer/Control/Control" to="Player" method="_on_Controller_send_shoot"]
 [connection signal="pressed" from="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer/TryAgain" to="CanvasLayer/WinLose" method="_on_TryAgain_pressed"]
 [connection signal="pressed" from="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer/MainMenu" to="CanvasLayer/WinLose" method="_on_MainMenu_pressed"]
 [connection signal="pressed" from="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer/TryAgain" to="CanvasLayer/WinLose" method="_on_TryAgain_pressed"]
 [connection signal="pressed" from="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer/MainMenu" to="CanvasLayer/WinLose" method="_on_MainMenu_pressed"]
+[connection signal="add_flame_power" from="SpawnerPool" to="CanvasLayer/Control/Control" method="_on_SpawnerPool_add_flame_power"]
 [connection signal="win" from="SpawnerPool" to="CanvasLayer/WinLose" method="_on_SpawnerPool_win"]

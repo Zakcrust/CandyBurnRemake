@@ -48,7 +48,7 @@ animations = [ {
 "name": "dead",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 34 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 29 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 34 ), ExtResource( 33 ), ExtResource( 31 ), ExtResource( 2 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ), ExtResource( 29 ) ],
 "loop": true,
 "name": "attack",
 "speed": 5.0
@@ -81,8 +81,7 @@ script = ExtResource( 4 )
 position = Vector2( 5, 0 )
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 1 )
-animation = "move"
-frame = 1
+animation = "attack"
 playing = true
 flip_h = true
 
@@ -124,6 +123,8 @@ shape = SubResource( 5 )
 
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 1.2
+one_shot = true
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="timeout" from="CheckPath" to="." method="_on_CheckPath_timeout"]
 [connection signal="body_entered" from="AttackRadius" to="." method="_on_AttackRadius_body_entered"]

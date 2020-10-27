@@ -1,20 +1,23 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Player/Walk/walk_1.tres" type="Texture" id=2]
-[ext_resource path="res://Assets/Player/Head/Head_0.tres" type="Texture" id=3]
-[ext_resource path="res://Assets/Player/Walk/walk_2.tres" type="Texture" id=4]
-[ext_resource path="res://Assets/Player/Walk/walk_0.tres" type="Texture" id=5]
+[ext_resource path="res://Assets/Main Character/idle/idle1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Main Character/idle/handpistol.tres" type="Texture" id=3]
+[ext_resource path="res://Assets/Main Character/idle/idle2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_1.tres" type="Texture" id=5]
 [ext_resource path="res://TestEnv/FireCore.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Utils/EnemyDetector.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Player/FlamePistol/flame_pistol.tres" type="Texture" id=8]
 [ext_resource path="res://Assets/PNG/HealthBar/barHorizontal_green.png" type="Texture" id=9]
 [ext_resource path="res://Assets/player ded.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_2.tres" type="Texture" id=11]
+[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_0.tres" type="Texture" id=12]
+[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_4.tres" type="Texture" id=13]
+[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": false,
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
 "name": "idle",
 "speed": 5.0
 }, {
@@ -23,17 +26,17 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 12 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "move",
-"speed": 8.0
+"speed": 7.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21.3281, 81.8292 )
+[sub_resource type="CircleShape2D" id=2]
+radius = 28.2756
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 22.231, 84.3936 )
+extents = Vector2( 22.231, 70.5046 )
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 1120.54
@@ -66,29 +69,27 @@ input_pickable = true
 script = ExtResource( 1 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
-scale = Vector2( 2, 2 )
+position = Vector2( 0, -42 )
+scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-animation = "dead"
+animation = "idle"
+frame = 1
 playing = true
 
-[node name="Head" type="Sprite" parent="Body"]
-position = Vector2( -1.33635, -36.9723 )
-texture = ExtResource( 3 )
-
 [node name="Hand" type="Sprite" parent="Body"]
-position = Vector2( -7.87627, -14.0017 )
-texture = ExtResource( 8 )
-offset = Vector2( 17, 3 )
+position = Vector2( -107.876, 155.998 )
+texture = ExtResource( 3 )
+offset = Vector2( 150, 30 )
 
 [node name="GunPoint" type="Node2D" parent="Body/Hand"]
-position = Vector2( 42.876, 0 )
+position = Vector2( 362.876, -10 )
 
 [node name="FireCore" parent="Body/Hand" instance=ExtResource( 6 )]
-position = Vector2( 48.7216, 3.3371 )
-scale = Vector2( 0.25, 0.25 )
+position = Vector2( 363.722, -11.6629 )
+scale = Vector2( 2, 2 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0.671936, -29.1708 )
+position = Vector2( 0.671936, 6.8292 )
 shape = SubResource( 2 )
 
 [node name="ReloadTimer" type="Timer" parent="."]
@@ -96,16 +97,16 @@ wait_time = 0.5
 one_shot = true
 
 [node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0.840897, 0 )
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2( 0, -29 )
+position = Vector2( 0, -36 )
 shape = SubResource( 3 )
 
 [node name="AttackRadius" type="Area2D" parent="."]

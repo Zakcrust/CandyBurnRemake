@@ -20,7 +20,7 @@ shape = SubResource( 1 )
 
 [node name="Trail" parent="." instance=ExtResource( 3 )]
 trail_parent = NodePath("..")
-length = 40
+length = 20
 
 [node name="Trail" parent="Trail" index="0"]
 width = 20.0

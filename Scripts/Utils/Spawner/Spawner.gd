@@ -3,6 +3,7 @@ extends Node2D
 export (int) var max_running_instance = 2
 export (int) var spawn_radius = 0
 export (int) var spawner_id = -1
+
 var rand : RandomNumberGenerator
 var spawn_data : Resource = SpawnerData.new()
 var spawn_state = SpawnerState.new()
@@ -38,6 +39,7 @@ func init_spawner() -> void:
 		get_parent().register_spawner(self, spawn_state)
 		return
 	else:
+		maximum_spawn += 1
 		get_parent().register_spawner(self, spawn_state)
 	
 	randomize()
@@ -102,6 +104,7 @@ func get_running_instance() -> int:
 	return running_instance
 
 func kill_notifier() -> void:
+	get_parent().emit_signal("add_flame_power", 10)
 	running_instance -= 1
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)

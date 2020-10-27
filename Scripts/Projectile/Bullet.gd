@@ -2,7 +2,7 @@ extends Projectile
 
 var bullet_speed : int = 400 setget set_speed, get_speed
 
-var bullet_stats : ProjectileStats = ProjectileStats.new(400,1)
+var bullet_stats : ProjectileStats = ProjectileStats.new(4000,1)
 var bullet_damage : int = 0
 
 var trail_length : int = 20

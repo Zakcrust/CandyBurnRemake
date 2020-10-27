@@ -6,7 +6,7 @@ var JELLY_KERING = "JELLY KERING" setget , get_jelly_kering
 var GULA_GAIT = "GULA GAIT" setget , get_gula_gait
 var TINTING_KACANG = "TINTING KACANG" setget , get_tinting_kacang
 
-## WAVE DATA TEMPLATE ##
+######## WAVE DATA TEMPLATE ##################
 #NUMBER : {
 #		1 : Wave.new(1,0, JELLY_KERING),
 #		2 : Wave.new(2,0, JELLY_KERING),
@@ -15,8 +15,7 @@ var TINTING_KACANG = "TINTING KACANG" setget , get_tinting_kacang
 #		5 : Wave.new(5,0, JELLY_KERING),
 #		6 : Wave.new(6,0, JELLY_KERING)
 #	},
-########################
-
+##############################################
 
 
 var wave_data = {

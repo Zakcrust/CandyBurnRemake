@@ -6,8 +6,8 @@
 _data = [ Vector2( 0.0274725, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.344371, 1 )
-colors = PoolColorArray( 1, 0.773438, 0, 0.454902, 1, 0.515625, 0, 1, 0.878906, 0.102997, 0, 1 )
+offsets = PoolRealArray( 0, 0.92053, 1 )
+colors = PoolColorArray( 1, 0.772549, 0, 0.431373, 1, 0.513726, 0, 0.509804, 0.878431, 0.101961, 0, 1 )
 
 [node name="Trail" type="Node"]
 script = ExtResource( 1 )

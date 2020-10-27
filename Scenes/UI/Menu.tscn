@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Fonts/ENDOR___.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Sounds/main_menu.ogg" type="AudioStream" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
+
+func _ready():
+	$MainMenuMusic.play()
 
 
 func _on_Button_pressed():
@@ -35,4 +39,7 @@ text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MainMenuMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

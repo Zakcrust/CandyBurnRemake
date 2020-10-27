@@ -6,6 +6,9 @@ var default_scale : Vector2 = Vector2(1,1)
 
 var fire_damage : int = 2
 
+func _ready():
+	$FlameHitBox/Collider.disabled = true
+
 
 func _on_FlameHitBox_body_entered(body):
 	if body is Enemy:
@@ -19,11 +22,13 @@ func _on_FlameHitBox_area_entered(area):
 			area.health = area.health - fire_damage
 
 func start_flame() -> void:
+	$FlameHitBox/Collider.disabled = false
 	emitting = true
 	$HitBoxAnim.play("flame_on")
 
 
 func stop_flame() -> void:
+	$FlameHitBox/Collider.disabled = true
 	emitting = false
 	$FlameHitBox/Collider.scale = default_scale
 	$FlameHitBox/Collider.position = default_pos

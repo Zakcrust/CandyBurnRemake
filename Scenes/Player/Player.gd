@@ -17,7 +17,7 @@ var health : float = player_stats.health
 var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
 var speed : int = player_kine_stats.speed
-var knockback_speed : float = speed * 3
+var knockback_speed : float = speed * 5
 var velocity : Vector2
 var knockback_direction : Vector2
 var bullet : PackedScene = load("res://Scenes/Projectile/Bullet.tscn")
@@ -26,10 +26,7 @@ var target : KinematicBody2D = null
 var reload : bool = false
 var collosion 
 
-var can_shoot : bool  = true
 
-var weapon_state = FLAMETHROWER
-var state = MOVE
 enum {
 	FLAME_PISTOL,
 	FLAMETHROWER,
@@ -38,11 +35,13 @@ enum {
 	DEAD
 }
 
-enum enemy_state {
-	IDLE,
-	MOVE,
-	DEAD
-}
+var can_shoot : bool  = true
+var state = MOVE
+
+
+var weapon_state = FLAME_PISTOL
+
+
 
 func _ready():
 	speed = custom_speed
@@ -98,7 +97,6 @@ func hurt() -> void:
 		state = DEAD
 		$Body.play("dead")
 		$Body/Hand.hide()
-		$Body/Head.hide()
 		$Collider.call_deferred("set_disabled", true)
 		emit_signal("lose")
 		get_tree().paused = true
@@ -125,11 +123,7 @@ func _face_to_position(point : Vector2) -> void:
 
 
 func _on_Controller_send_shoot():
-	var new_bullet = bullet.instance()
-	new_bullet.transform = $GunPoint.global_transform
-	new_bullet.global_position = $GunPoint.global_position
-	new_bullet.speed = bullet_speed
-	get_parent().add_child(new_bullet)
+	weapon_state = FLAMETHROWER
 
 
 func _on_EnemyDetector_send_enemies(ens):
@@ -233,3 +227,8 @@ func _on_AttackRadius_body_entered(body):
 func _on_AttackRadius_area_entered(area):
 	if area == target and not area.dead:
 		can_shoot = true
+
+
+func _on_Control_end_flame_thrower():
+	$Body/Hand/FireCore.stop_flame()
+	weapon_state = FLAME_PISTOL
