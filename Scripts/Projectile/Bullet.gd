@@ -24,12 +24,13 @@ func get_speed() -> int:
 
 
 func _on_Bullet_area_entered(area):
+	var enemy = area.get_parent()
 	if area is Dummy:
 		queue_free()
-	elif area is Enemy:
-		if area.dead:
+	elif enemy is Enemy:
+		if enemy.dead:
 			return
-		area.health = area.health - bullet_damage
+		enemy.health = enemy.health - bullet_damage
 		queue_free()
 
 

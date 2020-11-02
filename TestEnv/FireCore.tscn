@@ -103,5 +103,7 @@ texture = ExtResource( 3 )
 
 [node name="HitBoxAnim" type="AnimationPlayer" parent="."]
 anims/flame_on = SubResource( 9 )
+
+[node name="CPUMobileRender" type="CPUParticles2D" parent="."]
 [connection signal="area_entered" from="FlameHitBox" to="." method="_on_FlameHitBox_area_entered"]
 [connection signal="body_entered" from="FlameHitBox" to="." method="_on_FlameHitBox_body_entered"]

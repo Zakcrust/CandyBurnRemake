@@ -17,7 +17,7 @@ var health : float = player_stats.health
 var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
 var speed : int = player_kine_stats.speed
-var knockback_speed : float = speed * 5
+var knockback_speed : float = speed * 10
 var velocity : Vector2
 var knockback_direction : Vector2
 var bullet : PackedScene = load("res://Scenes/Projectile/Bullet.tscn")
@@ -82,16 +82,19 @@ func _move_by_controller(delta):
 				_face_to_position(target_pos)
 				$Body/Hand.look_at(target.global_position)
 			collosion = move_and_collide(velocity * speed * delta)
-			position.x = clamp(position.x, -1080 * 2 , 1080*2) #temp
+			position.x = clamp(position.x, -1080 , 2160) #temp
 		HURT:
-			collosion = move_and_collide(knockback(delta, knockback_direction))
-			position.x = clamp(position.x, -1080 * 2 , 1080 * 2) #temp
+			collosion = null
+			if collosion == null or not collosion is KinematicBody2D:
+				collosion = move_and_collide(knockback(delta, knockback_direction))
+			position.x = clamp(position.x, -1080 , 2160) #temp
 		DEAD:
 			pass
 
 
 func hurt() -> void:
 	health -= 1
+	velocity = Vector2()
 	$HealthDisplay.update_health_bar(player_stats.health, health)
 	if health <= 0 :
 		state = DEAD
@@ -205,14 +208,18 @@ func _on_HurtBox_body_entered(body):
 	if body is Enemy:
 		if body.dead:
 			return
-	if body is Enemy or body is EnemyProjectile:
+		knockback_direction = body.position.direction_to(position)
+		hurt()
+	if body is EnemyProjectile:
 		knockback_direction = body.position.direction_to(position)
 		hurt()
 
 
 func _on_HurtBox_area_entered(area):
-	if area is Enemy:
-		if area.dead:
+	var hitbox_parent = area.get_parent()
+	print(hitbox_parent)
+	if area.get_parent() is Enemy:
+		if area.get_parent().dead:
 			return
 	if area is Enemy or area is EnemyProjectile:
 		knockback_direction = area.position.direction_to(position)

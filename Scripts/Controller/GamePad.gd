@@ -6,6 +6,8 @@ signal forward_button_pos(pos)
 var radius = Vector2(32, 32)
 var boundary = 64
 
+var touch_boundary = 128
+
 var ongoing_drag = -1
 
 var return_accel = 20
@@ -24,10 +26,10 @@ func get_button_pos():
 
 
 func _input(event):
-	if event is InputEventScreenDrag or (event is InputEventScreenTouch and event.is_pressed()):
+	if event is InputEventScreenDrag or (event is InputEventScreenTouch and event.is_pressed() and event.get_index() == 0):
 		var event_dist_from_centre = (event.position - get_parent().global_position).length()
 
-		if event_dist_from_centre <= boundary * global_scale.x or event.get_index() == ongoing_drag:
+		if event_dist_from_centre <= touch_boundary * global_scale.x or event.get_index() == ongoing_drag:
 			set_global_position(event.position - radius * global_scale)
 
 			if get_button_pos().length() > boundary:

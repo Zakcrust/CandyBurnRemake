@@ -8,6 +8,7 @@ var fire_damage : int = 2
 
 func _ready():
 	$FlameHitBox/Collider.disabled = true
+	$CPUMobileRender.convert_from_particles($".")
 
 
 func _on_FlameHitBox_body_entered(body):
@@ -23,13 +24,13 @@ func _on_FlameHitBox_area_entered(area):
 
 func start_flame() -> void:
 	$FlameHitBox/Collider.disabled = false
-	emitting = true
+	$CPUMobileRender.emitting = true
 	$HitBoxAnim.play("flame_on")
 
 
 func stop_flame() -> void:
 	$FlameHitBox/Collider.disabled = true
-	emitting = false
+	$CPUMobileRender.emitting = false
 	$FlameHitBox/Collider.scale = default_scale
 	$FlameHitBox/Collider.position = default_pos
 	if $HitBoxAnim.is_playing():
