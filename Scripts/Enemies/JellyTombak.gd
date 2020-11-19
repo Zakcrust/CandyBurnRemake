@@ -186,3 +186,7 @@ func _on_ChargeCooldown_timeout():
 	state = MOVE
 	$Sprite.play("move")
 	$CheckPath.start()
+
+
+func hurt() -> void:
+	$Sounds.play_sfx()

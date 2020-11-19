@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/flamehrower_start.wav-098025e42be1e14c1238c04cb1325eef.sample"
+
+[deps]
+
+source_file="res://Sounds/SFX/flamehrower_start.wav"
+dest_files=[ "res://.import/flamehrower_start.wav-098025e42be1e14c1238c04cb1325eef.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Assets/Gula Gait-20201022T150527Z-001/Gula Gait/walk/gulagait-walk9.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Gula Gait-20201022T150527Z-001/Attack/attack_6.tres" type="Texture" id=2]
@@ -35,6 +35,8 @@
 [ext_resource path="res://Assets/Gula Gait-20201022T150527Z-001/Attack/attack_4.tres" type="Texture" id=33]
 [ext_resource path="res://Assets/Gula Gait-20201022T150527Z-001/Attack/attack_3.tres" type="Texture" id=34]
 [ext_resource path="res://Assets/Gula Gait-20201022T150527Z-001/Gula Gait/death/gulagait-death5.png" type="Texture" id=35]
+[ext_resource path="res://Sounds/SFX/enemy_hit_1.wav" type="AudioStream" id=36]
+[ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=37]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -63,13 +65,13 @@ animations = [ {
 extents = Vector2( 7.75673, 63.989 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 1000.0
+radius = 2036.86
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 2000.0
 
 [sub_resource type="CircleShape2D" id=5]
-radius = 400.0
+radius = 255.875
 
 [node name="JellyArcher" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
@@ -101,7 +103,6 @@ position = Vector2( 4, 4 )
 shape = SubResource( 2 )
 
 [node name="DetectRadius" type="Area2D" parent="."]
-visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="DetectRadius"]
 shape = SubResource( 3 )
@@ -116,7 +117,6 @@ shape = SubResource( 4 )
 wait_time = 0.5
 
 [node name="AttackRadius" type="Area2D" parent="."]
-visible = false
 
 [node name="Collider" type="CollisionShape2D" parent="AttackRadius"]
 shape = SubResource( 5 )
@@ -124,6 +124,9 @@ shape = SubResource( 5 )
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 1.2
 one_shot = true
+
+[node name="Sounds" parent="." instance=ExtResource( 37 )]
+sfx = ExtResource( 36 )
 [connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="timeout" from="CheckPath" to="." method="_on_CheckPath_timeout"]

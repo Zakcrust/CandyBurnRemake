@@ -12,6 +12,7 @@ var explosion_scene = load("res://Scenes/Explosion/Explosion.tscn")
 func _ready():
 	bullet_speed = bullet_stats.speed
 	bullet_damage = bullet_stats.damage
+	$Sounds.play_sfx()
 
 func _process(delta):
 	position += transform.x * bullet_speed * delta
@@ -31,6 +32,7 @@ func _on_Bullet_area_entered(area):
 		if enemy.dead:
 			return
 		enemy.health = enemy.health - bullet_damage
+		enemy.hurt()
 		queue_free()
 
 
@@ -41,6 +43,7 @@ func _on_Bullet_body_entered(body):
 		if body.dead:
 			return
 		body.health = body.health - bullet_damage
+		body.hurt()
 		queue_free()
 	if body is TileMap:
 		queue_free()

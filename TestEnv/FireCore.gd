@@ -26,6 +26,7 @@ func start_flame() -> void:
 	$FlameHitBox/Collider.disabled = false
 	$CPUMobileRender.emitting = true
 	$HitBoxAnim.play("flame_on")
+	$FlameSound.start_flame()
 
 
 func stop_flame() -> void:
@@ -36,4 +37,5 @@ func stop_flame() -> void:
 	if $HitBoxAnim.is_playing():
 		$HitBoxAnim.seek(0)
 	$HitBoxAnim.stop()
+	$FlameSound.stop_flame()
 	

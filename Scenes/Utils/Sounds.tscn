@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Utils/Sounds/Sounds.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/main_menu.ogg" type="AudioStream" id=2]
+
+[node name="Sounds" type="Node2D" groups=[
+"sounds",
+]]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+bus = "Music"
+
+[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+[connection signal="finished" from="Sfx" to="." method="_on_Sfx_finished"]

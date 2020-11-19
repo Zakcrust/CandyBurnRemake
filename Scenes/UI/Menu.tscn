@@ -1,20 +1,38 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Sounds/main_menu.ogg" type="AudioStream" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/UI/Setting.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
-
-func _ready():
-	$MainMenuMusic.play()
-
+	
 
 func _on_Button_pressed():
 	get_tree().change_scene(\"res://TestEnv/Stage1.tscn\")
+
+
+func _on_Setting_pressed():
+	$Menu.hide()
+	$Setting.show()
+
+
+func _on_Setting_back_signal():
+	$Setting.hide()
+	$Menu.show()
 "
 
 [sub_resource type="DynamicFont" id=2]
+size = 104
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 104
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
 size = 104
 font_data = ExtResource( 1 )
 
@@ -29,17 +47,63 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
-margin_left = 324.0
-margin_top = 500.0
-margin_right = 828.0
-margin_bottom = 702.0
+[node name="icon" type="Sprite" parent="."]
+position = Vector2( 7, 0 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Sounds" parent="." instance=ExtResource( 4 )]
+music = ExtResource( 2 )
+play_music_on_ready = true
+
+[node name="Menu" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -436.0
+margin_top = 1500.0
+margin_right = 436.0
+margin_bottom = 1772.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+margin_right = 872.0
+margin_bottom = 272.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Start" type="Button" parent="Menu/VBoxContainer"]
+margin_right = 872.0
+margin_bottom = 111.0
 custom_fonts/font = SubResource( 2 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MainMenuMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/VBoxContainer"]
+margin_top = 161.0
+margin_right = 872.0
+margin_bottom = 272.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="Setting" type="Button" parent="Menu/VBoxContainer/HBoxContainer"]
+margin_right = 305.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 3 )
+text = "Settings"
+
+[node name="Achievement" type="Button" parent="Menu/VBoxContainer/HBoxContainer"]
+margin_left = 355.0
+margin_right = 872.0
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 4 )
+text = "Achievements"
+
+[node name="Setting" parent="." instance=ExtResource( 5 )]
+[connection signal="pressed" from="Menu/VBoxContainer/Start" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/HBoxContainer/Setting" to="." method="_on_Setting_pressed"]
+[connection signal="back_signal" from="Setting" to="." method="_on_Setting_back_signal"]

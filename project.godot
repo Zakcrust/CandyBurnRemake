@@ -142,6 +142,7 @@ _global_script_class_icons={
 
 config/name="CandyBurnRemake"
 run/main_scene="res://Scenes/UI/Menu.tscn"
+boot_splash/image="res://icon.png"
 config/icon="res://icon.png"
 
 [display]
@@ -190,5 +191,8 @@ pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/2d/use_pixel_snap=true
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Enemies/JellyTombak.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/death/tingting-death1.png" type="Texture" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/death/tingting-death4.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/death/tingting-death3.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/idle/tingting-idle6.png" type="Texture" id=7]
+[ext_resource path="res://Sounds/SFX/enemy_hit_1.wav" type="AudioStream" id=8]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/attack tusuk/tingting-attacktusuk4.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/attack tusuk/tingting-attacktusuk6.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/attack tusuk/tingting-attacktusuk2.png" type="Texture" id=12]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/attack tusuk/tingting-attacktusuk3.png" type="Texture" id=13]
@@ -24,11 +26,6 @@ animations = [ {
 "frames": [ ExtResource( 18 ), ExtResource( 17 ), ExtResource( 20 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 19 ) ],
 "loop": true,
 "name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "before_charge",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ],
@@ -50,6 +47,11 @@ animations = [ {
 "loop": true,
 "name": "move",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "before_charge",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -114,6 +116,9 @@ one_shot = true
 [node name="ChargeCooldown" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="Sounds" parent="." instance=ExtResource( 10 )]
+sfx = ExtResource( 8 )
 [connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="timeout" from="CheckPath" to="." method="_on_CheckPath_timeout"]
 [connection signal="body_entered" from="AttackRadius" to="." method="_on_AttackRadius_body_entered"]

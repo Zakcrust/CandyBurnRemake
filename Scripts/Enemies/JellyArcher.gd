@@ -199,3 +199,7 @@ func _on_AttackRadius_body_exited(body):
 func _on_Sprite_animation_finished():
 	if $Sprite.animation == "attack":
 		$ReloadTimer.start()
+
+
+func hurt() -> void:
+	$Sounds.play_sfx()

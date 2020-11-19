@@ -4,7 +4,7 @@ class_name Player
 
 var character_type : CharacterType = PlayerCharacter.new() setget , get_character_type
 var player_stats : Stats = PlayerStats.new(5,5) setget set_player_stats, get_player_stats # (health_point, armour_point) 
-var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(256, 400) #(detect_radius, speed)
+var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(1024, 400) #(detect_radius, speed)
 
 ##### DEBUG #####
 export (int) var custom_speed = 400
@@ -16,6 +16,7 @@ signal lose()
 var health : float = player_stats.health
 var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
+var attack_radius : float = 0.7 * detect_radius
 var speed : int = player_kine_stats.speed
 var knockback_speed : float = speed * 10
 var velocity : Vector2
@@ -93,6 +94,7 @@ func _move_by_controller(delta):
 
 
 func hurt() -> void:
+	$Sounds.play_sfx()
 	health -= 1
 	velocity = Vector2()
 	$HealthDisplay.update_health_bar(player_stats.health, health)
@@ -156,12 +158,15 @@ func _find_target() -> KinematicBody2D:
 			closest_distance = enemy_distance 
 			closest_target = enemy
 	
-			
-	return closest_target
+	if closest_target != null:
+		if position.distance_to(closest_target.global_position) < detect_radius:
+			return closest_target
+	return null
 
 func _idle_fire():
-	if not can_shoot:
-		return
+	if target != null:
+		if position.distance_to(target.position) > attack_radius:
+			return
 	match(weapon_state):
 		FLAME_PISTOL:
 			_fire_pistol()
@@ -224,16 +229,6 @@ func _on_HurtBox_area_entered(area):
 	if area is Enemy or area is EnemyProjectile:
 		knockback_direction = area.position.direction_to(position)
 		hurt()
-
-
-func _on_AttackRadius_body_entered(body):
-	if body == target and not body.dead:
-		can_shoot = true
-
-
-func _on_AttackRadius_area_entered(area):
-	if area == target and not area.dead:
-		can_shoot = true
 
 
 func _on_Control_end_flame_thrower():

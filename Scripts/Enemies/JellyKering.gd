@@ -146,3 +146,6 @@ func _on_ViewRadius_body_exited(body):
 
 func _on_CheckPath_timeout():
 	update_path()
+
+func hurt() -> void:
+	$Sounds.play_sfx()
