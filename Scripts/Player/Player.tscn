@@ -8,7 +8,7 @@
 [ext_resource path="res://TestEnv/FireCore.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Utils/EnemyDetector.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/PNG/HealthBar/barHorizontal_green.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/Healthbar/Health Bar Full.png" type="Texture" id=9]
 [ext_resource path="res://Assets/player ded.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_2.tres" type="Texture" id=11]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_0.tres" type="Texture" id=12]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
 [ext_resource path="res://Sounds/SFX/player_hit.wav" type="AudioStream" id=15]
 [ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/UI/Healthbar/Health Bar Outline.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -121,13 +122,18 @@ shape = SubResource( 4 )
 
 [node name="HealthDisplay" type="Node2D" parent="."]
 position = Vector2( -100, -155 )
+scale = Vector2( 0.4, 0.3 )
 z_index = 1
 script = SubResource( 5 )
 
 [node name="TextureProgress" type="TextureProgress" parent="HealthDisplay"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = 9.52441
+margin_top = 6.34959
+margin_right = 509.524
+margin_bottom = 106.35
 value = 100.0
+texture_under = ExtResource( 16 )
+texture_over = ExtResource( 16 )
 texture_progress = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false

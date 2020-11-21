@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/PNG/analog.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Controller/Move Analog Inner.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Controller/GamePad.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Controller/Pad.gd" type="Script" id=3]
-[ext_resource path="res://Assets/PNG/analog_bg.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Controller/Move Analog Outer.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Main Character/flametrower_anim.tres" type="Texture" id=5]
 [ext_resource path="res://Assets/PNG/HealthBar/barHorizontal_yellow.png" type="Texture" id=6]
 
