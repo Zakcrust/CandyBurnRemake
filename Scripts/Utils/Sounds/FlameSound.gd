@@ -6,6 +6,8 @@ var flame_end : AudioStream = load("res://Sounds/SFX/flamehrower_end.wav")
 
 
 func start_flame() -> void:
+	if $Sfx.playing:
+		return
 	$Sfx.stream = flame_start
 	$Sfx.play()
 

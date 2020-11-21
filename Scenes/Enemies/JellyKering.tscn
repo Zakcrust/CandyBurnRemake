@@ -19,14 +19,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": false,
-"name": "dead",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "move",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "dead",
 "speed": 8.0
 } ]
 
@@ -44,7 +44,7 @@ extents = Vector2( 16.5202, 38.009 )
 
 [node name="JellyKering" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
-collision_layer = 3
+collision_layer = 2147483650
 collision_mask = 2
 script = ExtResource( 2 )
 
@@ -52,7 +52,7 @@ script = ExtResource( 2 )
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]

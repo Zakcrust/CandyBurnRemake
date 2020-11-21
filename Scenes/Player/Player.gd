@@ -107,6 +107,7 @@ func hurt() -> void:
 		get_tree().paused = true
 		return
 	if state == HURT:
+		$HurtBox.monitoring = false
 		return
 	state = HURT
 	$KnockbackTimer.start()
@@ -117,6 +118,8 @@ func knockback(delta : float, direction : Vector2) -> Vector2:
 
 
 func _on_Controller_send_button_pos(pos):
+	if state == HURT:
+		return
 	velocity = pos
 
 
@@ -177,6 +180,7 @@ func _idle_fire():
 func _fire_pistol() -> void:
 	if velocity == Vector2() and not reload:
 		if target != null:
+			$ShootSound.play_sfx()
 			var new_bullet = bullet.instance()
 			new_bullet.transform = $Body/Hand/GunPoint.global_transform
 			new_bullet.position = $Body/Hand/GunPoint.global_position
@@ -207,6 +211,7 @@ func _on_ReloadTimer_timeout():
 
 func _on_KnockbackTimer_timeout():
 	state = MOVE
+	$HurtBox.monitoring = true
 
 
 func _on_HurtBox_body_entered(body):

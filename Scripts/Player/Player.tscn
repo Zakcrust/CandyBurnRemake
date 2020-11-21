@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Main Character/idle/idle1.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_4.tres" type="Texture" id=13]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
 [ext_resource path="res://Sounds/SFX/player_hit.wav" type="AudioStream" id=15]
+[ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -23,22 +24,22 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ) ],
-"loop": true,
-"name": "dead",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 12 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "move",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 28.2756
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 22.231, 75.828 )
+extents = Vector2( 26.7725, 75.828 )
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 1120.54
@@ -101,10 +102,12 @@ one_shot = true
 position = Vector2( 0.840897, 0 )
 
 [node name="KnockbackTimer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.5
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -36 )
@@ -132,6 +135,9 @@ __meta__ = {
 
 [node name="Sounds" parent="." instance=ExtResource( 8 )]
 sfx = ExtResource( 15 )
+
+[node name="ShootSound" parent="." instance=ExtResource( 8 )]
+sfx = ExtResource( 16 )
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="send_enemies" from="EnemyDetector" to="." method="_on_EnemyDetector_send_enemies"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]

@@ -12,7 +12,6 @@ var explosion_scene = load("res://Scenes/Explosion/Explosion.tscn")
 func _ready():
 	bullet_speed = bullet_stats.speed
 	bullet_damage = bullet_stats.damage
-	$Sounds.play_sfx()
 
 func _process(delta):
 	position += transform.x * bullet_speed * delta
