@@ -105,6 +105,7 @@ texture = ExtResource( 3 )
 anims/flame_on = SubResource( 9 )
 
 [node name="CPUMobileRender" type="CPUParticles2D" parent="."]
+emitting = false
 
 [node name="FlameSound" type="Node2D" parent="." groups=[
 "sounds",

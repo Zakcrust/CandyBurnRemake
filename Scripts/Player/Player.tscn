@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Main Character/idle/idle1.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Main Character/idle/handpistol.tres" type="Texture" id=3]
+[ext_resource path="res://Assets/Main Character/Projectile - Flamethrower /hand.tres" type="Texture" id=3]
 [ext_resource path="res://Assets/Main Character/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_1.tres" type="Texture" id=5]
 [ext_resource path="res://TestEnv/FireCore.tscn" type="PackedScene" id=6]
@@ -15,8 +15,9 @@
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_4.tres" type="Texture" id=13]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
 [ext_resource path="res://Sounds/SFX/player_hit.wav" type="AudioStream" id=15]
-[ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=16]
 [ext_resource path="res://Assets/UI/Healthbar/Health Bar Outline.png" type="Texture" id=16]
+[ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=17]
+[ext_resource path="res://Assets/Main Character/FlameThrower/Flamethrower.tres" type="Texture" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -25,15 +26,15 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "move",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 10 ) ],
 "loop": true,
 "name": "dead",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "move",
+"speed": 7.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -57,12 +58,12 @@ var health_percentage : float
 func update_health_bar(full_health : float, current_health : float) -> void:
 	health_percentage = current_health / full_health
 	
-	if health_percentage <= 1.0 and health_percentage > 0.66:
-		$TextureProgress.texture_progress = green_texture
-	elif health_percentage <= 0.66 and health_percentage > 0.33:
-		$TextureProgress.texture_progress = yellow_texture
-	elif health_percentage > 0 and health_percentage <= 0.33:
-		$TextureProgress.texture_progress = red_texture
+#	if health_percentage <= 1.0 and health_percentage > 0.66:
+#		$TextureProgress.texture_progress = green_texture
+#	elif health_percentage <= 0.66 and health_percentage > 0.33:
+#		$TextureProgress.texture_progress = yellow_texture
+#	elif health_percentage > 0 and health_percentage <= 0.33:
+#		$TextureProgress.texture_progress = red_texture
 		
 	$TextureProgress.value = health_percentage * 100
 "
@@ -77,21 +78,34 @@ position = Vector2( 0, -42 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="Hand" type="Sprite" parent="Body"]
-position = Vector2( -107.876, 155.998 )
+position = Vector2( -40.0001, 180 )
+rotation = -1.53372
+scale = Vector2( 2, 2 )
+z_index = 1
 texture = ExtResource( 3 )
-offset = Vector2( 150, 30 )
+offset = Vector2( 0, 20 )
+
+[node name="Weapon" type="Sprite" parent="Body/Hand"]
+position = Vector2( 22, 100 )
+rotation = 1.56393
+z_index = -1
+texture = ExtResource( 18 )
 
 [node name="GunPoint" type="Node2D" parent="Body/Hand"]
-position = Vector2( 362.876, -10 )
+position = Vector2( 15.516, 129.333 )
+rotation = 1.5708
 
 [node name="FireCore" parent="Body/Hand" instance=ExtResource( 6 )]
-position = Vector2( 363.722, -11.6629 )
+position = Vector2( 19.2907, 214.67 )
+rotation = 1.5708
 scale = Vector2( 2, 2 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.671936, 6.8292 )
 shape = SubResource( 2 )
 
@@ -100,13 +114,15 @@ wait_time = 0.5
 one_shot = true
 
 [node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
+visible = false
 position = Vector2( 0.840897, 0 )
 
 [node name="KnockbackTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 one_shot = true
 
 [node name="HurtBox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -143,7 +159,7 @@ __meta__ = {
 sfx = ExtResource( 15 )
 
 [node name="ShootSound" parent="." instance=ExtResource( 8 )]
-sfx = ExtResource( 16 )
+sfx = ExtResource( 17 )
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="send_enemies" from="EnemyDetector" to="." method="_on_EnemyDetector_send_enemies"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]

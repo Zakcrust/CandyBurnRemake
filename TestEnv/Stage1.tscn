@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/Pause Menu.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://TestEnv/Spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sounds/general_1.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://Assets/UI/Current Wave Polos.png" type="Texture" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -67,6 +68,42 @@ script/source = "extends Label
 func _process(delta):
 	text = \"FPS : %s\" % Engine.get_frames_per_second()
 "
+
+[sub_resource type="GDScript" id=11]
+script/source = "extends Control
+
+
+func _on_SpawnerPool_wave_ui(current_wave):
+	if current_wave < 10:
+		$Background/Number.text = \"0%s\" % current_wave
+	else:
+		$Background/Number.text = str(current_wave)
+	$AnimationPlayer.play(\"start_wave\")
+"
+
+[sub_resource type="DynamicFont" id=8]
+size = 84
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 84
+font_data = ExtResource( 9 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "start_wave"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 540, -200 ), Vector2( 540, 0 ), Vector2( 540, 0 ), Vector2( 540, -200 ) ]
+}
 
 [node name="Main" type="Node2D"]
 
@@ -240,6 +277,52 @@ script = SubResource( 7 )
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 2 )]
 
+[node name="Wave" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_top = -200.0
+margin_bottom = -200.0
+script = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Wave"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -300.0
+margin_right = 300.0
+margin_bottom = 200.0
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="CanvasLayer/Wave/Background"]
+margin_right = 600.0
+margin_bottom = 96.0
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
+text = "WAVE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Number" type="Label" parent="CanvasLayer/Wave/Background"]
+margin_top = 66.0
+margin_right = 600.0
+margin_bottom = 200.0
+custom_fonts/font = SubResource( 9 )
+custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
+text = "01"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Wave"]
+anims/start_wave = SubResource( 10 )
+
 [node name="SpawnerPool" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
@@ -281,4 +364,5 @@ autoplay = true
 [connection signal="paused" from="CanvasLayer/PauseMenu" to="CanvasLayer/HBoxContainer/Control" method="_on_PauseMenu_paused"]
 [connection signal="resume" from="CanvasLayer/PauseMenu" to="CanvasLayer/HBoxContainer/Control" method="_on_PauseMenu_resume"]
 [connection signal="add_flame_power" from="SpawnerPool" to="CanvasLayer/HBoxContainer/Control/Control" method="_on_SpawnerPool_add_flame_power"]
+[connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Wave" method="_on_SpawnerPool_wave_ui"]
 [connection signal="win" from="SpawnerPool" to="CanvasLayer/WinLose" method="_on_SpawnerPool_win"]

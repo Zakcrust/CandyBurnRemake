@@ -18,7 +18,7 @@ var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
 var attack_radius : float = 0.7 * detect_radius
 var speed : int = player_kine_stats.speed
-var knockback_speed : float = speed * 10
+var knockback_speed : float = speed * 5
 var velocity : Vector2
 var knockback_direction : Vector2
 var bullet : PackedScene = load("res://Scenes/Projectile/Bullet.tscn")
@@ -27,6 +27,12 @@ var target : KinematicBody2D = null
 var reload : bool = false
 var collosion 
 
+
+var pistol_asset = load("res://Assets/Main Character/Flamepistol/Flamepistol.tres")
+var pistol_pos : Vector2 = Vector2(7, 58)
+
+var flame_thrower_asset = load("res://Assets/Main Character/FlameThrower/Flamethrower.tres")
+var flame_thrower_pos : Vector2 = Vector2(22, 100)
 
 enum {
 	FLAME_PISTOL,
@@ -47,6 +53,16 @@ var weapon_state = FLAME_PISTOL
 func _ready():
 	speed = custom_speed
 	knockback_speed = speed * 3
+	check_state_to_asset()
+
+func check_state_to_asset() -> void:
+	match(weapon_state):
+		FLAME_PISTOL:
+			$Body/Hand/Weapon.texture = pistol_asset
+			$Body/Hand/Weapon.position = pistol_pos
+		FLAMETHROWER:
+			$Body/Hand/Weapon.texture = flame_thrower_asset
+			$Body/Hand/Weapon.position = flame_thrower_pos
 
 
 func set_player_stats(value) -> void:
@@ -82,6 +98,7 @@ func _move_by_controller(delta):
 				var target_pos = position.direction_to(target.position)
 				_face_to_position(target_pos)
 				$Body/Hand.look_at(target.global_position)
+				$Body/Hand.rotation_degrees -= 90
 			collosion = move_and_collide(velocity * speed * delta)
 			position.x = clamp(position.x, -1080 , 2160) #temp
 		HURT:
@@ -132,6 +149,7 @@ func _face_to_position(point : Vector2) -> void:
 
 func _on_Controller_send_shoot():
 	weapon_state = FLAMETHROWER
+	check_state_to_asset()
 
 
 func _on_EnemyDetector_send_enemies(ens):
@@ -239,3 +257,4 @@ func _on_HurtBox_area_entered(area):
 func _on_Control_end_flame_thrower():
 	$Body/Hand/FireCore.stop_flame()
 	weapon_state = FLAME_PISTOL
+	check_state_to_asset()

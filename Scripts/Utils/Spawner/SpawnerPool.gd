@@ -11,6 +11,10 @@ var registered_spawner_state : Array
 
 signal win()
 signal add_flame_power(amount)
+signal wave_ui(current_wave)
+
+func _ready():
+	emit_signal("wave_ui", current_wave_count)
 
 
 func set_current_wave(value) -> void:
@@ -52,6 +56,7 @@ func next_wave() -> void:
 		current_wave_count += 1
 		print("current wave : %s" % current_wave_count)
 		reset_spawners()
+		emit_signal("wave_ui", current_wave_count)
 	else:
 		print("you win")
 		emit_signal("win")
