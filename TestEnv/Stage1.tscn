@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/Pause Menu.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Sounds/general_1.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=9]
 [ext_resource path="res://Assets/UI/Current Wave Polos.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/UI/WinLose.tscn" type="PackedScene" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -22,46 +23,11 @@ func _on_PauseMenu_resume():
 	show()
 "
 
-[sub_resource type="GDScript" id=2]
-script/source = "extends Control
-
-func _on_TryAgain_pressed():
-	get_tree().paused = false
-	get_tree().reload_current_scene()
-
-
-func _on_MainMenu_pressed():
-	get_tree().paused = false
-	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
-
-
-func _on_SpawnerPool_win():
-	$Win.show()
-
-
-func _on_Player_lose():
-	$Lose.show()
-"
-
-[sub_resource type="DynamicFont" id=3]
-size = 144
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 84
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 84
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 size = 72
 font_data = ExtResource( 9 )
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Label
 
 
@@ -69,7 +35,7 @@ func _process(delta):
 	text = \"FPS : %s\" % Engine.get_frames_per_second()
 "
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Control
 
 
@@ -81,15 +47,15 @@ func _on_SpawnerPool_wave_ui(current_wave):
 	$AnimationPlayer.play(\"start_wave\")
 "
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=5]
 size = 84
 font_data = ExtResource( 9 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=6]
 size = 84
 font_data = ExtResource( 9 )
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "start_wave"
 length = 2.0
 tracks/0/type = "value"
@@ -150,115 +116,7 @@ scale = Vector2( 2, 2 )
 z_index = 2
 z_as_relative = false
 
-[node name="WinLose" type="Control" parent="CanvasLayer"]
-pause_mode = 2
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 40.0
-script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Win" type="Control" parent="CanvasLayer/WinLose"]
-visible = false
-margin_left = -520.0
-margin_top = 500.0
-margin_right = -480.0
-margin_bottom = 540.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WinLose/Win"]
-margin_right = 1080.0
-margin_bottom = 486.0
-rect_min_size = Vector2( 1080, 0 )
-custom_constants/separation = 50
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="CanvasLayer/WinLose/Win/VBoxContainer"]
-margin_top = 100.0
-margin_right = 1080.0
-margin_bottom = 245.0
-custom_fonts/font = SubResource( 3 )
-text = "You Win!"
-align = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WinLose/Win/VBoxContainer"]
-margin_top = 295.0
-margin_right = 1080.0
-margin_bottom = 386.0
-custom_constants/separation = 100
-alignment = 1
-
-[node name="TryAgain" type="Button" parent="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer"]
-margin_left = 198.0
-margin_right = 479.0
-margin_bottom = 91.0
-custom_fonts/font = SubResource( 4 )
-text = "Try Again"
-
-[node name="MainMenu" type="Button" parent="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer"]
-margin_left = 579.0
-margin_right = 882.0
-margin_bottom = 91.0
-custom_fonts/font = SubResource( 5 )
-text = "Main Menu"
-
-[node name="Lose" type="Control" parent="CanvasLayer/WinLose"]
-visible = false
-margin_left = -520.0
-margin_top = 500.0
-margin_right = -520.0
-margin_bottom = 540.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WinLose/Lose"]
-margin_right = 1080.0
-margin_bottom = 486.0
-rect_min_size = Vector2( 1080, 0 )
-custom_constants/separation = 50
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="CanvasLayer/WinLose/Lose/VBoxContainer"]
-margin_top = 100.0
-margin_right = 1080.0
-margin_bottom = 245.0
-custom_fonts/font = SubResource( 3 )
-text = "You Lose!"
-align = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/WinLose/Lose/VBoxContainer"]
-margin_top = 295.0
-margin_right = 1080.0
-margin_bottom = 386.0
-custom_constants/separation = 100
-alignment = 1
-
-[node name="TryAgain" type="Button" parent="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer"]
-margin_left = 198.0
-margin_right = 479.0
-margin_bottom = 91.0
-custom_fonts/font = SubResource( 4 )
-text = "Try Again"
-
-[node name="MainMenu" type="Button" parent="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer"]
-margin_left = 579.0
-margin_right = 882.0
-margin_bottom = 91.0
-custom_fonts/font = SubResource( 5 )
-text = "Main Menu"
+[node name="WinLose" parent="CanvasLayer" instance=ExtResource( 11 )]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 margin_right = 120.0
@@ -270,10 +128,10 @@ __meta__ = {
 [node name="FPS" type="Label" parent="CanvasLayer/CenterContainer"]
 margin_right = 120.0
 margin_bottom = 73.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "FPS : "
-script = SubResource( 7 )
+script = SubResource( 3 )
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 2 )]
 
@@ -282,7 +140,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 margin_top = -200.0
 margin_bottom = -200.0
-script = SubResource( 11 )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -301,7 +159,7 @@ __meta__ = {
 [node name="Name" type="Label" parent="CanvasLayer/Wave/Background"]
 margin_right = 600.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
 text = "WAVE"
 align = 1
@@ -314,14 +172,14 @@ __meta__ = {
 margin_top = 66.0
 margin_right = 600.0
 margin_bottom = 200.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
 text = "01"
 align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Wave"]
-anims/start_wave = SubResource( 10 )
+anims/start_wave = SubResource( 7 )
 
 [node name="SpawnerPool" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -357,10 +215,6 @@ autoplay = true
 [connection signal="end_flame_thrower" from="CanvasLayer/HBoxContainer/Control/Control" to="Player" method="_on_Control_end_flame_thrower"]
 [connection signal="send_button_pos" from="CanvasLayer/HBoxContainer/Control/Control" to="Player" method="_on_Controller_send_button_pos"]
 [connection signal="send_shoot" from="CanvasLayer/HBoxContainer/Control/Control" to="Player" method="_on_Controller_send_shoot"]
-[connection signal="pressed" from="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer/TryAgain" to="CanvasLayer/WinLose" method="_on_TryAgain_pressed"]
-[connection signal="pressed" from="CanvasLayer/WinLose/Win/VBoxContainer/HBoxContainer/MainMenu" to="CanvasLayer/WinLose" method="_on_MainMenu_pressed"]
-[connection signal="pressed" from="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer/TryAgain" to="CanvasLayer/WinLose" method="_on_TryAgain_pressed"]
-[connection signal="pressed" from="CanvasLayer/WinLose/Lose/VBoxContainer/HBoxContainer/MainMenu" to="CanvasLayer/WinLose" method="_on_MainMenu_pressed"]
 [connection signal="paused" from="CanvasLayer/PauseMenu" to="CanvasLayer/HBoxContainer/Control" method="_on_PauseMenu_paused"]
 [connection signal="resume" from="CanvasLayer/PauseMenu" to="CanvasLayer/HBoxContainer/Control" method="_on_PauseMenu_resume"]
 [connection signal="add_flame_power" from="SpawnerPool" to="CanvasLayer/HBoxContainer/Control/Control" method="_on_SpawnerPool_add_flame_power"]

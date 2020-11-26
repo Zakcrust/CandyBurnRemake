@@ -241,6 +241,7 @@ func _on_HurtBox_body_entered(body):
 	if body is EnemyProjectile:
 		knockback_direction = body.position.direction_to(position)
 		hurt()
+		body.queue_free()
 
 
 func _on_HurtBox_area_entered(area):
