@@ -14,5 +14,5 @@ func _process(delta):
 	position += transform.x * speed * delta
 
 func _on_Bolt_body_entered(body):
-	if body is Player or TileMap:
+	if body is TileMap:
 		queue_free()

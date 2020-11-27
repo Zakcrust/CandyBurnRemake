@@ -12,10 +12,14 @@ texture = ExtResource( 4 )
 script = ExtResource( 3 )
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
-position = Vector2( 205, -110 )
+position = Vector2( 132, -204 )
 scale = Vector2( 0.2, 0.2 )
 normal = ExtResource( 5 )
 pressed = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="Movement" type="TouchScreenButton" parent="."]
 modulate = Color( 1, 1, 1, 0.784314 )
@@ -26,12 +30,14 @@ script = ExtResource( 2 )
 
 [node name="FlameThrowerBar" type="TextureProgress" parent="."]
 modulate = Color( 1, 1, 1, 0.803922 )
-margin_left = 205.0
-margin_top = -96.39
-margin_right = 405.0
-margin_bottom = -56.39
+margin_left = 132.0
+margin_top = -190.39
+margin_right = 332.0
+margin_bottom = -150.39
 texture_progress = ExtResource( 6 )
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 

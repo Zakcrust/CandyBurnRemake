@@ -28,6 +28,7 @@ var defense : int = 0 setget set_defense, get_defense
 var can_fire : bool = false
 
 func _ready():
+	character_stats = MobStats.new(1,1,0)
 	health  = character_stats.health
 	attack  = character_stats.attack
 	defense = character_stats.defend

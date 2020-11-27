@@ -21,6 +21,7 @@ var attack : int = 0 setget set_attack, get_attack
 var defense : int = 0 setget set_defense, get_defense
 
 func _ready():
+	character_stats = MobStats.new(2,1,0)
 	health  = character_stats.health
 	attack  = character_stats.attack
 	defense = character_stats.defend

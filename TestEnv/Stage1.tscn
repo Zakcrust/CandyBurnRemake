@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/Pause Menu.tscn" type="PackedScene" id=2]
@@ -7,10 +7,11 @@
 [ext_resource path="res://TestEnv/LevelArena.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://TestEnv/Spawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Sounds/general_1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://Sounds/SFX/general_1.ogg" type="AudioStream" id=8]
 [ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=9]
 [ext_resource path="res://Assets/UI/Current Wave Polos.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/UI/WinLose.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -208,9 +209,9 @@ spawner_id = 5
 position = Vector2( 519.578, -264.65 )
 spawner_id = 6
 
-[node name="GameplayMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 8 )
-autoplay = true
+[node name="Sounds" parent="." instance=ExtResource( 12 )]
+music = ExtResource( 8 )
+play_music_on_ready = true
 [connection signal="lose" from="Player" to="CanvasLayer/WinLose" method="_on_Player_lose"]
 [connection signal="end_flame_thrower" from="CanvasLayer/HBoxContainer/Control/Control" to="Player" method="_on_Control_end_flame_thrower"]
 [connection signal="send_button_pos" from="CanvasLayer/HBoxContainer/Control/Control" to="Player" method="_on_Controller_send_button_pos"]

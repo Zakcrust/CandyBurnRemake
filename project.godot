@@ -145,6 +145,10 @@ run/main_scene="res://Scenes/UI/Menu.tscn"
 boot_splash/image="res://icon.png"
 config/icon="res://icon.png"
 
+[autoload]
+
+Settings="*res://Scripts/Singleton/Settings.gd"
+
 [display]
 
 window/size/width=1080

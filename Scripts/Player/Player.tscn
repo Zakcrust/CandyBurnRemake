@@ -78,6 +78,7 @@ position = Vector2( 0, -42 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="Hand" type="Sprite" parent="Body"]
@@ -123,7 +124,7 @@ one_shot = true
 [node name="HurtBox" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
-collision_mask = 2
+collision_mask = 3
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2( 0, -36 )

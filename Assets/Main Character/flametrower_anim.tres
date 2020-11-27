@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/Main Character/Projectile - Flamethrower /Copy of fire1.png" type="Texture" id=4]
 
 [resource]
-flags = 4
 frames = 8
 fps = 15.0
 frame_0/texture = ExtResource( 4 )

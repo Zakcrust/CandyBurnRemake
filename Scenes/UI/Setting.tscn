@@ -10,9 +10,12 @@ signal back_signal()
 
 func _ready():
 	hide()
+	$VBoxContainer/Sfx/SfxSlider.value = Settings.sfx_volume
+	$VBoxContainer/Music/MusicSlider.value = Settings.music_volume
 
 
 func _on_SfxSlider_value_changed(value):
+	Settings.sfx_volume = value
 	if value == -12:
 		mute_music(true)
 	else:
@@ -21,6 +24,7 @@ func _on_SfxSlider_value_changed(value):
 
 
 func _on_MusicSlider_value_changed(value):
+	Settings.music_volume = value
 	if value == -12:
 		mute_music(true)
 	else:
@@ -73,7 +77,7 @@ __meta__ = {
 }
 
 [node name="Sfx" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 816.0
+margin_right = 665.0
 margin_bottom = 100.0
 custom_constants/separation = 150
 
@@ -95,7 +99,7 @@ step = 2.0
 
 [node name="Music" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 120.0
-margin_right = 816.0
+margin_right = 665.0
 margin_bottom = 220.0
 custom_constants/separation = 73
 
@@ -120,12 +124,12 @@ __meta__ = {
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 240.0
-margin_right = 816.0
+margin_right = 665.0
 margin_bottom = 368.0
 
 [node name="Back" type="TextureButton" parent="VBoxContainer/CenterContainer"]
-margin_left = 344.0
-margin_right = 472.0
+margin_left = 268.0
+margin_right = 396.0
 margin_bottom = 128.0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 2 )
