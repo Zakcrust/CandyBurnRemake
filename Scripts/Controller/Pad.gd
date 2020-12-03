@@ -13,8 +13,8 @@ var flamethrower_ready : bool = false
 
 func _ready():
 	global_position.x = 1080/2
-	$Shoot.normal = flame_thrower_empty
-	$Shoot.modulate = Color(1.0,1.0,1.0,0.5)
+#	$Shoot.normal = flame_thrower_empty
+#	$Shoot.modulate = Color(1.0,1.0,1.0,0.5)
 
 func get_pos() -> Vector2:
 	return $GamePad.get_button_pos()
@@ -34,9 +34,9 @@ func _on_Timer_timeout():
 	if $FlameThrowerBar.value <=0:
 		$Timer.stop()
 		emit_signal("end_flame_thrower")
-		$Shoot.normal = flame_thrower_empty
-		$Shoot.modulate = Color(1.0,1.0,1.0,0.5)
-		$Shoot.pressed = flame_thrower_empty
+#		$Shoot.normal = flame_thrower_empty
+#		$Shoot.modulate = Color(1.0,1.0,1.0,0.5)
+#		$Shoot.pressed = flame_thrower_empty
 		flamethrower_ready = false
 
 
@@ -45,10 +45,20 @@ func _on_SpawnerPool_add_flame_power(amount):
 		return
 	if $FlameThrowerBar.value == $FlameThrowerBar.max_value:
 		flamethrower_ready = true
-		$FlameThrowerBar.texture_progress = filled_bar
-		$Shoot.modulate = Color(1.0,1.0,1.0,1.0)
+#		$FlameThrowerBar.texture_progress = filled_bar
+#		$Shoot.modulate = Color(1.0,1.0,1.0,1.0)
 #		$Shoot.normal = flame_thrower_available
 #		$Shoot.pressed = flame_thrower_available
 		return
 	$FlameThrowerBar.value += amount
-	
+
+
+func _on_FlameThrowerBar_gui_input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			if flamethrower_ready:
+				flamethrower_ready = false
+				if $Timer.is_stopped():
+					$Timer.start()
+				emit_signal("send_shoot")
+				

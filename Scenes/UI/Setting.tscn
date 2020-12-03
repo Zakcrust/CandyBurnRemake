@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/UI/Sounds.png" type="Texture" id=1]
 [ext_resource path="res://Assets/UI/Back.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Music.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Slider/Slider button.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Slider/Slider.png" type="Texture" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -17,9 +20,9 @@ func _ready():
 func _on_SfxSlider_value_changed(value):
 	Settings.sfx_volume = value
 	if value == -12:
-		mute_music(true)
+		mute_sfx(true)
 	else:
-		mute_music(false)
+		mute_sfx(false)
 		adjust_volume_sfx(value)
 
 
@@ -48,15 +51,13 @@ func _on_Back_pressed():
 	emit_signal(\"back_signal\")
 "
 
-[sub_resource type="DynamicFont" id=2]
-size = 96
-use_filter = true
-font_data = ExtResource( 1 )
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 400, 20 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 96
-use_filter = true
-font_data = ExtResource( 1 )
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 400, 20 )
 
 [node name="Setting" type="Control"]
 margin_left = 200.0
@@ -64,6 +65,26 @@ margin_top = 1000.0
 margin_right = 200.0
 margin_bottom = 1000.0
 script = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sfx" type="TextureRect" parent="."]
+margin_right = 32.0
+margin_bottom = 100.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="TextureRect" parent="."]
+margin_top = 120.0
+margin_right = 32.0
+margin_bottom = 220.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -77,44 +98,58 @@ __meta__ = {
 }
 
 [node name="Sfx" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 665.0
+margin_right = 582.0
 margin_bottom = 100.0
 custom_constants/separation = 150
 
-[node name="Sfx" type="Label" parent="VBoxContainer/Sfx"]
-margin_top = 1.0
-margin_right = 115.0
-margin_bottom = 98.0
-custom_fonts/font = SubResource( 2 )
-text = "Sfx"
+[node name="Sfx2" type="TextureRect" parent="VBoxContainer/Sfx"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 32.0
+margin_bottom = 100.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="SfxSlider" type="HSlider" parent="VBoxContainer/Sfx"]
-margin_left = 265.0
-margin_right = 665.0
+margin_left = 182.0
+margin_right = 582.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 400, 100 )
+custom_icons/tick = ExtResource( 4 )
+custom_icons/grabber_disabled = ExtResource( 4 )
+custom_icons/grabber_highlight = ExtResource( 4 )
+custom_icons/grabber = ExtResource( 4 )
+custom_styles/slider = SubResource( 2 )
 min_value = -12.0
 max_value = 12.0
 step = 2.0
 
 [node name="Music" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 120.0
-margin_right = 665.0
+margin_right = 582.0
 margin_bottom = 220.0
-custom_constants/separation = 73
+custom_constants/separation = 150
 
-[node name="Music" type="Label" parent="VBoxContainer/Music"]
-margin_top = 1.0
-margin_right = 191.0
-margin_bottom = 98.0
-custom_fonts/font = SubResource( 3 )
-text = "Music"
+[node name="Music2" type="TextureRect" parent="VBoxContainer/Music"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 32.0
+margin_bottom = 100.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MusicSlider" type="HSlider" parent="VBoxContainer/Music"]
-margin_left = 264.0
-margin_right = 664.0
+margin_left = 182.0
+margin_right = 582.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 400, 100 )
+custom_icons/tick = ExtResource( 4 )
+custom_icons/grabber_disabled = ExtResource( 4 )
+custom_icons/grabber_highlight = ExtResource( 4 )
+custom_icons/grabber = ExtResource( 4 )
+custom_styles/slider = SubResource( 3 )
 min_value = -12.0
 max_value = 12.0
 step = 2.0
@@ -124,12 +159,12 @@ __meta__ = {
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 240.0
-margin_right = 665.0
+margin_right = 582.0
 margin_bottom = 368.0
 
 [node name="Back" type="TextureButton" parent="VBoxContainer/CenterContainer"]
-margin_left = 268.0
-margin_right = 396.0
+margin_left = 227.0
+margin_right = 355.0
 margin_bottom = 128.0
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 2 )

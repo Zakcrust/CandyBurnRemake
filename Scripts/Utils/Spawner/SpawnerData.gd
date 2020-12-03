@@ -20,7 +20,7 @@ var TINTING_KACANG = "TINTING KACANG" setget , get_tinting_kacang
 
 var wave_data = {
 	1 : {
-		1 : Wave.new(1,10, GULA_GAIT),
+		1 : Wave.new(1,10, JELLY_KERING),
 		2 : Wave.new(2),
 		3 : Wave.new(3),
 		4 : Wave.new(4),

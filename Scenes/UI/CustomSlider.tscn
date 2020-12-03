@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/UI/Slider/Slider.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Slider/Slider button.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+onready var rect_length : float = $TextureProgress.rect_size.x
+
+export (int) var base_value = 12
+var value : float
+
+signal update_value(value)
+
+
+func _ready():
+	$TextureProgress/TextureRect.rect_position.x = (rect_length/2) - 24
+
+
+func _count_value(current_length : float) -> float:
+	var percentage : float = current_length / rect_length
+	if percentage >0.5:
+		return percentage * 12.0
+	elif percentage < 0.5:
+		return -(1 - percentage) * 12.0 
+	else:
+		return 0.0
+
+
+func _input(event):
+	if event is InputEventScreenDrag or (event is InputEventScreenTouch and event.is_pressed() and event.get_index() == 0):
+		if event.position.x > 0.0 and event.position.x < rect_length:
+			$TextureProgress/TextureRect.rect_position.x = (event.position.x - 24)
+			value = _count_value(event.position.x)
+			value = round(value)
+			emit_signal(\"update_value\", value)
+"
+
+[node name="Slider" type="Control"]
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_right = 400.0
+margin_bottom = 20.0
+value = 100.0
+texture_progress = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="TextureProgress"]
+margin_top = -20.0
+margin_right = 48.0
+margin_bottom = 28.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
