@@ -33,6 +33,13 @@ func _ready():
 	attack  = character_stats.attack
 	defense = character_stats.defend
 	SPEED = DEFAULT_SPEED
+	player = GlobalInstance.player
+	start_pathfinding()
+
+func start_pathfinding():
+	if player != null and state != DEAD:
+		$CheckPath.start()
+		update_path()
 
 
 func set_dead(value) -> void:
@@ -97,8 +104,6 @@ func check_health() -> void:
 		state = DEAD
 		dead = true
 		$Sprite.play("dead")
-		$DetectRadius.monitoring = false
-		$ViewRadius.monitoring = false
 		$AttackRadius.monitoring = false
 		$CheckPath.stop()
 		$ReloadTimer.stop()
@@ -152,21 +157,6 @@ func face_to(pos : Vector2) -> void:
 		$Sprite.scale.x = abs($Sprite.scale.x)
 	else:
 		$Sprite.scale.x = -abs($Sprite.scale.x)
-
-func _on_DetectRadius_body_entered(body):
-	if body is Player and state != DEAD:
-			player = body
-			$CheckPath.start()
-			update_path()
-
-
-func _on_ViewRadius_body_exited(body):
-	if body is Player and state != DEAD:
-		if player == body:
-			player == null
-			set_process(false)
-			state = IDLE
-			$Sprite.play("idle")
 
 
 func _on_CheckPath_timeout():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Enemies/JellyTombak.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Ting-ting-20201022T141235Z-001/Ting-ting/death/tingting-death1.png" type="Texture" id=2]
@@ -33,14 +33,14 @@ animations = [ {
 "name": "dead",
 "speed": 8.0
 }, {
-"frames": [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 9 ) ],
-"loop": false,
-"name": "charge",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "before_charge",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 9 ) ],
+"loop": false,
+"name": "charge",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 17 ), ExtResource( 20 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 19 ) ],
@@ -57,13 +57,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18.2339, 22.409 )
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 1180.28
-
 [sub_resource type="CircleShape2D" id=4]
-radius = 2000.0
-
-[sub_resource type="CircleShape2D" id=5]
 radius = 250.0
 
 [node name="JellyTombak" type="KinematicBody2D"]
@@ -85,18 +79,6 @@ flip_h = true
 position = Vector2( -2.5, -14.5 )
 shape = SubResource( 2 )
 
-[node name="DetectRadius" type="Area2D" parent="."]
-visible = false
-
-[node name="Collider" type="CollisionShape2D" parent="DetectRadius"]
-shape = SubResource( 3 )
-
-[node name="ViewRadius" type="Area2D" parent="."]
-visible = false
-
-[node name="Collider" type="CollisionShape2D" parent="ViewRadius"]
-shape = SubResource( 4 )
-
 [node name="CheckPath" type="Timer" parent="."]
 wait_time = 0.5
 
@@ -104,7 +86,7 @@ wait_time = 0.5
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRadius"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="ChargeTimer" type="Timer" parent="."]
 one_shot = true
@@ -119,7 +101,6 @@ one_shot = true
 
 [node name="Sounds" parent="." instance=ExtResource( 10 )]
 sfx = ExtResource( 8 )
-[connection signal="body_entered" from="DetectRadius" to="." method="_on_DetectRadius_body_entered"]
 [connection signal="timeout" from="CheckPath" to="." method="_on_CheckPath_timeout"]
 [connection signal="body_entered" from="AttackRadius" to="." method="_on_AttackRadius_body_entered"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_ChargeTimer_timeout"]
