@@ -34,6 +34,7 @@ func _ready():
 	charge_speed = SPEED * 5
 	player = GlobalInstance.player
 	start_pathfinding()
+	GlobalInstance.add_enemy(self)
 
 func start_pathfinding():
 	if player != null and state != DEAD:
@@ -98,8 +99,9 @@ func check_health() -> void:
 		$ChargeTimer.stop()
 		$Collider.call_deferred("set_disabled", true)
 		emit_signal("death_sign")
+		GlobalInstance.remove_enemy(self)
 		set_process(false)
-	
+
 
 func update_path() -> void:
 	var path = get_tree().get_root().get_node("Main/Navigation2D").get_simple_path(global_position, player.global_position)

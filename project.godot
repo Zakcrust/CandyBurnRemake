@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Utils/GeneralStats/Base/DefenderStats.gd"
 }, {
 "base": "Area2D",
+"class": "DropItem",
+"language": "GDScript",
+"path": "res://Scripts/Items/DropItem.gd"
+}, {
+"base": "Area2D",
 "class": "Dummy",
 "language": "GDScript",
 "path": "res://TestEnv/Dummy.gd"
@@ -43,6 +48,26 @@ _global_script_classes=[ {
 "class": "EnemyProjectile",
 "language": "GDScript",
 "path": "res://Scenes/Projectile/EnemyProjectile.gd"
+}, {
+"base": "Node",
+"class": "Item",
+"language": "GDScript",
+"path": "res://Scripts/Utils/GeneralStats/Base/Item.gd"
+}, {
+"base": "Node",
+"class": "ItemEffects",
+"language": "GDScript",
+"path": "res://Scripts/Utils/GeneralStats/Base/ItemEffects.gd"
+}, {
+"base": "Node",
+"class": "ItemEvents",
+"language": "GDScript",
+"path": "res://Scripts/Utils/GeneralStats/Base/ItemEvents.gd"
+}, {
+"base": "Node",
+"class": "Items",
+"language": "GDScript",
+"path": "res://Scripts/Utils/GeneralStats/Base/Items.gd"
 }, {
 "base": "Node",
 "class": "KinematicStats",
@@ -117,11 +142,16 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "CharacterType": "",
 "DefenderStats": "",
+"DropItem": "",
 "Dummy": "",
 "Enemy": "",
 "EnemyCharacter": "",
 "EnemyKinematicStats": "",
 "EnemyProjectile": "",
+"Item": "",
+"ItemEffects": "",
+"ItemEvents": "",
+"Items": "",
 "KinematicStats": "",
 "MobStats": "",
 "Player": "",
@@ -200,6 +230,7 @@ quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 quality/intended_usage/framebuffer_allocation.mobile=0
 quality/2d/use_pixel_snap=true
+vram_compression/import_s3tc=false
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

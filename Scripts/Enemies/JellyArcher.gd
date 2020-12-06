@@ -35,6 +35,7 @@ func _ready():
 	SPEED = DEFAULT_SPEED
 	player = GlobalInstance.player
 	start_pathfinding()
+	GlobalInstance.add_enemy(self)
 
 func start_pathfinding():
 	if player != null and state != DEAD:
@@ -109,7 +110,9 @@ func check_health() -> void:
 		$ReloadTimer.stop()
 		$Sprite/Hand.hide()
 		emit_signal("death_sign")
+		GlobalInstance.remove_enemy(self)
 		set_process(false)
+		
 	
 
 func update_path() -> void:

@@ -13,7 +13,7 @@ export (int) var bullet_speed = 300
 
 signal lose()
 
-var health : float = player_stats.health
+var health : float = player_stats.health setget set_health, get_health
 var armour : float = player_stats.armour
 var detect_radius : float = player_kine_stats.detect_radius
 var attack_radius : float = 0.7 * detect_radius
@@ -27,6 +27,16 @@ var target : KinematicBody2D = null
 var reload : bool = false
 var collosion 
 
+
+func set_health(value) -> void:
+	print("health set")
+	health = value
+	if health > player_stats.health:
+		health = player_stats.health
+	$HealthDisplay.update_health_bar(player_stats.health, health)
+
+func get_health() -> float:
+	return health
 
 var pistol_asset = load("res://Assets/Main Character/Flamepistol/Flamepistol.tres")
 var pistol_pos : Vector2 = Vector2(7, 58)
@@ -44,10 +54,19 @@ enum {
 
 var can_shoot : bool  = true
 var state = MOVE
-
-
 var weapon_state = FLAME_PISTOL
 
+### COLLECTIBLES | HARUS DIPINDAH CODENYA | TEMPORARY
+var coin : int = 0
+
+func set_coin(value : int) -> void:
+	coin = value
+
+func get_coin() -> int:
+	return coin
+
+
+#####################################################
 
 
 func _ready():
@@ -55,6 +74,7 @@ func _ready():
 	knockback_speed = speed * 3
 	check_state_to_asset()
 	GlobalInstance.player = self
+	enemies = GlobalInstance.enemies
 
 func check_state_to_asset() -> void:
 	match(weapon_state):
@@ -100,7 +120,7 @@ func _move_by_controller(delta):
 				_face_to_position(target_pos)
 				$Body/Hand.look_at(target.global_position)
 				$Body/Hand.rotation_degrees -= 90
-			collosion = move_and_collide(velocity * speed * delta)
+			collosion = move_and_slide(velocity * speed)
 			position.x = clamp(position.x, -1080 , 2160) #temp
 		HURT:
 			collosion = null
@@ -135,33 +155,13 @@ func knockback(delta : float, direction : Vector2) -> Vector2:
 	return knockback_speed * direction * delta
 
 
-func _on_Controller_send_button_pos(pos):
-	if state == HURT:
-		return
-	velocity = pos
-
-
 func _face_to_position(point : Vector2) -> void:
 	if point.x >= 0:
 		_flip_body(true)
 	else:
 		_flip_body(false)
-
-
-func _on_Controller_send_shoot():
-	weapon_state = FLAMETHROWER
-	check_state_to_asset()
-
-
-func _on_EnemyDetector_send_enemies(ens):
-	enemies = ens
-	print(enemies)
-
-func check_target_state() -> void:
-	for enemy in enemies:
-		if enemy.get_dead():
-			enemies.erase(enemy)
-
+		
+		
 func _find_target() -> KinematicBody2D:
 	var closest_distance : float = -1
 	var closest_target : KinematicBody2D = null
@@ -246,7 +246,6 @@ func _on_HurtBox_body_entered(body):
 
 func _on_HurtBox_area_entered(area):
 	var hitbox_parent = area.get_parent()
-	print(hitbox_parent)
 	if area.get_parent() is Enemy:
 		if area.get_parent().dead:
 			return
@@ -255,8 +254,20 @@ func _on_HurtBox_area_entered(area):
 		hurt()
 		area.queue_free()
 
+func refresh_enemy_pool():
+	enemies = GlobalInstance.enemies
+
 
 func _on_Control_end_flame_thrower():
 	$Body/Hand/FireCore.stop_flame()
 	weapon_state = FLAME_PISTOL
+	check_state_to_asset()
+
+
+func _on_Control_send_button_pos(pos):
+	velocity = pos
+
+
+func _on_Control_send_shoot():
+	weapon_state = FLAMETHROWER
 	check_state_to_asset()

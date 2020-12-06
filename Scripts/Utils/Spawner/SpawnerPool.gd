@@ -15,6 +15,7 @@ signal wave_ui(current_wave)
 
 func _ready():
 	emit_signal("wave_ui", current_wave_count)
+	$PotionSpawners._spawn_potions()
 
 
 func set_current_wave(value) -> void:
@@ -56,6 +57,7 @@ func next_wave() -> void:
 		current_wave_count += 1
 		print("current wave : %s" % current_wave_count)
 		reset_spawners()
+		$PotionSpawners._spawn_potions()
 		emit_signal("wave_ui", current_wave_count)
 	else:
 		print("you win")

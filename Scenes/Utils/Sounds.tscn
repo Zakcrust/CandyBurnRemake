@@ -14,4 +14,3 @@ stream = ExtResource( 2 )
 bus = "Music"
 
 [node name="Sfx" type="AudioStreamPlayer2D" parent="."]
-[connection signal="finished" from="Sfx" to="." method="_on_Sfx_finished"]

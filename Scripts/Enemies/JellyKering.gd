@@ -28,6 +28,7 @@ func _ready():
 	SPEED = custom_speed
 	player = GlobalInstance.player
 	start_pathfinding()
+	GlobalInstance.add_enemy(self)
 
 func start_pathfinding():
 	if player != null and state != DEAD:
@@ -85,6 +86,7 @@ func check_health() -> void:
 		$CheckPath.stop()
 		$Collider.call_deferred("set_disabled", true)
 		emit_signal("death_sign")
+		GlobalInstance.remove_enemy(self)
 		set_process(false)
 	
 

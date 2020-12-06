@@ -33,7 +33,7 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 17.1537, 36.0869 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 16.5202, 38.009 )
 
 [node name="JellyKering" type="KinematicBody2D"]
@@ -46,7 +46,7 @@ script = ExtResource( 2 )
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
 animation = "idle"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -60,7 +60,7 @@ wait_time = 0.5
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="Sounds" parent="." instance=ExtResource( 11 )]
 sfx = ExtResource( 10 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Main Character/idle/idle1.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Assets/Main Character/idle/idle2.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_1.tres" type="Texture" id=5]
 [ext_resource path="res://TestEnv/FireCore.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Utils/EnemyDetector.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Assets/UI/Healthbar/Health Bar Full.png" type="Texture" id=9]
 [ext_resource path="res://Assets/player ded.png" type="Texture" id=10]
@@ -78,7 +77,6 @@ position = Vector2( 0, -42 )
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="Hand" type="Sprite" parent="Body"]
@@ -112,10 +110,6 @@ shape = SubResource( 2 )
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
-[node name="EnemyDetector" parent="." instance=ExtResource( 7 )]
-visible = false
-position = Vector2( 0.840897, 0 )
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -161,7 +155,6 @@ sfx = ExtResource( 15 )
 [node name="ShootSound" parent="." instance=ExtResource( 8 )]
 sfx = ExtResource( 17 )
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
-[connection signal="send_enemies" from="EnemyDetector" to="." method="_on_EnemyDetector_send_enemies"]
 [connection signal="timeout" from="KnockbackTimer" to="." method="_on_KnockbackTimer_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
