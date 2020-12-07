@@ -10,7 +10,8 @@ func consume_item(item : Item) -> void:
 			var current_health = GlobalInstance.player.health
 			GlobalInstance.player.health = current_health + item.POWER
 		item_effect.ENERGY:
-			pass
+			var current_energy = GlobalInstance.player.energy
+			GlobalInstance.player.energy = current_energy + item.POWER
 		item_effect.HEAL_PERCENTAGE:
 			var current_health = GlobalInstance.player.health
 			var heal_power = GlobalInstance.player.player_stats.health * item.POWER

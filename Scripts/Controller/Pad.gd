@@ -30,7 +30,8 @@ func _on_Shoot_pressed():
 
 
 func _on_Timer_timeout():
-	$FlameThrowerBar.value -= 1
+	GlobalInstance.player.energy = GlobalInstance.player.energy - 1
+	print(GlobalInstance.player.energy)
 	if $FlameThrowerBar.value <=0:
 		$Timer.stop()
 		emit_signal("end_flame_thrower")
@@ -45,10 +46,6 @@ func _on_SpawnerPool_add_flame_power(amount):
 		return
 	if $FlameThrowerBar.value == $FlameThrowerBar.max_value:
 		flamethrower_ready = true
-#		$FlameThrowerBar.texture_progress = filled_bar
-#		$Shoot.modulate = Color(1.0,1.0,1.0,1.0)
-#		$Shoot.normal = flame_thrower_available
-#		$Shoot.pressed = flame_thrower_available
 		return
 	$FlameThrowerBar.value += amount
 
@@ -62,3 +59,14 @@ func _on_FlameThrowerBar_gui_input(event):
 					$Timer.start()
 				emit_signal("send_shoot")
 				
+
+
+func _on_Player_set_energy_max_ui(value):
+	$FlameThrowerBar.max_value = value
+
+
+func _on_Player_set_energy_bar_ui(value):
+	if $FlameThrowerBar.value == $FlameThrowerBar.max_value and not flamethrower_ready:
+		flamethrower_ready = true
+		return
+	$FlameThrowerBar.value = value

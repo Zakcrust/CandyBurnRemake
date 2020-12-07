@@ -81,6 +81,7 @@ func spawn() -> void:
 	if running_instance < max_running_instance and spawn_count <= maximum_spawn:
 		var enemy_instance = chosen_enemy.instance()
 		enemy_instance.connect("death_sign", self , "kill_notifier")
+		enemy_instance.connect("set_coin_ui", self, "_set_coin_ui")
 		enemy_instance.position.x = global_position.x + rand.randi_range(-spawn_radius, spawn_radius)
 		enemy_instance.position.y = global_position.y + rand.randi_range(-spawn_radius, spawn_radius)
 		get_parent().add_child(enemy_instance)
@@ -103,8 +104,13 @@ func check_spawn_state() -> void:
 func get_running_instance() -> int:
 	return running_instance
 
+
 func kill_notifier() -> void:
-	get_parent().emit_signal("add_flame_power", 10)
+	if GlobalInstance.player.weapon_state != GlobalInstance.player.FLAMETHROWER:
+		GlobalInstance.player.energy = GlobalInstance.player.energy + 10
+	var current_coin = GlobalInstance.player.coin
+	GlobalInstance.player.coin = current_coin + 1
+	#get_parent().emit_signal("add_flame_power", 10)
 	running_instance -= 1
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)

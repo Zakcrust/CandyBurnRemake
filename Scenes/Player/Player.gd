@@ -3,7 +3,7 @@ extends KinematicBody2D
 class_name Player
 
 var character_type : CharacterType = PlayerCharacter.new() setget , get_character_type
-var player_stats : Stats = PlayerStats.new(5,5) setget set_player_stats, get_player_stats # (health_point, armour_point) 
+var player_stats : Stats = PlayerStats.new(5,5,100) setget set_player_stats, get_player_stats # (health_point, armour_point) 
 var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(1024, 400) #(detect_radius, speed)
 
 ##### DEBUG #####
@@ -12,9 +12,13 @@ export (int) var bullet_speed = 300
 #################
 
 signal lose()
+signal set_energy_max_ui(value)
+signal set_energy_bar_ui(value)
+signal set_coin_ui(value)
 
 var health : float = player_stats.health setget set_health, get_health
 var armour : float = player_stats.armour
+var energy : float = 0 setget set_energy, get_energy
 var detect_radius : float = player_kine_stats.detect_radius
 var attack_radius : float = 0.7 * detect_radius
 var speed : int = player_kine_stats.speed
@@ -38,6 +42,18 @@ func set_health(value) -> void:
 func get_health() -> float:
 	return health
 
+func set_energy(value : float) -> void:
+	energy = value
+	if energy > 100:
+		energy = 100
+	elif energy < 0:
+		energy = 0
+		$Body/Hand/FireCore.stop_flame()
+	emit_signal("set_energy_bar_ui", energy)
+
+func get_energy() -> float:
+	return energy
+
 var pistol_asset = load("res://Assets/Main Character/Flamepistol/Flamepistol.tres")
 var pistol_pos : Vector2 = Vector2(7, 58)
 
@@ -57,10 +73,11 @@ var state = MOVE
 var weapon_state = FLAME_PISTOL
 
 ### COLLECTIBLES | HARUS DIPINDAH CODENYA | TEMPORARY
-var coin : int = 0
+var coin : int = 0 setget set_coin, get_coin
 
 func set_coin(value : int) -> void:
 	coin = value
+	emit_signal("set_coin_ui", coin)
 
 func get_coin() -> int:
 	return coin
@@ -75,6 +92,7 @@ func _ready():
 	check_state_to_asset()
 	GlobalInstance.player = self
 	enemies = GlobalInstance.enemies
+	emit_signal("set_energy_max_ui", player_stats.energy)
 
 func check_state_to_asset() -> void:
 	match(weapon_state):
@@ -193,7 +211,7 @@ func _idle_fire():
 		FLAME_PISTOL:
 			_fire_pistol()
 		FLAMETHROWER:
-			flame_fire_up()
+			pass
 	
 
 func _fire_pistol() -> void:
@@ -215,13 +233,8 @@ func _flip_body(cond : bool):
 		$Body.scale.x = -abs($Body.scale.x)
 
 func flame_fire_up() -> void:
-#	if velocity == Vector2():
-	if target != null:
-		$Body/Hand/FireCore.start_flame()
-	else:
-		$Body/Hand/FireCore.stop_flame()
-#	else:
-#		$Body/Hand/FireCore.stop_flame()
+	$Body/Hand/FireCore.start_flame()
+
 
 
 func _on_ReloadTimer_timeout():
@@ -271,3 +284,4 @@ func _on_Control_send_button_pos(pos):
 func _on_Control_send_shoot():
 	weapon_state = FLAMETHROWER
 	check_state_to_asset()
+	flame_fire_up()

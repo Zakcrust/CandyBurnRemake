@@ -106,6 +106,7 @@ func check_health() -> void:
 		dead = true
 		$Sprite.play("dead")
 		$AttackRadius.monitoring = false
+		$AttackRadius.hide()
 		$CheckPath.stop()
 		$ReloadTimer.stop()
 		$Sprite/Hand.hide()

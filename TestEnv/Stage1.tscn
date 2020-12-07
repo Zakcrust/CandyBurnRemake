@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/Pause Menu.tscn" type="PackedScene" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Scenes/Items/HealCandy.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Assets/UI/Coin.tres" type="Texture" id=15]
 [ext_resource path="res://Scripts/Utils/PotionSpawners.gd" type="Script" id=16]
+[ext_resource path="res://Scenes/Items/FuelCandy.tscn" type="PackedScene" id=17]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -125,14 +126,21 @@ tracks/0/keys = {
 "values": [ Vector2( 540, -200 ), Vector2( 540, 0 ), Vector2( 540, 0 ), Vector2( 540, -200 ) ]
 }
 
-[sub_resource type="GDScript" id=11]
+[sub_resource type="GDScript" id=10]
 script/source = "extends Control
+
+func _ready():
+	set_coin_value(GlobalInstance.coin)
 
 func set_coin_value(value : int) -> void:
 	$HBoxContainer/Label.text = str(value)
+
+
+func _on_Player_set_coin_ui(value):
+	set_coin_value(value)
 "
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 72
 font_data = ExtResource( 9 )
 
@@ -198,6 +206,21 @@ item_to_spawn = ExtResource( 14 )
 position = Vector2( -343.203, 1004.79 )
 script = ExtResource( 13 )
 item_to_spawn = ExtResource( 14 )
+
+[node name="FuelSpawn2" type="Position2D" parent="SpawnerPool/PotionSpawners"]
+position = Vector2( -351.651, -436.837 )
+script = ExtResource( 13 )
+item_to_spawn = ExtResource( 17 )
+
+[node name="FuelSpawn" type="Position2D" parent="SpawnerPool/PotionSpawners"]
+position = Vector2( -356.99, 2942.98 )
+script = ExtResource( 13 )
+item_to_spawn = ExtResource( 17 )
+
+[node name="FuelSpawn3" type="Position2D" parent="SpawnerPool/PotionSpawners"]
+position = Vector2( 1382.94, 999.451 )
+script = ExtResource( 13 )
+item_to_spawn = ExtResource( 17 )
 
 [node name="PotionSpawn3" type="Position2D" parent="SpawnerPool/PotionSpawners"]
 position = Vector2( 1570.97, -467.652 )
@@ -302,7 +325,7 @@ margin_left = 40.0
 margin_top = 80.0
 margin_right = 80.0
 margin_bottom = 120.0
-script = SubResource( 11 )
+script = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -324,13 +347,16 @@ texture = ExtResource( 15 )
 margin_left = 92.0
 margin_right = 121.0
 margin_bottom = 73.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "0"
 align = 1
 valign = 1
 
 [node name="PerformanceTest" type="Node" parent="."]
 [connection signal="lose" from="Player" to="CanvasLayer/WinLose" method="_on_Player_lose"]
+[connection signal="set_coin_ui" from="Player" to="CanvasLayer/CoinCounter" method="_on_Player_set_coin_ui"]
+[connection signal="set_energy_bar_ui" from="Player" to="CanvasLayer/HBoxContainer/Control/Control" method="_on_Player_set_energy_bar_ui"]
+[connection signal="set_energy_max_ui" from="Player" to="CanvasLayer/HBoxContainer/Control/Control" method="_on_Player_set_energy_max_ui"]
 [connection signal="add_flame_power" from="SpawnerPool" to="CanvasLayer/HBoxContainer/Control/Control" method="_on_SpawnerPool_add_flame_power"]
 [connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Wave" method="_on_SpawnerPool_wave_ui"]
 [connection signal="win" from="SpawnerPool" to="CanvasLayer/WinLose" method="_on_SpawnerPool_win"]

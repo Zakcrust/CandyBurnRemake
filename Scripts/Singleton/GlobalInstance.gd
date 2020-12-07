@@ -2,6 +2,8 @@ extends Node
 
 var player : Player setget set_player, get_player
 var enemies : Array setget , get_enemies
+var coin : int = 0 setget set_coin , get_coin
+
 
 
 
@@ -21,3 +23,9 @@ func remove_enemy(value : Enemy):
 
 func get_enemies() -> Array:
 	return enemies
+
+func set_coin(value : int) -> void:
+	coin = value
+
+func get_coin() -> int:
+	return coin

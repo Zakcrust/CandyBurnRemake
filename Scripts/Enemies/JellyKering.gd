@@ -11,6 +11,7 @@ export (int) var custom_speed = 200
 
 signal death_sign()
 
+
 var state = IDLE setget , get_state
 var SPEED : int = 200 
 var paths : PoolVector2Array
