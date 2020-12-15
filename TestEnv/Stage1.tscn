@@ -208,7 +208,7 @@ script = ExtResource( 13 )
 item_to_spawn = ExtResource( 14 )
 
 [node name="FuelSpawn2" type="Position2D" parent="SpawnerPool/PotionSpawners"]
-position = Vector2( -351.651, -436.837 )
+position = Vector2( -550.83, -716.535 )
 script = ExtResource( 13 )
 item_to_spawn = ExtResource( 17 )
 
@@ -223,7 +223,7 @@ script = ExtResource( 13 )
 item_to_spawn = ExtResource( 17 )
 
 [node name="PotionSpawn3" type="Position2D" parent="SpawnerPool/PotionSpawners"]
-position = Vector2( 1570.97, -467.652 )
+position = Vector2( 1579.45, -704.972 )
 script = ExtResource( 13 )
 item_to_spawn = ExtResource( 14 )
 

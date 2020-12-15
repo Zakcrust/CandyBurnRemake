@@ -2,7 +2,7 @@ extends DropItem
 
 var item_events : ItemEvents = ItemEvents.new()
 
-func _init().(Items.new().HEALTH_PERCENTAGE_BOOST):
+func _init().(Items.new().HEALTH_BOOST):
 	pass
 
 func _on_HealCandy_body_entered(body):

@@ -81,7 +81,6 @@ func spawn() -> void:
 	if running_instance < max_running_instance and spawn_count <= maximum_spawn:
 		var enemy_instance = chosen_enemy.instance()
 		enemy_instance.connect("death_sign", self , "kill_notifier")
-		enemy_instance.connect("set_coin_ui", self, "_set_coin_ui")
 		enemy_instance.position.x = global_position.x + rand.randi_range(-spawn_radius, spawn_radius)
 		enemy_instance.position.y = global_position.y + rand.randi_range(-spawn_radius, spawn_radius)
 		get_parent().add_child(enemy_instance)
