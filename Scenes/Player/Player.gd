@@ -87,6 +87,7 @@ func get_coin() -> int:
 
 
 func _ready():
+	GlobalInstance.enemies = []
 	speed = custom_speed
 	knockback_speed = speed * 3
 	check_state_to_asset()
