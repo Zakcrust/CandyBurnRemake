@@ -180,7 +180,7 @@ func hurt() -> void:
 		return
 	if state == HURT:
 #		$HurtBox.monitoring = false
-		$obj.call_deferred("set_monitoring", false)
+		$HurtBox.call_deferred("set_monitoring", false)
 		return
 	state = HURT
 	$KnockbackTimer.start()
