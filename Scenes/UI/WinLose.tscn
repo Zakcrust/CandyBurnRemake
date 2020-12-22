@@ -1,9 +1,13 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/UI/You win.png" type="Texture" id=1]
-[ext_resource path="res://Assets/UI/Try Again.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/Main Menu.png" type="Texture" id=3]
-[ext_resource path="res://Assets/UI/You lose 1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Youwin.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/TryAgain.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/MainMenu.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Youlose1.png" type="Texture" id=4]
+
+
+
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control

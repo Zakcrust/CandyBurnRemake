@@ -1,11 +1,16 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Controller/Move Analog Inner.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Controller/MoveAnalogInner.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Controller/GamePad.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/Controller/Pad.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Controller/Move Analog Outer.png" type="Texture" id=4]
-[ext_resource path="res://Assets/UI/Skills (Flamethrower)/Skills Fill.png" type="Texture" id=6]
-[ext_resource path="res://Assets/UI/Skills (Flamethrower)/Skills logo.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Controller/MoveAnalogOuter.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/Skills(Flamethrower)/SkillsFill.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Skills(Flamethrower)/Skillslogo.png" type="Texture" id=7]
+
+
+
+
+
 
 [node name="Gamepad" type="Sprite"]
 texture = ExtResource( 4 )

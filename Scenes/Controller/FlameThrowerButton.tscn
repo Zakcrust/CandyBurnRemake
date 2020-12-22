@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Assets/Main Character/flametrower_anim.tres" type="Texture" id=1]
+[ext_resource path="res://Assets/MainCharacter/flametrower_anim.tres" type="Texture" id=1]
+
 
 [node name="Shoot" type="TouchScreenButton"]
 position = Vector2( 205, -110 )

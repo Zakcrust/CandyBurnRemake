@@ -5,9 +5,9 @@
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/UI/Setting.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Assets/UI/Start Button.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/StartButton.png" type="Texture" id=6]
 [ext_resource path="res://Assets/UI/Credits.png" type="Texture" id=7]
-[ext_resource path="res://Assets/UI/Settings tipis.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/Settingstipis.png" type="Texture" id=8]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control

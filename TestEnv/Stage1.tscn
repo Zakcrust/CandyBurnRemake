@@ -1,15 +1,15 @@
 [gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://TestEnv/Camera2D.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/UI/Pause Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/UI/PauseMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Utils/Spawner/SpawnerPool.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Controller/GamePad.tscn" type="PackedScene" id=4]
 [ext_resource path="res://TestEnv/LevelArena.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://TestEnv/Spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sounds/SFX/general_1.ogg" type="AudioStream" id=8]
-[ext_resource path="res://Fonts/Header - dinrundschriftmittel.otf" type="DynamicFontData" id=9]
-[ext_resource path="res://Assets/UI/Current Wave Polos.png" type="Texture" id=10]
+[ext_resource path="res://Fonts/Header-dinrundschriftmittel.otf" type="DynamicFontData" id=9]
+[ext_resource path="res://Assets/UI/CurrentWavePolos.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/UI/WinLose.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scripts/Utils/PotionSpawn.gd" type="Script" id=13]
@@ -17,6 +17,9 @@
 [ext_resource path="res://Assets/UI/Coin.tres" type="Texture" id=15]
 [ext_resource path="res://Scripts/Utils/PotionSpawners.gd" type="Script" id=16]
 [ext_resource path="res://Scenes/Items/FuelCandy.tscn" type="PackedScene" id=17]
+
+
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control

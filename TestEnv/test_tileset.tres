@@ -3,10 +3,14 @@
 [ext_resource path="res://Assets/Spritesheet/spritesheet_tiles.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tilesheet/tilesheet_complete_2X.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Spritesheet/grass_1.tres" type="Texture" id=3]
-[ext_resource path="res://Assets/Spritesheet/file lintasan.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Spritesheet/filelintasan.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Tilesheet/taman.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Tilesheet/file lintasan (1).png" type="Texture" id=6]
-[ext_resource path="res://Assets/Spritesheet/pavling biru 3x3_1.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Tilesheet/filelintasan(1).png" type="Texture" id=6]
+[ext_resource path="res://Assets/Spritesheet/pavlingbiru3x3_1.png" type="Texture" id=7]
+
+
+
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )

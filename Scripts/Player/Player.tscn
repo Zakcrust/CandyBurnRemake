@@ -1,22 +1,27 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Main Character/idle/idle1.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Main Character/Projectile - Flamethrower /hand.tres" type="Texture" id=3]
-[ext_resource path="res://Assets/Main Character/idle/idle2.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_1.tres" type="Texture" id=5]
+[ext_resource path="res://Assets/MainCharacter/idle/idle1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/MainCharacter/Projectile-Flamethrower/hand.tres" type="Texture" id=3]
+[ext_resource path="res://Assets/MainCharacter/idle/idle2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/MainCharacter/walk/AltasTexture/walk_1.tres" type="Texture" id=5]
 [ext_resource path="res://TestEnv/FireCore.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Assets/UI/Healthbar/Health Bar Full.png" type="Texture" id=9]
-[ext_resource path="res://Assets/player ded.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_2.tres" type="Texture" id=11]
-[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_0.tres" type="Texture" id=12]
-[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_4.tres" type="Texture" id=13]
-[ext_resource path="res://Assets/Main Character/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
+[ext_resource path="res://Assets/UI/Healthbar/HealthBarFull.png" type="Texture" id=9]
+[ext_resource path="res://Assets/playerded.png" type="Texture" id=10]
+[ext_resource path="res://Assets/MainCharacter/walk/AltasTexture/walk_2.tres" type="Texture" id=11]
+[ext_resource path="res://Assets/MainCharacter/walk/AltasTexture/walk_0.tres" type="Texture" id=12]
+[ext_resource path="res://Assets/MainCharacter/walk/AltasTexture/walk_4.tres" type="Texture" id=13]
+[ext_resource path="res://Assets/MainCharacter/walk/AltasTexture/walk_3.tres" type="Texture" id=14]
 [ext_resource path="res://Sounds/SFX/player_hit.wav" type="AudioStream" id=15]
-[ext_resource path="res://Assets/UI/Healthbar/Health Bar Outline.png" type="Texture" id=16]
+[ext_resource path="res://Assets/UI/Healthbar/HealthBarOutline.png" type="Texture" id=16]
 [ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=17]
-[ext_resource path="res://Assets/Main Character/FlameThrower/Flamethrower.tres" type="Texture" id=18]
+[ext_resource path="res://Assets/MainCharacter/FlameThrower/Flamethrower.tres" type="Texture" id=18]
+
+
+
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
