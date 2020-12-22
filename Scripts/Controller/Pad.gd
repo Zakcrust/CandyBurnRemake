@@ -4,8 +4,8 @@ signal send_button_pos(pos)
 signal send_shoot()
 signal end_flame_thrower()
 
-var flame_thrower_available = load("res://Assets/Main Character/flametrower_anim.tres")
-var flame_thrower_empty = load("res://Assets/Main Character/walk/fire4.png")
+var flame_thrower_available = load("res://Assets/MainCharacter/flametrower_anim.tres")
+var flame_thrower_empty = load("res://Assets/MainCharacter/walk/fire4.png")
 
 var filling_bar = load("res://Assets/PNG/HealthBar/barHorizontal_yellow.png")
 var filled_bar = load("res://Assets/PNG/HealthBar/barHorizontal_green.png")

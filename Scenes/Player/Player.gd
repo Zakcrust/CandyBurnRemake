@@ -54,10 +54,10 @@ func set_energy(value : float) -> void:
 func get_energy() -> float:
 	return energy
 
-var pistol_asset = load("res://Assets/Main Character/Flamepistol/Flamepistol.tres")
+var pistol_asset = load("res://Assets/MainCharacter/Flamepistol/Flamepistol.tres")
 var pistol_pos : Vector2 = Vector2(7, 58)
 
-var flame_thrower_asset = load("res://Assets/Main Character/FlameThrower/Flamethrower.tres")
+var flame_thrower_asset = load("res://Assets/MainCharacter/FlameThrower/Flamethrower.tres")
 var flame_thrower_pos : Vector2 = Vector2(22, 100)
 
 enum {
@@ -178,7 +178,8 @@ func hurt() -> void:
 		get_tree().paused = true
 		return
 	if state == HURT:
-		$HurtBox.monitoring = false
+#		$HurtBox.monitoring = false
+		$obj.call_deferred("set_monitoring", false)
 		return
 	state = HURT
 	$KnockbackTimer.start()
