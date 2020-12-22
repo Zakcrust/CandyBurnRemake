@@ -307,7 +307,6 @@ texture = ExtResource( 5 )
 [node name="FireBurstParticles2D" type="Particles2D" parent="."]
 modulate = Color( 1.2, 1.2, 1.2, 0.596078 )
 scale = Vector2( 0.5, 0.5 )
-emitting = false
 amount = 64
 lifetime = 0.5
 one_shot = true

@@ -118,12 +118,27 @@ func get_character_type() -> CharacterType:
 
 func _process(delta):
 	if state != DEAD:
+		_move_by_keyboard()
 		_move_by_controller(delta)
 		target = _find_target()
 		_idle_fire()
 
 func _look_at_mouse() -> void:
 	look_at(get_global_mouse_position())
+
+
+func _move_by_keyboard():
+	velocity = Vector2()
+	if Input.is_action_pressed("move_left"):
+		velocity += Vector2.LEFT
+	if Input.is_action_pressed("move_right"):
+		velocity += Vector2.RIGHT
+	if Input.is_action_pressed("move_up"):
+		velocity += Vector2.UP
+	if Input.is_action_pressed("move_down"):
+		velocity += Vector2.DOWN
+	velocity = velocity.normalized()
+	
 
 func _move_by_controller(delta):
 	match(state):

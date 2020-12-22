@@ -80,6 +80,11 @@ _global_script_classes=[ {
 "path": "res://Scripts/Utils/GeneralStats/Base/MobStats.gd"
 }, {
 "base": "KinematicBody2D",
+"class": "PermenKacamata",
+"language": "GDScript",
+"path": "res://Scripts/Enemies/Boss/PermenKacamata/PermenKacamata.gd"
+}, {
+"base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scenes/Player/Player.gd"
@@ -129,6 +134,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Utils/Spawner/SpawnerType.gd"
 }, {
+"base": "Node2D",
+"class": "State",
+"language": "GDScript",
+"path": "res://Scripts/Utils/State.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://Scripts/Utils/StateMachine.gd"
+}, {
 "base": "Node",
 "class": "Stats",
 "language": "GDScript",
@@ -154,6 +169,7 @@ _global_script_class_icons={
 "Items": "",
 "KinematicStats": "",
 "MobStats": "",
+"PermenKacamata": "",
 "Player": "",
 "PlayerCharacter": "",
 "PlayerKinematicStats": "",
@@ -164,6 +180,8 @@ _global_script_class_icons={
 "SpawnerData": "",
 "SpawnerState": "",
 "SpawnerType": "",
+"State": "",
+"StateMachine": "",
 "Stats": "",
 "Wave": ""
 }
