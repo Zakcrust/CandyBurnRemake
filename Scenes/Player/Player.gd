@@ -118,7 +118,7 @@ func get_character_type() -> CharacterType:
 
 func _process(delta):
 	if state != DEAD:
-		_move_by_keyboard()
+#		_move_by_keyboard()
 		_move_by_controller(delta)
 		target = _find_target()
 		_idle_fire()
