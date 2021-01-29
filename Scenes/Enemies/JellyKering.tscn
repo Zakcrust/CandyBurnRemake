@@ -12,8 +12,6 @@
 [ext_resource path="res://Sounds/SFX/enemy_hit_1.wav" type="AudioStream" id=10]
 [ext_resource path="res://Scenes/Utils/Sounds.tscn" type="PackedScene" id=11]
 
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 5 ), ExtResource( 7 ) ],

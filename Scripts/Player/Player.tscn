@@ -18,11 +18,6 @@
 [ext_resource path="res://Sounds/SFX/player_shoot.wav" type="AudioStream" id=17]
 [ext_resource path="res://Assets/MainCharacter/FlameThrower/Flamethrower.tres" type="Texture" id=18]
 
-
-
-
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ) ],

@@ -27,7 +27,7 @@ func start_pathfinding():
 		path_find()
 
 func path_find() -> void:
-	var path = get_tree().get_root().get_node("Main/Navigation2D").get_simple_path(object.global_position, get_parent().player.position)
+	path = get_tree().get_root().get_node("Main/Navigation2D").get_simple_path(object.global_position, get_parent().player.position)
 	if path != null:
 		set_paths(path)
 

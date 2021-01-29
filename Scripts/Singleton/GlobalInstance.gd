@@ -1,16 +1,16 @@
 extends Node
 
-var player : Player setget set_player, get_player
-var enemies : Array setget , get_enemies
+var player : Character setget set_player, get_player
+var enemies : Array = [] setget , get_enemies
 var coin : int = 0 setget set_coin , get_coin
 
 
 
 
-func set_player(value : Player):
+func set_player(value : Character):
 	player = value
 
-func get_player() -> Player:
+func get_player() -> Character:
 	return player
 
 func add_enemy(value : Enemy):

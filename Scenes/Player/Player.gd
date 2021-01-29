@@ -9,6 +9,8 @@ var player_kine_stats : PlayerKinematicStats = PlayerKinematicStats.new(1024, 40
 ##### DEBUG #####
 export (int) var custom_speed = 400
 export (int) var bullet_speed = 300
+export (bool) var DEBUG = false
+
 #################
 
 signal lose()

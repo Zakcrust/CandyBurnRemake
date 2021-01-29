@@ -1,9 +1,11 @@
-extends Node2D
+extends Node
 
-var fsm: StateMachine
+var fsm: PlayerStateMachine
+
+func enter() -> void:
+	pass
 
 func next(next_state):
-	get_tree()
 	fsm.change_to(next_state)
 
 func exit():

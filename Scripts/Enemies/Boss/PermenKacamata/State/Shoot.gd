@@ -8,7 +8,6 @@ var shoot_wave : int = 3
 var current_shoot_wave : int = 0
 
 func next(next_state):
-	get_tree()
 	fsm.change_to(next_state)
 
 func exit():
