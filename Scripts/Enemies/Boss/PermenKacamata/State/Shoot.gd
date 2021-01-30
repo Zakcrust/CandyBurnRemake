@@ -1,6 +1,5 @@
 extends Node
 
-var object : KinematicBody2D
 var bullet : PackedScene = load("res://Scenes/Projectile/BossBullet.tscn")
 var fsm: StateMachine
 
@@ -14,8 +13,7 @@ func exit():
 	fsm.back()
 
 
-func enter(obj : KinematicBody2D) -> void:
-	object = obj
+func enter() -> void:
 	print("Current state : %s" % self.name)
 	shoot()
 
@@ -23,7 +21,7 @@ func shoot():
 	current_shoot_wave += 1
 	var pattern : Array = eight_direction_shoot()
 	for obj in pattern:
-		object.emit_signal("send_bullet", obj)
+		fsm.obj.emit_signal("send_bullet", obj)
 	$ShootTimer.start()
 
 func eight_direction_shoot() -> Array:
@@ -42,7 +40,7 @@ func eight_direction_shoot() -> Array:
 
 func instance_bullet(direction : Vector2) -> Node2D:
 	var bullet_instance = bullet.instance()
-	bullet_instance.position = object.global_position
+	bullet_instance.position = fsm.obj.global_position
 	bullet_instance.direction = direction
 	return bullet_instance
 

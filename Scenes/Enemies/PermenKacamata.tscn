@@ -15,6 +15,7 @@
 extents = Vector2( 30.0321, 30.0006 )
 
 [node name="PermenKacamata" type="KinematicBody2D"]
+scale = Vector2( 2, 2 )
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,8 +24,6 @@ script = ExtResource( 6 )
 
 [node name="State" type="Node" parent="."]
 script = ExtResource( 2 )
-obj = NodePath("..")
-sprite = NodePath("../Sprite")
 
 [node name="Move" type="Node" parent="State"]
 script = ExtResource( 4 )
@@ -41,6 +40,8 @@ script = ExtResource( 3 )
 [node name="Summon" type="Node" parent="State"]
 script = ExtResource( 5 )
 
+[node name="Tween" type="Tween" parent="State/Summon"]
+
 [node name="Stun" type="Node" parent="State"]
 script = ExtResource( 8 )
 
@@ -55,6 +56,10 @@ script = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -1 )
 shape = SubResource( 1 )
+
+[node name="SummoningPoints" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="SummoningPoints"]
 [connection signal="timeout" from="State/Move/PathTimer" to="State/Move" method="_on_PathTimer_timeout"]
 [connection signal="timeout" from="State/Move/StateTimer" to="State/Move" method="_on_StateTimer_timeout"]
 [connection signal="timeout" from="State/Shoot/ShootTimer" to="State/Shoot" method="_on_ShootTimer_timeout"]

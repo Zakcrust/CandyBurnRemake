@@ -6,11 +6,11 @@ const DEBUG = true
 
 var state: Object
 
-export (NodePath) var obj
-export (NodePath) var sprite
+onready var obj : KinematicBody2D = get_parent()
+onready var sprite_node = get_parent().get_node("Sprite")
 
 var player
-onready var sprite_node = get_node(sprite)
+
 
 var history = []
 
@@ -35,7 +35,7 @@ func _enter_state():
 		print("Entering state: ", state.name)
 	# Give the new state a reference to this state machine script
 	state.fsm = self
-	state.enter(get_node(obj))
+	state.enter()
 
 # Route Game Loop function calls to
 # current state handler method if it exists

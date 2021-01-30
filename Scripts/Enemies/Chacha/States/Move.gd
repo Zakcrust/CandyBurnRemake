@@ -1,9 +1,9 @@
 extends Node
 
 var fsm: StateMachine
-var path
-var paths
-var state_duration : float
+var path : PoolVector2Array
+var paths : PoolVector2Array
+
 
 func next(next_state):
 	fsm.change_to(next_state)
@@ -12,17 +12,12 @@ func exit():
 	fsm.back()
 
 func enter() -> void:
-	randomize()
-	print("Current state : %s" % self.name)
-	get_parent().sprite_node.animate("move")
-	start_pathfinding()
-	state_duration = randi() % 1 + 2
-	$StateTimer.wait_time = state_duration
-	$StateTimer.start()
+	set_process(false)
 
 func start_pathfinding():
 	if get_parent().player != null:
 		path_find()
+		set_process(true)
 
 func path_find() -> void:
 	path = get_tree().get_root().get_node("Main/Navigation2D").get_simple_path(fsm.obj.global_position, get_parent().player.position)
@@ -53,7 +48,7 @@ func move_along_path(distance : float) -> void:
 		paths.remove(0)
 
 func action(delta):
-	var move_distance = fsm.obj.SPEED * delta
+	var move_distance = fsm.obj.current_stats.speed * delta
 	face_to(get_parent().player.position)
 	move_along_path(move_distance)
 
@@ -70,26 +65,8 @@ func process(_delta):
 func physics_process(_delta):
 	pass
 
+func _move(delta) -> void:
+	pass
+
 func input(_event):
 	pass
-
-func unhandled_input(_event):
-	pass
-
-func unhandled_key_input(_event):
-	pass
-
-func notification(_what, _flag = false):
-	pass
-
-func _on_PathTimer_timeout():
-	path_find()
-
-
-func _on_StateTimer_timeout():
-	var roll = randi() % 20 + 1
-	if roll > 10:
-		next("Shoot")
-	else:
-#		next("Grenade")
-		next("Summon")
