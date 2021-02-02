@@ -8,6 +8,7 @@ var state: Object
 
 onready var obj : KinematicBody2D = get_parent()
 onready var sprite_node = get_parent().get_node("Sprite")
+onready var animator : AnimationPlayer = get_parent().get_node("Animator")
 
 var player
 

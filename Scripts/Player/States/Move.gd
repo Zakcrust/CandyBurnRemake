@@ -4,24 +4,37 @@ var fsm : PlayerStateMachine
 
 enum {
 	MOVING,
-	IDLE
+	IDLE,
+	MOVE_AND_SHOOT
 }
 
-var enemies : Array
+
+var shooting : bool = false
+
 var detect_radius : float
 var target : KinematicBody2D = null
 
 var movement_state = IDLE
+var on_range : bool = false
+
 
 func enter() -> void:
-	enemies = GlobalInstance.enemies
 	detect_radius = fsm.player.character_stats.behaviour_stats.detect_radius
 
 func physics_process(delta):
-	enemies = GlobalInstance.enemies
 	target = _find_target()
-	if target != null:
-		look_at_enemy(target.global_position)
+	fsm.player.target = target
+	if target != null and target.current_status != CharacterStatus.DEAD:
+		if fsm.player.global_position.distance_to(target.global_position) <= fsm.player.current_behaviour.detect_radius:
+			look_at_enemy(target.global_position)
+			face_to_enemy(target.global_position)
+			if fsm.player.global_position.distance_to(target.global_position) <= fsm.player.current_behaviour.attack_radius:
+				on_range = true
+				shooting = true
+				fsm.player.shoot()
+			else:
+				shooting = false
+				on_range = false
 	_move(delta)
 	set_movement_state()
 	check_movement_state()
@@ -31,6 +44,7 @@ func set_movement_state() -> void:
 		movement_state = IDLE
 	else:
 		movement_state = MOVING
+		
 
 
 func next(next_state):
@@ -48,9 +62,9 @@ func _find_target() -> KinematicBody2D:
 	var enemy_distance : float
 
 	
-	for enemy in enemies:
-		if enemy.get_dead():
-			enemies.erase(enemy)
+	for enemy in fsm.player.enemies:
+		if enemy.current_status == CharacterStatus.DEAD:
+			GlobalInstance.remove_enemy(enemy)
 			continue
 		enemy_distance = fsm.player.global_position.distance_to(enemy.global_position)
 		if closest_distance < 0:
@@ -66,15 +80,35 @@ func _find_target() -> KinematicBody2D:
 	return null
 
 func look_at_enemy(enemy_position : Vector2) -> void:
-	fsm.hand.rotation = (enemy_position.angle_to_point(fsm.hand.position)) - deg2rad(90)
+	fsm.hand.look_at(enemy_position)
+#	fsm.hand.rotation_degrees -= 90
+#	fsm.hand.rotation = (enemy_position.angle_to_point(fsm.hand.global_position))
+#	print(fsm.hand.rotation_degrees)
+#	if fsm.body.scale.x < 0:
+#		if enemy_position.y > fsm.player.global_position.y:
+#			if fsm.hand.rotation_degrees > -120:
+#				fsm.hand.rotation -= deg2rad(45)
+#			elif fsm.hand.rotation_degrees < 120:
+#				fsm.hand.rotation += deg2rad(45)
+
+func face_to_enemy(enemy_position : Vector2) -> void:
+	if enemy_position.x < fsm.player.global_position.x:
+		fsm.body.scale.x = -abs(fsm.body.scale.x)
+	else:
+		fsm.body.scale.x = abs(fsm.body.scale.x)
 
 
 func check_movement_state() -> void:
 	match movement_state:
 		MOVING:
 			fsm.body.play("move")
-			fsm.player.gun_move()
+			if shooting:
+				fsm.player.shoot()
+			else:
+				fsm.player.gun_move()
 		IDLE:
 			fsm.body.play("idle")
-			fsm.player.gun_idle()
-			
+			if shooting:
+				fsm.player.shoot()
+			else:
+				fsm.player.gun_idle()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Assets/MainCharacter/idle/idle2.png" type="Texture" id=1]
 [ext_resource path="res://Assets/MainCharacter/idle/idle1.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scripts/Player/States/Hit.gd" type="Script" id=11]
 [ext_resource path="res://Joystick/Joystick.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scripts/Player/States/Dead.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Player/PlayerHand.gd" type="Script" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -54,30 +55,18 @@ resource_name = "Shoot"
 length = 0.4
 loop = true
 step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:position")
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 0.5, 1 ),
-"update": 0,
-"values": [ Vector2( 80, 190 ), Vector2( 40, 190 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath("../..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ Vector2( 0, 0 ) ],
-"method": "shoot"
+"args": [  ],
+"method": "gun_shoot_anim"
 } ]
 }
 
@@ -85,13 +74,13 @@ tracks/1/keys = {
 resource_name = "idle"
 
 [sub_resource type="AnimationNodeAnimation" id=5]
-animation = "Shoot"
-
-[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=7]
+[sub_resource type="AnimationNodeAnimation" id=6]
 animation = "Move"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Shoot"
 
 [sub_resource type="AnimationNodeTransition" id=8]
 input_count = 3
@@ -103,17 +92,17 @@ input_2/name = "Idle"
 input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=9]
-graph_offset = Vector2( -44, 33.1045 )
-nodes/Animation/node = SubResource( 5 )
-nodes/Animation/position = Vector2( 120, 220 )
-nodes/Idle/node = SubResource( 6 )
+graph_offset = Vector2( 0, 65.5 )
+nodes/Idle/node = SubResource( 5 )
 nodes/Idle/position = Vector2( 120, 360 )
-nodes/Move/node = SubResource( 7 )
+nodes/Move/node = SubResource( 6 )
 nodes/Move/position = Vector2( 120, 80 )
+nodes/Shoot/node = SubResource( 7 )
+nodes/Shoot/position = Vector2( 120, 220 )
 nodes/output/position = Vector2( 520, 80 )
 nodes/state/node = SubResource( 8 )
 nodes/state/position = Vector2( 340, 140 )
-node_connections = [ "output", 0, "state", "state", 0, "Move", "state", 1, "Animation", "state", 2, "Idle" ]
+node_connections = [ "output", 0, "state", "state", 0, "Move", "state", 1, "Shoot", "state", 2, "Idle" ]
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 31.336, 15.8613 )
@@ -133,14 +122,18 @@ frame = 1
 playing = true
 
 [node name="Hand" type="Node2D" parent="Body"]
+position = Vector2( -44, 180 )
+script = ExtResource( 14 )
 
 [node name="Sprite" type="Sprite" parent="Body/Hand"]
-position = Vector2( 80, 190 )
+position = Vector2( 17.4628, 20 )
+rotation = -0.0409388
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
+offset = Vector2( 40, 0 )
 
 [node name="GunPoint" type="Node2D" parent="Body/Hand"]
-position = Vector2( 184.5, 175.5 )
+position = Vector2( 172, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body/Hand"]
 anims/Move = SubResource( 2 )
@@ -152,6 +145,10 @@ tree_root = SubResource( 9 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/state/current = 2
+
+[node name="Tween" type="Tween" parent="Body/Hand"]
+repeat = true
+playback/repeat = true
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 7 )

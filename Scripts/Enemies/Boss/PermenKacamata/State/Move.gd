@@ -53,7 +53,7 @@ func move_along_path(distance : float) -> void:
 		paths.remove(0)
 
 func action(delta):
-	var move_distance = fsm.obj.SPEED * delta
+	var move_distance = fsm.obj.current_stats.speed * delta
 	face_to(get_parent().player.position)
 	move_along_path(move_distance)
 
@@ -87,9 +87,12 @@ func _on_PathTimer_timeout():
 
 
 func _on_StateTimer_timeout():
-	var roll = randi() % 20 + 1
-	if roll > 10:
-		next("Shoot")
+	var player = GlobalInstance.player
+	var player_health = player.current_stats.health
+	if player_health > (player.character_stats.health  * 0.5):
+		next("Grenade")
 	else:
-#		next("Grenade")
-		next("Summon")
+		if player_health % 10 == 0:
+			next("Summon")
+		else:
+			next("Shoot")

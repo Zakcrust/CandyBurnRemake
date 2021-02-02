@@ -1,0 +1,397 @@
+[gd_scene load_steps=51 format=2]
+
+[ext_resource path="res://Scripts/Enemies/GulaGait/GulaGait.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Utils/StateMachine.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Enemies/GulaGait/States/Shoot.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Enemies/GulaGait/States/Move.gd" type="Script" id=4]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle2.png" type="Texture" id=6]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle10.png" type="Texture" id=7]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle11.png" type="Texture" id=8]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle5.png" type="Texture" id=9]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle7.png" type="Texture" id=10]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle8.png" type="Texture" id=11]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle6.png" type="Texture" id=12]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle3.png" type="Texture" id=13]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle4.png" type="Texture" id=14]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/idle/gulagait-idle9.png" type="Texture" id=15]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk6.png" type="Texture" id=16]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk3.png" type="Texture" id=17]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk8.png" type="Texture" id=18]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk5.png" type="Texture" id=19]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk1.png" type="Texture" id=20]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk4.png" type="Texture" id=21]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk9.png" type="Texture" id=22]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk2.png" type="Texture" id=23]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk11.png" type="Texture" id=24]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk7.png" type="Texture" id=25]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/walk/gulagait-walk10.png" type="Texture" id=26]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack6.png" type="Texture" id=27]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack7.png" type="Texture" id=28]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack5.png" type="Texture" id=29]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack3.png" type="Texture" id=30]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack2.png" type="Texture" id=31]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack4.png" type="Texture" id=32]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/attack-detach/gulagait-attack1.png" type="Texture" id=33]
+[ext_resource path="res://Scripts/Enemies/GulaGait/States/Dead.gd" type="Script" id=34]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/death/gulagait-death1.png" type="Texture" id=35]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/death/gulagait-death2.png" type="Texture" id=36]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/death/gulagait-death3.png" type="Texture" id=37]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/death/gulagait-death4.png" type="Texture" id=38]
+[ext_resource path="res://Assets/GulaGait-20201022T150527Z-001/GulaGait/death/gulagait-death5.png" type="Texture" id=39]
+
+[sub_resource type="Animation" id=1]
+resource_name = "dead"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -50, -300 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Collider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HitBox/Collider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.8, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 15 ), ExtResource( 7 ), ExtResource( 8 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -50, -300 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "move"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 20 ), ExtResource( 23 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 19 ), ExtResource( 16 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 24 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -50, -300 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../HitBox/Collider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Collider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "shoot"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 33 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 32 ), ExtResource( 29 ), ExtResource( 27 ), ExtResource( 28 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -350, -300 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("../StateMachine/Shoot")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../HitBox/Collider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../Collider:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="AnimationNodeTransition" id=5]
+input_count = 3
+input_0/name = "Move"
+input_0/auto_advance = false
+input_1/name = "Shoot"
+input_1/auto_advance = false
+input_2/name = "Dead"
+input_2/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "dead"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "move"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "shoot"
+
+[sub_resource type="AnimationNodeBlendTree" id=9]
+graph_offset = Vector2( 0, 153.471 )
+nodes/State/node = SubResource( 5 )
+nodes/State/position = Vector2( 300, 180 )
+nodes/dead/node = SubResource( 6 )
+nodes/dead/position = Vector2( 60, 340 )
+nodes/move/node = SubResource( 7 )
+nodes/move/position = Vector2( 60, 80 )
+nodes/output/position = Vector2( 500, 200 )
+nodes/shoot/node = SubResource( 8 )
+nodes/shoot/position = Vector2( 60, 200 )
+node_connections = [ "output", 0, "State", "State", 0, "move", "State", 1, "shoot", "State", 2, "dead" ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 13.3419, 36.0673 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 19.0116, 53.4202 )
+
+[node name="GulaGait" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite")
+anims/dead = SubResource( 1 )
+anims/idle = SubResource( 2 )
+anims/move = SubResource( 3 )
+anims/shoot = SubResource( 4 )
+
+[node name="Animator" type="AnimationTree" parent="."]
+tree_root = SubResource( 9 )
+anim_player = NodePath("../Animation")
+active = true
+parameters/State/current = 1
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 31 )
+offset = Vector2( -350, -300 )
+
+[node name="ShootPoint" type="Node2D" parent="Sprite"]
+position = Vector2( -390, -320 )
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2( 3, -4 )
+shape = SubResource( 10 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+
+[node name="Shoot" type="Node" parent="StateMachine"]
+script = ExtResource( 3 )
+
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource( 34 )
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( 3, -18 )
+shape = SubResource( 11 )
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

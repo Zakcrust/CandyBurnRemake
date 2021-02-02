@@ -1,7 +1,5 @@
 extends Node
 
-var object : KinematicBody2D
-
 var grenade : PackedScene = load("res://Scenes/Projectile/Grenade.tscn")
 
 var fsm: StateMachine
@@ -13,8 +11,7 @@ func exit():
 	fsm.back()
 
 
-func enter(obj : KinematicBody2D) -> void:
-	object = obj
+func enter() -> void:
 	print("Current state : %s" % self.name)
 	throw_grenade()
 	get_parent().sprite_node.animate("throw_grenade")
@@ -22,7 +19,7 @@ func enter(obj : KinematicBody2D) -> void:
 
 func throw_grenade():
 	var grenade_instance = grenade.instance()
-	grenade_instance.position = object.global_position
+	grenade_instance.position = fsm.obj.global_position
 	add_child(grenade_instance)
 	grenade_instance.throw_to(get_parent().player.global_position)
 	

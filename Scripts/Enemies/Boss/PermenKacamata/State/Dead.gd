@@ -1,6 +1,6 @@
 extends Node
 
-var object : PermenKacamata
+var object : Character
 var grenade : PackedScene
 var fsm: StateMachine
 
@@ -11,7 +11,7 @@ func exit():
 	fsm.back()
 
 
-func enter(obj : PermenKacamata) -> void:
+func enter(obj : Character) -> void:
 	object = obj
 	print("Current state : %s" % self.name)
 	dead()

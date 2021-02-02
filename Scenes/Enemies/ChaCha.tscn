@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Chacha/ChaCha.gd" type="Script" id=1]
 [ext_resource path="res://icon_backup.png" type="Texture" id=2]
@@ -7,7 +7,13 @@
 [ext_resource path="res://Scripts/Enemies/Chacha/States/Dead.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 17, 19 )
+extents = Vector2( 11, 13.1022 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 18.5681, 17.7272 )
+
+[sub_resource type="AnimationNodeBlendTree" id=3]
+graph_offset = Vector2( -253, 0 )
 
 [node name="Chacha" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -27,3 +33,16 @@ script = ExtResource( 4 )
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource( 2 )
+
+[node name="Animator" type="AnimationTree" parent="."]
+tree_root = SubResource( 3 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

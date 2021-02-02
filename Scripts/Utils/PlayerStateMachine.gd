@@ -8,7 +8,7 @@ var state: Node
 
 var player : Character setget , get_player
 var body : AnimatedSprite setget , get_body
-var hand : Sprite setget , get_hand
+var hand : Node2D setget , get_hand
 
 var history = []
 
@@ -18,14 +18,14 @@ func get_player() -> Character:
 func get_body() -> AnimatedSprite:
 	return body
 
-func get_hand() -> Sprite:
+func get_hand() -> Node2D:
 	return hand
 
 func _ready():
 	# Set the initial state to the first child node
 	player = get_parent()
 	body = get_parent().get_node("Body")
-	hand = get_parent().get_node("Body/Hand/Sprite")
+	hand = get_parent().get_node("Body/Hand")
 	state = get_child(0)
 	_enter_state()
 	

@@ -5,6 +5,7 @@ var fsm : PlayerStateMachine
 var velocity
 
 func enter() -> void:
+	fsm.player.current_status = CharacterStatus.INVUNERABLE
 	yield(get_tree().create_timer(fsm.player.knockback_duration), "timeout")
 	next("Move")
 

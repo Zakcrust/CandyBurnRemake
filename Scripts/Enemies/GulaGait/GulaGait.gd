@@ -1,8 +1,6 @@
 extends Character
 
 
-signal dead()
-
 # LIST OF DATA INPUT
 # - TYPE OF CHARACTER (CharacterTypes Constants)
 # - Basic Stats :
@@ -16,11 +14,16 @@ var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
 
+var animator_params : String = "parameters/State/current"
 
-func _ready():
-	GlobalInstance.add_enemy(self)
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,150,2, BehaviourStats.new(0, 1000))):
+enum {
+	MOVE,
+	SHOOT,
+	DEAD
+}
+
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,100,2, BehaviourStats.new(0, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE
@@ -41,21 +44,23 @@ func hit(damage : float) -> void:
 	if current_stats.health <= 0:
 		dead()
 		
+	## May insert some functions to do another actions
 
 
 func dead() -> void:
 	$StateMachine.change_to("Dead")
-	emit_signal("dead")
+	$Animator.set(animator_params, DEAD)
+
+func move() -> void:
+	$Animator.set(animator_params, MOVE)
 
 
-func start() -> void:
-	if $StateMachine.state.name == "Move":
-		$StateMachine.state.start_pathfinding()
-
+func shoot() -> void:
+	$Animator.set(animator_params, SHOOT)
 
 func _on_HitBox_body_entered(body):
 	if body is Character:
 		if body.character_type == CharacterTypes.PLAYER:
-			if body.current_status == CharacterStatus.ALIVE:
-				body.hit(current_stats.attack)
-				body.knockback(self, 0.5, 300)
+			if body.character_status == CharacterStatus.ALIVE:
+				body.hurt(current_stats.attack)
+				body.knockback(self, 0.5, 200)

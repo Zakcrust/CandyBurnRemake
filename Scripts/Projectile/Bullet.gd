@@ -27,23 +27,37 @@ func _on_Bullet_area_entered(area):
 	var enemy = area.get_parent()
 	if area is Dummy:
 		queue_free()
-	elif enemy is Enemy:
-		if enemy.dead:
-			return
-		enemy.health = enemy.health - bullet_damage
-		enemy.hurt()
+	elif enemy is Character:
+		match enemy.character_type:
+			CharacterTypes.ENEMY:
+				if enemy.current_status == CharacterStatus.ALIVE:
+					enemy.hit(bullet_damage)
+			CharacterTypes.BOSS:
+				if enemy.current_status == CharacterStatus.ALIVE:
+					enemy.hit(bullet_damage)
 		queue_free()
 
 
 func _on_Bullet_body_entered(body):
 	if body is Dummy:
 		queue_free()
-	elif body is Enemy:
-		if body.dead:
-			return
-		body.health = body.health - bullet_damage
-		body.hurt()
-		queue_free()
+	elif body is Character:
+		print("body entered")
+		match body.character_type:
+			CharacterTypes.ENEMY:
+				if body.current_status == CharacterStatus.ALIVE:
+					body.hit(bullet_damage)
+					queue_free()
+			CharacterTypes.BOSS:
+				if body.current_status == CharacterStatus.ALIVE:
+					body.hit(bullet_damage)
+					queue_free()
+#	elif body is Enemy:
+#		if body.dead:
+#			return
+#		body.health = body.health - bullet_damage
+#		body.hurt()
+#		queue_free()
 	if body is TileMap:
 		queue_free()
 

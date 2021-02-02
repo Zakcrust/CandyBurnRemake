@@ -93,7 +93,7 @@ func _ready():
 	speed = custom_speed
 	knockback_speed = speed * 3
 	check_state_to_asset()
-	GlobalInstance.player = self
+#	GlobalInstance.player = self
 	enemies = GlobalInstance.enemies
 	emit_signal("set_energy_max_ui", player_stats.energy)
 

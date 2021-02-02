@@ -12,6 +12,7 @@ extends Character
 
 var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
+var current_status : String = CharacterStatus.ALIVE
 
 func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,150,2, BehaviourStats.new(0, 1000))):
 	load_stats()
@@ -39,3 +40,4 @@ func hit(damage : float) -> void:
 
 func dead() -> void:
 	$StateMachine.change_to("Dead")
+	current_status = CharacterStatus.DEAD

@@ -5,6 +5,8 @@ var path : PoolVector2Array
 var paths : PoolVector2Array
 
 
+var active_process : bool = false
+
 func next(next_state):
 	fsm.change_to(next_state)
 
@@ -12,12 +14,12 @@ func exit():
 	fsm.back()
 
 func enter() -> void:
-	set_process(false)
+	fsm.player.current_status = CharacterStatus.ALIVE
 
 func start_pathfinding():
 	if get_parent().player != null:
 		path_find()
-		set_process(true)
+		active_process = true
 
 func path_find() -> void:
 	path = get_tree().get_root().get_node("Main/Navigation2D").get_simple_path(fsm.obj.global_position, get_parent().player.position)
@@ -59,6 +61,8 @@ func face_to(pos : Vector2) -> void:
 		get_parent().sprite_node.scale.x = abs(get_parent().sprite_node.scale.x)
 
 func process(_delta):
+	if not active_process:
+		return
 	path_find()
 	action(_delta)
 

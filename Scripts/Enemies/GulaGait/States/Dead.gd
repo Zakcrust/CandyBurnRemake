@@ -9,7 +9,7 @@ func exit():
 	fsm.back()
 
 func enter() -> void:
-	fsm.player.current_status = CharacterStatus.DEAD
+	fsm.obj.character_status = CharacterStatus.DEAD
 
 func process(_delta):
 	pass

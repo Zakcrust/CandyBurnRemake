@@ -13,11 +13,11 @@ func set_player(value : Character):
 func get_player() -> Character:
 	return player
 
-func add_enemy(value : Enemy):
+func add_enemy(value : Character):
 	enemies.append(value)
 	player.refresh_enemy_pool()
 
-func remove_enemy(value : Enemy):
+func remove_enemy(value : Character):
 	enemies.erase(value)
 	player.refresh_enemy_pool()
 
