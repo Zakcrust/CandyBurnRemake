@@ -9,7 +9,6 @@ radius = 5.07876
 
 [node name="Bolt" type="Area2D"]
 collision_layer = 2147483649
-collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -23,6 +22,7 @@ shape = SubResource( 1 )
 
 [node name="Trail" parent="." instance=ExtResource( 3 )]
 trail_parent = NodePath("..")
+[connection signal="area_entered" from="." to="." method="_on_Bolt_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Bolt_body_entered"]
 
 [editable path="Trail"]

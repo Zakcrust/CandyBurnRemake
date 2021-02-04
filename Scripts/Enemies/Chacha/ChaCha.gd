@@ -59,3 +59,12 @@ func _on_HitBox_body_entered(body):
 			if body.current_status == CharacterStatus.ALIVE:
 				body.hit(current_stats.attack)
 				body.knockback(self, 0.5, 300)
+
+
+func _on_HitBox_area_entered(area):
+	var body = area.get_parent()
+	if body is Character:
+		if body.character_type == CharacterTypes.PLAYER:
+			if body.current_status == CharacterStatus.ALIVE:
+				body.hit(current_stats.attack)
+				body.knockback(self, 0.5, 300)

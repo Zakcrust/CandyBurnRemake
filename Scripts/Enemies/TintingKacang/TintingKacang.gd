@@ -1,6 +1,12 @@
 extends Character
 
 
+enum  {
+	MOVE,
+	CHARGE,
+	DEAD
+}
+
 # LIST OF DATA INPUT
 # - TYPE OF CHARACTER (CharacterTypes Constants)
 # - Basic Stats :
@@ -14,21 +20,16 @@ var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
 
-var minimum_wander_time : float = 2.0
+var animator_params : String = "parameters/States/current"
+var minimum_wander_time : float = 3.0
 
-var animator_params : String = "parameters/State/current"
 
-onready var gun_point = $Sprite/ShootPoint
-
-enum {
-	MOVE,
-	SHOOT,
-	DEAD
-}
+onready var pointer = $Pointer
 
 signal death_sign()
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,100,2, BehaviourStats.new(600, 1000))):
+
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,75,2, BehaviourStats.new(600, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE
@@ -55,19 +56,19 @@ func hit(damage : float) -> void:
 
 
 func dead() -> void:
-	current_status = CharacterStatus.DEAD
-	$Animator.set(animator_params, DEAD)
 	$StateMachine.change_to("Dead")
+	current_status = CharacterStatus.DEAD
 	emit_signal("death_sign")
 
-func move() -> void:
-	$Animator.set(animator_params, MOVE)
+
+func set_anim(anim_id : int) -> void:
+	$Animator.set(animator_params, anim_id)
 
 
-func shoot() -> void:
-	$Animator.set(animator_params, SHOOT)
-
-func _on_HitBox_body_entered(body):
+func _on_Hitbox_area_entered(area):
+	if current_status == CharacterStatus.DEAD:
+		return
+	var body = area.get_parent()
 	if body is Character:
 		if body.character_type == CharacterTypes.PLAYER:
 			if body.current_status == CharacterStatus.ALIVE:
@@ -75,8 +76,9 @@ func _on_HitBox_body_entered(body):
 				body.knockback(self, 0.5, 200)
 
 
-func _on_HitBox_area_entered(area):
-	var body = area.get_parent()
+func _on_Hitbox_body_entered(body):
+	if current_status == CharacterStatus.DEAD:
+		return
 	if body is Character:
 		if body.character_type == CharacterTypes.PLAYER:
 			if body.current_status == CharacterStatus.ALIVE:

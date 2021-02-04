@@ -20,6 +20,7 @@ var on_range : bool = false
 
 func enter() -> void:
 	detect_radius = fsm.player.character_stats.behaviour_stats.detect_radius
+	fsm.player.current_status = CharacterStatus.ALIVE
 
 func physics_process(delta):
 	target = _find_target()

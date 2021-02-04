@@ -63,7 +63,7 @@ func face_to(pos : Vector2) -> void:
 func process(_delta):
 	if not active_process:
 		return
-	path_find()
+	start_pathfinding()
 	action(_delta)
 
 func physics_process(_delta):

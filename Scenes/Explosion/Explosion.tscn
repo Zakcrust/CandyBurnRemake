@@ -100,7 +100,6 @@ damping = 100.0
 damping_random = 0.85
 angle = 220.0
 angle_random = 1.0
-scale = 2.0
 scale_random = 0.2
 scale_curve = SubResource( 11 )
 color_ramp = ExtResource( 2 )

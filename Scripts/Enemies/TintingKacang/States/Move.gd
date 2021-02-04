@@ -12,7 +12,7 @@ func exit():
 func enter() -> void:
 	wander_time = 0.0
 	fsm.obj.current_status = CharacterStatus.ALIVE
-	fsm.obj.move()
+	fsm.obj.set_anim(fsm.obj.MOVE)
 	start_pathfinding()
 
 var path = []
@@ -56,7 +56,7 @@ func action(delta):
 	move_along_path(move_distance)
 
 func face_to(pos : Vector2) -> void:
-	if fsm.obj.global_position.x > pos.x:
+	if fsm.obj.global_position.x < pos.x:
 		get_parent().sprite_node.scale.x = -abs(get_parent().sprite_node.scale.x)
 	else:
 		get_parent().sprite_node.scale.x = abs(get_parent().sprite_node.scale.x)
@@ -65,10 +65,11 @@ func face_to(pos : Vector2) -> void:
 func check_attack_radius() -> void:
 	var distance_to_player : float = fsm.obj.global_position.distance_to(fsm.player.global_position)
 	if distance_to_player < fsm.obj.current_behaviour_stats.attack_radius:
-		next("Shoot")
+		next("Charge")
 
 func process(_delta):
 	wander_time += _delta
+	print(wander_time)
 	start_pathfinding()
 	action(_delta)
 	if wander_time > fsm.obj.minimum_wander_time:

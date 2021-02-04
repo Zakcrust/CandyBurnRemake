@@ -42,7 +42,6 @@ func _on_Bullet_body_entered(body):
 	if body is Dummy:
 		queue_free()
 	elif body is Character:
-		print("body entered")
 		match body.character_type:
 			CharacterTypes.ENEMY:
 				if body.current_status == CharacterStatus.ALIVE:

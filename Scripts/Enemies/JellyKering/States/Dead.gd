@@ -9,6 +9,7 @@ func exit():
 	fsm.back()
 
 func enter() -> void:
+	fsm.obj.set_anim(fsm.obj.DEAD)
 	fsm.obj.current_status = CharacterStatus.DEAD
 
 func process(_delta):

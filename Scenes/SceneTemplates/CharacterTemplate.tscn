@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Utils/StateMachine.gd" type="Script" id=1]
+
+[node name="Character" type="KinematicBody2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Animation" type="AnimationPlayer" parent="Sprite"]
+
+[node name="Animator" type="AnimationTree" parent="."]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Move" type="Node" parent="StateMachine"]
+
+[node name="Dead" type="Node" parent="StateMachine"]

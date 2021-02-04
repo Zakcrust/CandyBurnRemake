@@ -18,9 +18,9 @@ var spawn_count : int = 0
 var chosen_enemy
 
 var enemies = [
-	load("res://Scenes/Enemies/JellyArcher.tscn"),
-	load("res://Scenes/Enemies/JellyKering.tscn"),
-	load("res://Scenes/Enemies/JellyTombak.tscn")
+	load("res://Scenes/Enemies/GulaGait.tscn"),
+	load("res://Scenes/Enemies/JellyKeringNew.tscn"),
+	load("res://Scenes/Enemies/TintingKacang.tscn")
 ]
 
 func _ready():
@@ -105,10 +105,13 @@ func get_running_instance() -> int:
 
 
 func kill_notifier() -> void:
-	if GlobalInstance.player.weapon_state != GlobalInstance.player.FLAMETHROWER:
-		GlobalInstance.player.energy = GlobalInstance.player.energy + 10
-	var current_coin = GlobalInstance.player.coin
-	GlobalInstance.player.coin = current_coin + 1
+#	if GlobalInstance.player.weapon_state != GlobalInstance.player.FLAMETHROWER:
+#		GlobalInstance.player.energy = GlobalInstance.player.energy + 10
+	## TODO : REIMPLEMENT FLAMETHROWER
+#	var current_coin = GlobalInstance.player.coin
+#	GlobalInstance.player.coin = current_coin + 1
+	## TODO : REIMPELEMENT COIN
+
 	#get_parent().emit_signal("add_flame_power", 10)
 	running_instance -= 1
 	if spawn_count >= maximum_spawn and running_instance == 0:

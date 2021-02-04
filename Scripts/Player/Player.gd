@@ -74,28 +74,3 @@ func refresh_enemy_pool() -> void:
 
 func _on_Joystick_send_output(direction):
 	move_direction = direction
-
-
-func _on_HurtBox_area_entered(area):
-	pass
-#	var hitbox_parent = area.get_parent()
-#	if area.get_parent() is Enemy:
-#		if area.get_parent().dead:
-#			return
-#	if area is Enemy or area is EnemyProjectile:
-#		knockback_direction = area.position.direction_to(position)
-#		hurt(2.0)
-#		knockback(area, 0.2, 600)
-#		area.queue_free()
-
-
-func _on_HurtBox_body_entered(body):
-	pass
-#	if body is Enemy:
-#		if body.dead:
-#			return
-#		hurt(2.0)
-#		knockback(body, 0.2, 600)
-#	elif body is EnemyProjectile:
-#		hurt(2.0)
-#		knockback(body, 0.2, 600)

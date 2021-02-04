@@ -5,19 +5,21 @@ var fsm: StateMachine
 signal done()
 
 var bullet : PackedScene = load("res://Scenes/Projectile/Bolt.tscn")
-onready var shoot_point = fsm.obj.get_node("Sprite/ShootPoint")
 var rotation_to_player
 
 func next(next_state):
 	fsm.change_to(next_state)
-	yield(self, "done")
-	exit()
 
 func exit():
 	fsm.back()
 
 func enter() -> void:
+	if fsm.obj.current_status == CharacterStatus.DEAD:
+		next("Dead")
+		return
 	fsm.obj.shoot()
+	yield(self, "done")
+	exit()
 
 func process(_delta):
 	pass
@@ -30,10 +32,12 @@ func input(_event):
 
 func shoot() -> void:
 	var bullet_instance = bullet.instance()
-	bullet_instance.global_position = shoot_point.global_position
-	rotation_to_player = GlobalInstance.player.global_position.angle_to_point(shoot_point.global_position) - deg2rad(90)
+	bullet_instance.global_position = fsm.obj.gun_point.global_position
+#	rotation_to_player = GlobalInstance.player.global_position.angle_to_point(shoot_point.global_position) - deg2rad(90)
+	fsm.obj.gun_point.look_at(GlobalInstance.player.global_position)
+	rotation_to_player = fsm.obj.gun_point.global_rotation
 	bullet_instance.rotation = rotation_to_player 
 	fsm.obj.get_parent().add_child(bullet_instance)
-	yield(get_tree().create_timer(0.6), "timeout")
+	yield(get_tree().create_timer(3.0), "timeout")
 	emit_signal("done")
 	

@@ -1,7 +1,6 @@
 extends Node
 
 var fsm: StateMachine
-var wander_time : float = 0.0
 
 func next(next_state):
 	fsm.change_to(next_state)
@@ -10,9 +9,8 @@ func exit():
 	fsm.back()
 
 func enter() -> void:
-	wander_time = 0.0
+	fsm.obj.set_anim(fsm.obj.MOVE)
 	fsm.obj.current_status = CharacterStatus.ALIVE
-	fsm.obj.move()
 	start_pathfinding()
 
 var path = []
@@ -61,18 +59,9 @@ func face_to(pos : Vector2) -> void:
 	else:
 		get_parent().sprite_node.scale.x = abs(get_parent().sprite_node.scale.x)
 
-
-func check_attack_radius() -> void:
-	var distance_to_player : float = fsm.obj.global_position.distance_to(fsm.player.global_position)
-	if distance_to_player < fsm.obj.current_behaviour_stats.attack_radius:
-		next("Shoot")
-
 func process(_delta):
-	wander_time += _delta
 	start_pathfinding()
 	action(_delta)
-	if wander_time > fsm.obj.minimum_wander_time:
-		check_attack_radius()
 
 func physics_process(_delta):
 	pass
