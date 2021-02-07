@@ -4,7 +4,14 @@ extends Particles2D
 var default_pos : Vector2 = Vector2(0, -10)
 var default_scale : Vector2 = Vector2(1,1)
 
-var fire_damage : int = 2
+var fire_damage : int = 2 setget set_damage, get_damage
+
+func set_damage(damage : int) -> void:
+	fire_damage = damage
+
+func get_damage() -> int:
+	return fire_damage
+
 
 func _ready():
 	$FlameHitBox/Collider.disabled = true
@@ -18,9 +25,15 @@ func _on_FlameHitBox_body_entered(body):
 
 
 func _on_FlameHitBox_area_entered(area):
-	if area is Enemy:
-		if not area.get_dead():
-			area.health = area.health - fire_damage
+	var enemy = area.get_parent()
+	if enemy is Character:
+		match enemy.character_type:
+			CharacterTypes.ENEMY:
+				if enemy.current_status == CharacterStatus.ALIVE:
+					enemy.hit(fire_damage)
+			CharacterTypes.BOSS:
+				if enemy.current_status == CharacterStatus.ALIVE:
+					enemy.hit(fire_damage)
 
 func start_flame() -> void:
 	$FlameHitBox/Collider.disabled = false
@@ -28,14 +41,9 @@ func start_flame() -> void:
 	$HitBoxAnim.play("flame_on")
 	$FlameSound.start_flame()
 
-
 func stop_flame() -> void:
 	$FlameHitBox/Collider.disabled = true
 	$CPUMobileRender.emitting = false
-	$FlameHitBox/Collider.scale = default_scale
-	$FlameHitBox/Collider.position = default_pos
-	if $HitBoxAnim.is_playing():
-		$HitBoxAnim.seek(0)
+	$HitBoxAnim.seek(0.0)
 	$HitBoxAnim.stop()
 	$FlameSound.stop_flame()
-	

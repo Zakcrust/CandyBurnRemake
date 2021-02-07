@@ -368,7 +368,7 @@ parameters/State/current = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 19 )
+texture = ExtResource( 23 )
 offset = Vector2( -50, -300 )
 
 [node name="ShootPoint" type="Node2D" parent="Sprite"]

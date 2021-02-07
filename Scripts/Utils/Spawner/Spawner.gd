@@ -104,7 +104,7 @@ func get_running_instance() -> int:
 	return running_instance
 
 
-func kill_notifier() -> void:
+func kill_notifier(obj) -> void:
 #	if GlobalInstance.player.weapon_state != GlobalInstance.player.FLAMETHROWER:
 #		GlobalInstance.player.energy = GlobalInstance.player.energy + 10
 	## TODO : REIMPLEMENT FLAMETHROWER
@@ -113,6 +113,9 @@ func kill_notifier() -> void:
 	## TODO : REIMPELEMENT COIN
 
 	#get_parent().emit_signal("add_flame_power", 10)
+	
+	
+	
 	running_instance -= 1
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)

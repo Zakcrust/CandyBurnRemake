@@ -36,6 +36,10 @@ func physics_process(delta):
 			else:
 				shooting = false
 				on_range = false
+				fsm.player.gun_idle()
+	else:
+		fsm.player.gun_idle()
+		face_to(fsm.player.move_direction)
 	_move(delta)
 	set_movement_state()
 	check_movement_state()
@@ -98,6 +102,11 @@ func face_to_enemy(enemy_position : Vector2) -> void:
 	else:
 		fsm.body.scale.x = abs(fsm.body.scale.x)
 
+func face_to(direction : Vector2) -> void:
+	if direction.x < 0:
+		fsm.body.scale.x = -abs(fsm.body.scale.x)
+	else:
+		fsm.body.scale.x = abs(fsm.body.scale.x)
 
 func check_movement_state() -> void:
 	match movement_state:

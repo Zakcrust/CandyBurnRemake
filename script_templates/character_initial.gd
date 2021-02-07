@@ -13,8 +13,9 @@ extends Character
 var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
+var current_inventory : CharacterInventory = CharacterInventory.new([], 2)
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,150,2, BehaviourStats.new(0, 1000))):
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,10,0,150,2, BehaviourStats.new(0, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE

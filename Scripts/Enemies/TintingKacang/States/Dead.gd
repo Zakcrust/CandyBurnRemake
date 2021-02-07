@@ -11,6 +11,9 @@ func exit():
 func enter() -> void:
 	fsm.obj.current_status = CharacterStatus.DEAD
 	fsm.obj.set_anim(fsm.obj.DEAD)
+	var energy : float = fsm.obj.character_stats.health
+	fsm.player.fill_energy(energy)
+	fsm.player.add_coins(fsm.obj.current_inventory.coins)
 
 func process(_delta):
 	pass

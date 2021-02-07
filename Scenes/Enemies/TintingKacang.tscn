@@ -300,7 +300,7 @@ extents = Vector2( 124.481, 121.366 )
 radius = 163.514
 height = 368.396
 
-[node name="Character" type="KinematicBody2D"]
+[node name="TintingKacang" type="KinematicBody2D"]
 scale = Vector2( 0.2, 0.2 )
 collision_layer = 2
 collision_mask = 0

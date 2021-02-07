@@ -19,6 +19,7 @@ enum  {
 var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
+var current_inventory : CharacterInventory = CharacterInventory.new([], 2)
 
 var animator_params : String = "parameters/States/current"
 var minimum_wander_time : float = 3.0
@@ -26,10 +27,10 @@ var minimum_wander_time : float = 3.0
 
 onready var pointer = $Pointer
 
-signal death_sign()
+signal death_sign(obj)
 
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,75,2, BehaviourStats.new(600, 1000))):
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,10,0,75,2, BehaviourStats.new(600, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE
@@ -58,7 +59,7 @@ func hit(damage : float) -> void:
 func dead() -> void:
 	$StateMachine.change_to("Dead")
 	current_status = CharacterStatus.DEAD
-	emit_signal("death_sign")
+	emit_signal("death_sign", self)
 
 
 func set_anim(anim_id : int) -> void:

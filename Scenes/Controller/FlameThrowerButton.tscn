@@ -1,10 +1,29 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/MainCharacter/flametrower_anim.tres" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Skills(Flamethrower)/Skillslogo.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/Skills(Flamethrower)/SkillsFill.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Controller/FlameThrowerButton.gd" type="Script" id=3]
 
+[node name="Shoot" type="TextureButton"]
+rect_scale = Vector2( 2, 2 )
+disabled = true
+toggle_mode = true
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 1 )
+texture_disabled = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Shoot" type="TouchScreenButton"]
-position = Vector2( 205, -110 )
-scale = Vector2( 0.2, 0.2 )
-normal = ExtResource( 1 )
-pressed = ExtResource( 1 )
+[node name="Progress" type="TextureProgress" parent="."]
+show_behind_parent = true
+margin_right = 40.0
+margin_bottom = 40.0
+step = 0.01
+texture_progress = ExtResource( 2 )
+fill_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="toggled" from="." to="." method="_on_Shoot_toggled"]

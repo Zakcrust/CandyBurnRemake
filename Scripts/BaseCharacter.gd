@@ -6,6 +6,7 @@ var character_type : String setget , get_character_type
 var character_stats : BaseStats setget , get_character_stats
 
 func _init(type_init : String = "", stats_init = BaseStats.new()):
+	character_type = CharacterTypes.BOSS
 	character_type = type_init
 	character_stats = stats_init
 

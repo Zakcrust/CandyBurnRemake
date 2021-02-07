@@ -13,6 +13,7 @@ extends Character
 var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
+var current_inventory : CharacterInventory = CharacterInventory.new([], 2)
 
 var minimum_wander_time : float = 2.0
 
@@ -26,9 +27,9 @@ enum {
 	DEAD
 }
 
-signal death_sign()
+signal death_sign(obj)
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,100,2, BehaviourStats.new(600, 1000))):
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,10,0,100,2, BehaviourStats.new(600, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE
@@ -58,7 +59,7 @@ func dead() -> void:
 	current_status = CharacterStatus.DEAD
 	$Animator.set(animator_params, DEAD)
 	$StateMachine.change_to("Dead")
-	emit_signal("death_sign")
+	emit_signal("death_sign", self)
 
 func move() -> void:
 	$Animator.set(animator_params, MOVE)
