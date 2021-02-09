@@ -1,7 +1,12 @@
 extends Character
 
 
-signal dead()
+enum {
+	MOVE,
+	DEAD
+}
+
+signal death_sign(obj)
 
 # LIST OF DATA INPUT
 # - TYPE OF CHARACTER (CharacterTypes Constants)
@@ -16,11 +21,12 @@ var current_stats : BaseStats = BaseStats.new()
 var current_behaviour_stats : BehaviourStats = BehaviourStats.new()
 var current_status : String = CharacterStatus.ALIVE
 
+var animator_params : String = "parameters/State/current"
 
 func _ready():
 	GlobalInstance.add_enemy(self)
 
-func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,150,2, BehaviourStats.new(0, 1000))):
+func _init().(CharacterTypes.ENEMY, BaseStats.new(10,0,0,150,2, BehaviourStats.new(0, 1000))):
 	load_stats()
 
 # THIS FUNCTION MUST BE RUN (AT LEAST) ONCE
@@ -41,6 +47,9 @@ func hit(damage : float) -> void:
 	if current_stats.health <= 0:
 		dead()
 		
+
+func set_anim(anim_id : int) -> void:
+	$Animator.set(animator_params, anim_id)
 
 
 func dead() -> void:

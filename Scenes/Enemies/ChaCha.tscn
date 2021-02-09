@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Enemies/Chacha/ChaCha.gd" type="Script" id=1]
 [ext_resource path="res://icon_backup.png" type="Texture" id=2]
@@ -12,8 +12,118 @@ extents = Vector2( 11, 13.1022 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 18.5681, 17.7272 )
 
-[sub_resource type="AnimationNodeBlendTree" id=3]
-graph_offset = Vector2( -253, 0 )
+[sub_resource type="AnimationNodeTransition" id=3]
+input_count = 2
+input_0/name = "move"
+input_0/auto_advance = false
+input_1/name = "dead"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "dead"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "move"
+
+[sub_resource type="AnimationNodeBlendTree" id=6]
+graph_offset = Vector2( 0, 112 )
+nodes/State/node = SubResource( 3 )
+nodes/State/position = Vector2( 300, 120 )
+nodes/dead/node = SubResource( 4 )
+nodes/dead/position = Vector2( 20, 140 )
+nodes/move/node = SubResource( 5 )
+nodes/move/position = Vector2( 20, 260 )
+nodes/output/position = Vector2( 520, 120 )
+node_connections = [ "output", 0, "State", "State", 0, "move", "State", 1, "dead" ]
+
+[sub_resource type="Animation" id=7]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Collider:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HitBox/Collider:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Collider:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitBox/Collider:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Chacha" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -40,10 +150,13 @@ script = ExtResource( 5 )
 shape = SubResource( 2 )
 
 [node name="Animator" type="AnimationTree" parent="."]
-tree_root = SubResource( 3 )
+tree_root = SubResource( 6 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/State/current = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/dead = SubResource( 7 )
+anims/move = SubResource( 8 )
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]

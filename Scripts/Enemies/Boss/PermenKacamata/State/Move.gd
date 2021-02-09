@@ -14,7 +14,6 @@ func exit():
 func enter() -> void:
 	randomize()
 	print("Current state : %s" % self.name)
-	get_parent().sprite_node.animate("move")
 	start_pathfinding()
 	state_duration = randi() % 1 + 2
 	$StateTimer.wait_time = state_duration
@@ -87,12 +86,11 @@ func _on_PathTimer_timeout():
 
 
 func _on_StateTimer_timeout():
-	var player = GlobalInstance.player
-	var player_health = player.current_stats.health
-	if player_health > (player.character_stats.health  * 0.5):
+	var boss_health = fsm.obj.current_stats.health
+	if boss_health > (fsm.obj.character_stats.health  * 0.5):
 		next("Grenade")
 	else:
-		if player_health % 10 == 0:
+		if int(boss_health) % 10 == 0:
 			next("Summon")
 		else:
 			next("Shoot")

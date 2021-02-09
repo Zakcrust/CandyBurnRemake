@@ -4,7 +4,7 @@ var spawner_state : SpawnerState = SpawnerState.new()
 
 var current_wave_count : int = 1
 
-var maximum_wave : int = 9
+var maximum_wave : int = 10
 
 var registered_spawner : Array
 var registered_spawner_state : Array

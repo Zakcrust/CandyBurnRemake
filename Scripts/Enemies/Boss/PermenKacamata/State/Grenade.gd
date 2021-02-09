@@ -14,7 +14,6 @@ func exit():
 func enter() -> void:
 	print("Current state : %s" % self.name)
 	throw_grenade()
-	get_parent().sprite_node.animate("throw_grenade")
 	
 
 func throw_grenade():

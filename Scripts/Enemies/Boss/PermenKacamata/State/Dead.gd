@@ -1,7 +1,5 @@
 extends Node
 
-var object : Character
-var grenade : PackedScene
 var fsm: StateMachine
 
 func next(next_state):
@@ -11,14 +9,13 @@ func exit():
 	fsm.back()
 
 
-func enter(obj : Character) -> void:
-	object = obj
+func enter() -> void:
 	print("Current state : %s" % self.name)
 	dead()
-	get_parent().sprite_node.animate("dead")
 
 func dead():
 	print("dead")
+	fsm.obj.set_anim(fsm.obj.DEAD)
 
 func process(_delta):
 	pass

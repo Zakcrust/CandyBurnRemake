@@ -6,9 +6,6 @@
 [ext_resource path="res://Scenes/UI/WinLose.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/UI/PauseMenu.tscn" type="PackedScene" id=7]
 
-
-
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 

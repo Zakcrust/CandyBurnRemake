@@ -163,6 +163,7 @@ spawner_id = 5
 
 [node name="Spawner6" parent="SpawnerPool" instance=ExtResource( 7 )]
 position = Vector2( 519.578, -264.65 )
+max_running_instance = 1
 spawner_id = 6
 
 [node name="PotionSpawners" type="Node2D" parent="SpawnerPool"]

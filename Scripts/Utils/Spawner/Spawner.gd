@@ -20,7 +20,8 @@ var chosen_enemy
 var enemies = [
 	load("res://Scenes/Enemies/GulaGait.tscn"),
 	load("res://Scenes/Enemies/JellyKeringNew.tscn"),
-	load("res://Scenes/Enemies/TintingKacang.tscn")
+	load("res://Scenes/Enemies/TintingKacang.tscn"),
+	load("res://Scenes/Enemies/PermenKacamata.tscn")
 ]
 
 func _ready():
@@ -70,12 +71,15 @@ func reinit_spawner():
 
 func choose_enemy() -> void:
 	match(enemy_type):
-		spawn_data.JELLY_KERING:
-			chosen_enemy = enemies[1]
-		spawn_data.GULA_GAIT:
+		SpawnerData.GULA_GAIT:
 			chosen_enemy = enemies[0]
-		spawn_data.TINTING_KACANG:
+		SpawnerData.JELLY_KERING:
+			chosen_enemy = enemies[1]
+		SpawnerData.TINTING_KACANG:
 			chosen_enemy = enemies[2]
+		SpawnerData.PERMEN_KACAMATA:
+			chosen_enemy = enemies[3]
+
 
 func spawn() -> void:
 	if running_instance < max_running_instance and spawn_count <= maximum_spawn:
@@ -87,11 +91,13 @@ func spawn() -> void:
 		running_instance += 1
 		add_spawn_count()
 		
+		
 func add_spawn_count() -> void:
 	spawn_count += 1
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)
 	check_spawn_state()
+
 
 func check_spawn_state() -> void:
 	match(spawn_state.current_state):
@@ -99,6 +105,7 @@ func check_spawn_state() -> void:
 			pass
 		spawn_state.CLEARED:
 			$Timer.stop()
+
 
 func get_running_instance() -> int:
 	return running_instance
@@ -113,9 +120,6 @@ func kill_notifier(obj) -> void:
 	## TODO : REIMPELEMENT COIN
 
 	#get_parent().emit_signal("add_flame_power", 10)
-	
-	
-	
 	running_instance -= 1
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)

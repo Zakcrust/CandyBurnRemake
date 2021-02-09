@@ -2,30 +2,39 @@ extends Resource
 
 class_name SpawnerData
 
-var JELLY_KERING = "JELLY KERING" setget , get_jelly_kering
-var GULA_GAIT = "GULA GAIT" setget , get_gula_gait
-var TINTING_KACANG = "TINTING KACANG" setget , get_tinting_kacang
+
+# Enemies - Stage 1
+const JELLY_KERING = "JELLY KERING"
+const GULA_GAIT = "GULA GAIT"
+const TINTING_KACANG = "TINTING KACANG"
+#Boss Stage 1
+const PERMEN_KACAMATA = "PERMEN_KACAMATA"
 
 ######## WAVE DATA TEMPLATE ##################
-#NUMBER : {
-#		1 : Wave.new(1,0, JELLY_KERING),
-#		2 : Wave.new(2,0, JELLY_KERING),
-#		3 : Wave.new(3,0, JELLY_KERING),
-#		4 : Wave.new(4,0, JELLY_KERING),
-#		5 : Wave.new(5,0, JELLY_KERING),
-#		6 : Wave.new(6,0, JELLY_KERING)
+# Parameters
+# - Spawner ID [1 to 6] (int)
+# - Amount of instance to spawn (int)
+# - Enemy Constant (String)
+
+#WAVE_NUMBER : {
+#		1 : Wave.new(1,0, ENEMY_CONST),
+#		2 : Wave.new(2,0, ENEMY_CONST),
+#		3 : Wave.new(3,0, ENEMY_CONST),
+#		4 : Wave.new(4,0, ENEMY_CONST),
+#		5 : Wave.new(5,0, ENEMY_CONST),
+#		6 : Wave.new(6,0, ENEMY_CONST)
 #	},
 ##############################################
 
 
 var wave_data = {
 	1 : {
-		1 : Wave.new(1,10, JELLY_KERING),
+		1 : Wave.new(1),
 		2 : Wave.new(2),
 		3 : Wave.new(3),
 		4 : Wave.new(4),
 		5 : Wave.new(5),
-		6 : Wave.new(6)
+		6 : Wave.new(6,1, PERMEN_KACAMATA)
 	},
 	2 : {
 		1 : Wave.new(1,6, JELLY_KERING),
@@ -90,6 +99,14 @@ var wave_data = {
 		4 : Wave.new(4,5, GULA_GAIT),
 		5 : Wave.new(5,5, GULA_GAIT),
 		6 : Wave.new(6)
+	},
+	10 : {
+		1 : Wave.new(1),
+		2 : Wave.new(2),
+		3 : Wave.new(3),
+		4 : Wave.new(4),
+		5 : Wave.new(5),
+		6 : Wave.new(6, 1, PERMEN_KACAMATA)
 	},
 }
 
