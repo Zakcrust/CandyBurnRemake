@@ -21,7 +21,6 @@ func enter() -> void:
 	if fsm.obj.summon_counts <= 10:
 		summon()
 		yield(get_tree().create_timer(3.0), "timeout")
-		yield(self, "activate")
 	next("Move")
 
 func summon():
@@ -33,7 +32,7 @@ func summon():
 		var cha_cha_instance = chacha.instance()
 		connect("activate", cha_cha_instance, "start")
 		cha_cha_instance.connect("death_sign", fsm.obj, "decrease_summon_count")
-		cha_cha_instance.global_position = fsm.obj.global_position
+		cha_cha_instance.position = fsm.obj.global_position
 		$Tween.interpolate_property(cha_cha_instance, "position", cha_cha_instance.global_position, 
 		rotated_point(cha_cha_instance.global_position, angle, summon_distance), 0.5)
 		fsm.obj.get_parent().add_child(cha_cha_instance)

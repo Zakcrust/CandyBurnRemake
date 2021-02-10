@@ -29,12 +29,12 @@ const PERMEN_KACAMATA = "PERMEN_KACAMATA"
 
 var wave_data = {
 	1 : {
-		1 : Wave.new(1),
+		1 : Wave.new(1,10, JELLY_KERING),
 		2 : Wave.new(2),
 		3 : Wave.new(3),
 		4 : Wave.new(4),
 		5 : Wave.new(5),
-		6 : Wave.new(6,1, PERMEN_KACAMATA)
+		6 : Wave.new(6)
 	},
 	2 : {
 		1 : Wave.new(1,6, JELLY_KERING),
@@ -106,7 +106,7 @@ var wave_data = {
 		3 : Wave.new(3),
 		4 : Wave.new(4),
 		5 : Wave.new(5),
-		6 : Wave.new(6, 1, PERMEN_KACAMATA)
+		6 : Wave.new(6,1, PERMEN_KACAMATA)
 	},
 }
 

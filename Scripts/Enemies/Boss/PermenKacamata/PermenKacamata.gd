@@ -73,6 +73,7 @@ func decrease_summon_count() -> void:
 
 func dead() -> void:
 	$State.change_to("Dead")
+	emit_signal("deactivate_object")
 	current_status = CharacterStatus.DEAD
 	emit_signal("death_sign", self)
 

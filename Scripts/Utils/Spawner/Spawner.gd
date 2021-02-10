@@ -39,7 +39,7 @@ func init_spawner() -> void:
 		spawn_state.current_state = spawn_state.CLEARED
 		get_parent().register_spawner(self, spawn_state)
 		return
-	else:
+	elif maximum_spawn > 1:
 		maximum_spawn += 1
 		get_parent().register_spawner(self, spawn_state)
 	
@@ -118,9 +118,10 @@ func kill_notifier(obj) -> void:
 #	var current_coin = GlobalInstance.player.coin
 #	GlobalInstance.player.coin = current_coin + 1
 	## TODO : REIMPELEMENT COIN
-
 	#get_parent().emit_signal("add_flame_power", 10)
 	running_instance -= 1
+	if maximum_spawn == 1 and spawn_count >= maximum_spawn:
+		get_parent().done_spawn(spawn_state)
 	if spawn_count >= maximum_spawn and running_instance == 0:
 		get_parent().done_spawn(spawn_state)
 

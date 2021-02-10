@@ -205,17 +205,26 @@ play_music_on_ready = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="WinLose" parent="CanvasLayer" instance=ExtResource( 11 )]
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WinLose" parent="CanvasLayer/Control" instance=ExtResource( 11 )]
+margin_left = 520.0
+margin_right = 520.0
 script = SubResource( 1 )
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 margin_right = 120.0
 margin_bottom = 73.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FPS" type="Label" parent="CanvasLayer/CenterContainer"]
+[node name="FPS" type="Label" parent="CanvasLayer/Control/CenterContainer"]
 margin_right = 120.0
 margin_bottom = 73.0
 custom_fonts/font = SubResource( 2 )
@@ -223,10 +232,12 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "FPS : "
 script = SubResource( 3 )
 
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 2 )]
+[node name="PauseMenu" parent="CanvasLayer/Control" instance=ExtResource( 2 )]
+margin_right = -40.0
+margin_bottom = -40.0
 script = SubResource( 4 )
 
-[node name="Wave" type="Control" parent="CanvasLayer"]
+[node name="Wave" type="Control" parent="CanvasLayer/Control"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_top = -200.0
@@ -236,7 +247,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/Wave"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/Control/Wave"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -300.0
@@ -247,7 +258,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="CanvasLayer/Wave/Background"]
+[node name="Name" type="Label" parent="CanvasLayer/Control/Wave/Background"]
 margin_right = 600.0
 margin_bottom = 96.0
 custom_fonts/font = SubResource( 6 )
@@ -259,7 +270,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Number" type="Label" parent="CanvasLayer/Wave/Background"]
+[node name="Number" type="Label" parent="CanvasLayer/Control/Wave/Background"]
 margin_top = 66.0
 margin_right = 600.0
 margin_bottom = 200.0
@@ -269,7 +280,7 @@ text = "01"
 align = 1
 valign = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Wave"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Wave"]
 anims/start_wave = SubResource( 8 )
 
 [node name="CoinCounter" type="Control" parent="CanvasLayer"]
@@ -322,6 +333,6 @@ drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 1 )
-[connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Wave" method="_on_SpawnerPool_wave_ui"]
-[connection signal="win" from="SpawnerPool" to="CanvasLayer/WinLose" method="_on_SpawnerPool_win"]
+[connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Control/Wave" method="_on_SpawnerPool_wave_ui"]
+[connection signal="win" from="SpawnerPool" to="CanvasLayer/Control/WinLose" method="_on_SpawnerPool_win"]
 [connection signal="update_coins_ui" from="Player" to="CanvasLayer/CoinCounter" method="_on_Player_update_coins_ui"]

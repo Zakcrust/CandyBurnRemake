@@ -21,7 +21,7 @@ func shoot():
 	current_shoot_wave += 1
 	var pattern : Array = eight_direction_shoot()
 	for obj in pattern:
-		fsm.obj.emit_signal("send_bullet", obj)
+		fsm.obj.get_parent().add_child(obj)
 	$ShootTimer.start()
 
 func eight_direction_shoot() -> Array:

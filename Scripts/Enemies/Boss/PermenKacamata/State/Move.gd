@@ -4,6 +4,7 @@ var fsm: StateMachine
 var path
 var paths
 var state_duration : float
+var faster_state_duration : float
 
 func next(next_state):
 	fsm.change_to(next_state)
@@ -16,6 +17,7 @@ func enter() -> void:
 	print("Current state : %s" % self.name)
 	start_pathfinding()
 	state_duration = randi() % 1 + 2
+	faster_state_duration = state_duration * 0.5
 	$StateTimer.wait_time = state_duration
 	$StateTimer.start()
 
@@ -81,15 +83,20 @@ func unhandled_key_input(_event):
 func notification(_what, _flag = false):
 	pass
 
-func _on_PathTimer_timeout():
-	path_find()
-
 
 func _on_StateTimer_timeout():
+	if fsm.obj.current_status == CharacterStatus.INVUNERABLE:
+		$StateTimer.start()
+		return
+	elif fsm.obj.current_status == CharacterStatus.DEAD:
+		return
+	
+	
 	var boss_health = fsm.obj.current_stats.health
 	if boss_health > (fsm.obj.character_stats.health  * 0.5):
 		next("Grenade")
 	else:
+		$StateTimer.wait_time = faster_state_duration
 		if int(boss_health) % 10 == 0:
 			next("Summon")
 		else:
