@@ -20,37 +20,58 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
-func _on_TryAgain_pressed():
-	get_tree().paused = false
-	get_tree().reload_current_scene()
 
-
-func _on_MainMenu_pressed():
-	get_tree().paused = false
-	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
-
-
-func _on_SpawnerPool_win():
-	$Win.show()
-
-
-func _on_Player_lose():
-	$Lose.show()
+func _on_SpawnerPool_wave_ui(current_wave):
+	if current_wave < 10:
+		$Background/Number.text = \"0%s\" % current_wave
+	else:
+		$Background/Number.text = str(current_wave)
+	$AnimationPlayer.play(\"start_wave\")
 "
 
 [sub_resource type="DynamicFont" id=2]
+size = 84
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 84
+font_data = ExtResource( 9 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "start_wave"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 540, -200 ), Vector2( 540, 0 ), Vector2( 540, 0 ), Vector2( 540, -200 ) ]
+}
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Control
+
+func _ready():
+	set_coin_value(GlobalInstance.coin)
+
+func set_coin_value(value : int) -> void:
+	$HBoxContainer/Label.text = str(value)
+
+
+func _on_Player_update_coins_ui(value):
+	set_coin_value(value)
+"
+
+[sub_resource type="DynamicFont" id=6]
 size = 72
 font_data = ExtResource( 9 )
 
-[sub_resource type="GDScript" id=3]
-script/source = "extends Label
-
-
-func _process(delta):
-	text = \"FPS : %s\" % Engine.get_frames_per_second()
-"
-
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=10]
 script/source = "extends Control
 
 signal paused()
@@ -78,59 +99,45 @@ func _on_ToMenu_pressed():
 	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
 "
 
-[sub_resource type="GDScript" id=5]
-script/source = "extends Control
-
-
-func _on_SpawnerPool_wave_ui(current_wave):
-	if current_wave < 10:
-		$Background/Number.text = \"0%s\" % current_wave
-	else:
-		$Background/Number.text = str(current_wave)
-	$AnimationPlayer.play(\"start_wave\")
-"
-
-[sub_resource type="DynamicFont" id=6]
-size = 84
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=7]
-size = 84
-font_data = ExtResource( 9 )
-
-[sub_resource type="Animation" id=8]
-resource_name = "start_wave"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1.5, 2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 540, -200 ), Vector2( 540, 0 ), Vector2( 540, 0 ), Vector2( 540, -200 ) ]
-}
-
-[sub_resource type="GDScript" id=9]
-script/source = "extends Control
-
-func _ready():
-	set_coin_value(GlobalInstance.coin)
-
-func set_coin_value(value : int) -> void:
-	$HBoxContainer/Label.text = str(value)
-
-
-func _on_Player_update_coins_ui(value):
-	set_coin_value(value)
-"
-
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=8]
 size = 72
 font_data = ExtResource( 9 )
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Label
+
+
+func _process(delta):
+	text = \"FPS : %s\" % Engine.get_frames_per_second()
+"
+
+[sub_resource type="GDScript" id=7]
+script/source = "extends Control
+
+func _on_TryAgain_pressed():
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_MainMenu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
+
+
+func _on_SpawnerPool_win():
+	get_tree().paused = true
+	$Win.show()
+
+
+func _on_Player_lose():
+	$Lose.show()
+
+
+func _on_Player_show_lose_ui():
+	get_tree().paused = true
+	$Lose.show()
+	
+"
 
 [node name="Main" type="Node2D"]
 
@@ -204,50 +211,21 @@ music = ExtResource( 8 )
 play_music_on_ready = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 2
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="WinLose" parent="CanvasLayer/Control" instance=ExtResource( 11 )]
-margin_left = 520.0
-margin_right = 520.0
-script = SubResource( 1 )
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
-margin_right = 120.0
-margin_bottom = 73.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FPS" type="Label" parent="CanvasLayer/Control/CenterContainer"]
-margin_right = 120.0
-margin_bottom = 73.0
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "FPS : "
-script = SubResource( 3 )
-
-[node name="PauseMenu" parent="CanvasLayer/Control" instance=ExtResource( 2 )]
-margin_right = -40.0
-margin_bottom = -40.0
-script = SubResource( 4 )
-
-[node name="Wave" type="Control" parent="CanvasLayer/Control"]
+[node name="Wave" type="Control" parent="CanvasLayer"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_top = -200.0
 margin_bottom = -200.0
-script = SubResource( 5 )
+mouse_filter = 1
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="TextureRect" parent="CanvasLayer/Control/Wave"]
+[node name="Background" type="TextureRect" parent="CanvasLayer/Wave"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -300.0
@@ -258,10 +236,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="CanvasLayer/Control/Wave/Background"]
+[node name="Name" type="Label" parent="CanvasLayer/Wave/Background"]
 margin_right = 600.0
 margin_bottom = 96.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
 text = "WAVE"
 align = 1
@@ -270,25 +248,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Number" type="Label" parent="CanvasLayer/Control/Wave/Background"]
+[node name="Number" type="Label" parent="CanvasLayer/Wave/Background"]
 margin_top = 66.0
 margin_right = 600.0
 margin_bottom = 200.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.192157, 0.0313726, 0.317647, 1 )
 text = "01"
 align = 1
 valign = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Wave"]
-anims/start_wave = SubResource( 8 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Wave"]
+anims/start_wave = SubResource( 4 )
 
 [node name="CoinCounter" type="Control" parent="CanvasLayer"]
 margin_left = 40.0
 margin_top = 80.0
 margin_right = 80.0
 margin_bottom = 120.0
-script = SubResource( 9 )
+script = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -310,10 +288,33 @@ texture = ExtResource( 15 )
 margin_left = 92.0
 margin_right = 121.0
 margin_bottom = 73.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 6 )
 text = "0"
 align = 1
 valign = 1
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 2 )]
+margin_right = -40.0
+margin_bottom = -40.0
+script = SubResource( 10 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+margin_right = 120.0
+margin_bottom = 73.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="CanvasLayer/CenterContainer"]
+margin_right = 120.0
+margin_bottom = 73.0
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "FPS : "
+script = SubResource( 9 )
+
+[node name="WinLose" parent="CanvasLayer" instance=ExtResource( 11 )]
+script = SubResource( 7 )
 
 [node name="Player" parent="." instance=ExtResource( 6 )]
 position = Vector2( 530.237, 264.459 )
@@ -333,6 +334,7 @@ drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 1 )
-[connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Control/Wave" method="_on_SpawnerPool_wave_ui"]
-[connection signal="win" from="SpawnerPool" to="CanvasLayer/Control/WinLose" method="_on_SpawnerPool_win"]
+[connection signal="wave_ui" from="SpawnerPool" to="CanvasLayer/Wave" method="_on_SpawnerPool_wave_ui"]
+[connection signal="win" from="SpawnerPool" to="CanvasLayer/WinLose" method="_on_SpawnerPool_win"]
+[connection signal="show_lose_ui" from="Player" to="CanvasLayer/WinLose" method="_on_Player_show_lose_ui"]
 [connection signal="update_coins_ui" from="Player" to="CanvasLayer/CoinCounter" method="_on_Player_update_coins_ui"]

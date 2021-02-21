@@ -251,6 +251,7 @@ config/icon="res://icon.png"
 
 Settings="*res://Scripts/Singleton/Settings.gd"
 GlobalInstance="*res://Scripts/Singleton/GlobalInstance.gd"
+SceneLoader="*res://Scripts/Singleton/SceneLoader.gd"
 
 [display]
 

@@ -30,6 +30,8 @@ var current_inventory : CharacterInventory = CharacterInventory.new([], 2)
 
 var animator_params : String = "parameters/States/current"
 
+export (bool) var split = false
+
 signal death_sign(obj)
 
 func _init().(CharacterTypes.ENEMY, BaseStats.new(10,10,0,100,2, BehaviourStats.new(0, 1000))):

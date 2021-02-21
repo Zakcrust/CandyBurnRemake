@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Utils/StateMachine.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemies/JellyKering/States/Dead.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Assets/JellyKering-20201022T141405Z-001/JellyKering/death/jelly-death5.png" type="Texture" id=10]
 [ext_resource path="res://Assets/JellyKering-20201022T141405Z-001/JellyKering/death/jelly-death3.png" type="Texture" id=11]
 [ext_resource path="res://Scripts/Enemies/JellyKering/JellyKeringNew.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Enemies/JellyKering/States/Split.gd" type="Script" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dead"
@@ -179,9 +180,10 @@ scale = Vector2( 0.1, 0.1 )
 collision_layer = 3
 collision_mask = 0
 script = ExtResource( 12 )
+split = true
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="Animation" type="AnimationPlayer" parent="Sprite"]
 anims/dead = SubResource( 1 )
@@ -202,6 +204,9 @@ script = ExtResource( 4 )
 
 [node name="Dead" type="Node" parent="StateMachine"]
 script = ExtResource( 2 )
+
+[node name="Split" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2( -4.75696, 120 )

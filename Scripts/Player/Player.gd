@@ -31,6 +31,8 @@ signal update_coins_ui(value)
 signal update_health_ui(amount)
 signal update_energy_ui(amount)
 
+signal show_lose_ui()
+
 # WARNING : use self.current_weapon to assign/retrieve current_weapon in order to trigger the setget methods
 # May look another way to prevent null data assigned accidentally
 var player_weapons : PlayerWeapons = PlayerWeapons.new()
@@ -131,9 +133,9 @@ func hit(damage : float) -> void:
 func die() -> void:
 	$Body.play("dead")
 	$Body/Hand.hide()
-	$StateMachine.change_to("Dead")
 	current_status = CharacterStatus.DEAD
-
+	$StateMachine.change_to("Dead")
+	emit_signal("show_lose_ui")
 
 func refresh_enemy_pool() -> void:
 	enemies = GlobalInstance.enemies

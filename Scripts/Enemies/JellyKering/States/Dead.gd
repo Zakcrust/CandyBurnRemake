@@ -14,6 +14,9 @@ func enter() -> void:
 	var energy : float = fsm.obj.character_stats.health
 	fsm.player.fill_energy(energy)
 	fsm.player.add_coins(fsm.obj.current_inventory.coins)
+	if fsm.obj.split:
+		yield(get_tree().create_timer(1.0), "timeout")
+		next("Split")
 
 func process(_delta):
 	pass

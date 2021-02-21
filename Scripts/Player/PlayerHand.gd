@@ -28,4 +28,7 @@ func stop_all_tweens() -> void:
 
 
 func out_of_range() -> bool:
-	return get_parent().get_parent().global_position.distance_to(get_parent().get_parent().target.global_position) > get_parent().get_parent().current_behaviour.attack_radius
+	if get_parent().get_parent().target != null:
+		return get_parent().get_parent().global_position.distance_to(get_parent().get_parent().target.global_position) > get_parent().get_parent().current_behaviour.attack_radius
+	else:
+		return true

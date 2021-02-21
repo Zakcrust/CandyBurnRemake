@@ -5,10 +5,6 @@
 [ext_resource path="res://Assets/UI/MainMenu.png" type="Texture" id=3]
 [ext_resource path="res://Assets/UI/Youlose1.png" type="Texture" id=4]
 
-
-
-
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
@@ -34,6 +30,7 @@ func _on_Player_lose():
 pause_mode = 2
 anchor_left = 0.5
 anchor_right = 0.5
+mouse_filter = 1
 script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
