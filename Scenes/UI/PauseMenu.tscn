@@ -30,6 +30,19 @@ func _on_Pause_pressed():
 
 func _on_ToMenu_pressed():
 	get_tree().paused = false
+#	SceneLoader.current_scene.queue_free()
+#	var children = get_tree().get_root().get_children()
+#	var child = children.pop_back()
+#	child.queue_free()
+#	child = children.pop_back()
+#	child.queue_free()
+#	child = children.pop_back()
+#	child.queue_free()
+#	child = children.pop_back()
+#	child.queue_free()
+#	child = children.pop_back()
+#	child.queue_free()
+#	SceneLoader.goto_scene(\"res://Scenes/UI/Menu.tscn\")
 	get_tree().change_scene(\"res://Scenes/UI/Menu.tscn\")
 "
 

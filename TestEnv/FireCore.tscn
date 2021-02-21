@@ -98,6 +98,7 @@ scale = Vector2( 1, 2.12207 )
 shape = SubResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="FlameHitBox/Collider"]
+visible = false
 texture = ExtResource( 3 )
 
 [node name="HitBoxAnim" type="AnimationPlayer" parent="."]

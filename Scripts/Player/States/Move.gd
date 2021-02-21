@@ -65,9 +65,10 @@ func _find_target() -> KinematicBody2D:
 	var closest_distance : float = -1
 	var closest_target : KinematicBody2D = null
 	var enemy_distance : float
-
 	
 	for enemy in fsm.player.enemies:
+		if enemy == null:
+			continue
 		if enemy.current_status == CharacterStatus.DEAD:
 			GlobalInstance.remove_enemy(enemy)
 			continue

@@ -14,8 +14,8 @@ script/source = "extends Control
 	
 
 func _on_Button_pressed():
-	SceneLoader.goto_scene(\"res://TestEnv/Stage1.tscn\")
-#	get_tree().change_scene(\"res://TestEnv/Stage1.tscn\")
+#	SceneLoader.goto_scene(\"res://TestEnv/Stage1.tscn\")
+	get_tree().change_scene(\"res://TestEnv/Stage1.tscn\")
 
 
 func _on_Setting_pressed():
